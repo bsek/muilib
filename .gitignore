@@ -1,0 +1,9 @@
+/nbproject
+/CMakeFiles
+/CMakeCache.txt
+/CopyOfCMakeCache.txt
+/cmake_install.cmake
+*.exe
+*.obj
+/cmake-build-*/
+.idea
