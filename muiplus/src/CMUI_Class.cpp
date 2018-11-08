@@ -2,27 +2,21 @@
 #include <iostream>
 #include <algorithm>
 
-typedef ULONG (CMUI_Class::*FN_Disp)(IClass *cl, Object *obj, Msg msg);
-
-struct InformationObject {
-    CMUI_Class *objx;
-    FN_Disp dispatcher;
+struct InstanceData {
+    CMUI_Class *classObj;
 };
 
 ULONG generalDispatcher(struct IClass *cl, Object *obj, Msg msg){
-    InformationObject *IObj;
-    /* Whenever an object is created using NewObject(), it will be
-    ** sent a OM_NEW method.
-    */
+    InstanceData *instanceData;
+
     if (msg->MethodID == OM_NEW) {
-        Object *object = (Object*) DoSuperMethodA (cl, obj, msg);
-        return (IPTR) object;
+        return (IPTR) DoSuperMethodA (cl, obj, msg);
     }
 
-    IObj = (InformationObject *) INST_DATA(cl, obj);
+    instanceData = (InstanceData *) INST_DATA(cl, obj);
 
-    if (IObj->objx != nullptr) {
-        return (IObj->objx->*(IObj->dispatcher))(cl, obj, msg);
+    if (instanceData->classObj != nullptr) {
+        return std::invoke(&CMUI_Class::handleDispatch, instanceData->classObj, cl, obj, msg);
     }
 
     return DoSuperMethodA (cl, obj, msg);
@@ -70,19 +64,20 @@ const std::map<ULONG, std::function<void()>> &CMUI_Class::getEventIds() const {
 struct MUI_CustomClass *
 CMUI_Class::createCustomClass(ClassID classId) {
     std::cout << "Creating custom class with id:" << classId << std::endl;
-
-
+    
     auto mcc = MUI_CreateCustomClass(NULL, classId, NULL, sizeof(InformationObject), (APTR) generalDispatcher);
+    
     if (!mcc) {
         std::cout << "Cannot create custom class" << std::endl;
         exit(1);
     }
+    
     this->object = (Object*) NewObject(mcc->mcc_Class, NULL, TAG_DONE);
 
     if (this->object) {
-        InformationObject *informationObject = (InformationObject *) INST_DATA(mcc->mcc_Class, this->object);
-        informationObject->objx = this;
-        informationObject->dispatcher = &CMUI_Class::handleDispatch;
+        // Save a reference to this class in the object´s instance data 
+        InstanceData *instanceData = (InstanceData *) INST_DATA(mcc->mcc_Class, this->object);
+        instanceData->objx = this;
     }
 
     std::cout << "Class created: " << mcc << std::endl;
