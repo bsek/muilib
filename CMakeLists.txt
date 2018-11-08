@@ -6,7 +6,7 @@ SET(CMAKE_BUILD_TYPE Debug)
 
 set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-unused-parameter -fpermissive")
 
-#set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 set(sources
         "src/main.cpp"
