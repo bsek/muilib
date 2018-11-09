@@ -10,7 +10,10 @@ ULONG generalDispatcher(struct IClass *cl, Object *obj, Msg msg){
     InstanceData *instanceData;
 
     if (msg->MethodID == OM_NEW) {
-        return (IPTR) DoSuperMethodA (cl, obj, msg);
+        obj = (Object *) DoSuperMethodA (cl, obj, msg);
+        if (!obj) {
+            return FALSE;   
+        }
     }
 
     instanceData = (InstanceData *) INST_DATA(cl, obj);
