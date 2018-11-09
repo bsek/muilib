@@ -8,7 +8,9 @@
 
 enum EventType {
     PRESSED,
-    CHECK
+    CHECK,
+    SELECT,
+    ACTIVE
 };
 
 class CMUI_Class : public CMUI_Notify {
@@ -44,5 +46,23 @@ public:
     virtual struct MUI_CustomClass *registerClass() = 0;
 };
 
+
+
+//OM_NEW; /* you dont know anything about display environment here */
+//{
+//MUIM_Setup;      /* information about display, still no window */
+//MUIM_AskMinMax;  /* tell me your min/max dimensions */
+//[ window is opened here ]
+//{
+//MUIM_Show;    /* add yourself to the window, don't yet draw */
+//{
+//MUIM_Draw;     /* draw yourself */
+//}
+//MUIM_Hide;    /* remove yourself from the window */
+//}
+//[ window is closed here ]
+//MUIM_Cleanup;    /* free any display dependant data */
+//}
+//OM_DISPOSE; /* kill yourself completely */
 
 #endif

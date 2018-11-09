@@ -152,6 +152,6 @@ set(HEADER_MUIPLUS
         "src/include/CMUI_NListview.h"
         "src/include/CTMUI_NList.h"
         "src/include/CTMUI_NListview.h"
-        src/CMUI_Class.cpp src/include/CMUI_Class.h src/CMUI_VGroup.cpp src/include/CMUI_VGroup.h src/Application.cpp src/include/Application.h src/include/SDI_hook.h src/include/SDI_stdarg.h)
+        src/CMUI_Class.cpp src/include/CMUI_Class.h src/CMUI_VGroup.cpp src/include/CMUI_VGroup.h src/Application.cpp src/include/Application.h)
 
 add_library(muiplus STATIC ${SOURCES_MUIPLUS} ${HEADER_MUIPLUS})

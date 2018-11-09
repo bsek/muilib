@@ -3,11 +3,15 @@
 
 #include <CMUI_Virtgroup.h>
 #include <CMUI_Button.h>
+#include <CMUI_Register.h>
+#include <CMUI_Cycle.h>
 
 class ImageArea : public CMUI_Virtgroup {
 private:
     std::string label{"this is a label"};
     STRPTR rGenderContent[3];
+    CMUI_Register *cmuiRegister;
+    CMUI_Cycle *cycle;
 public:
     ImageArea();
     IPTR handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* askMinMax) override;

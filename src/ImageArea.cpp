@@ -2,6 +2,9 @@
 #include <CMUI_Label.h>
 #include <CMUI_String.h>
 #include <CMUI_Radio.h>
+#include <CMUI_Rectangle.h>
+#include <CMUI_Cycle.h>
+#include <CMUI_Register.h>
 #include "ImageArea.h"
 
 ImageArea::ImageArea() : CMUI_Virtgroup() {
@@ -39,10 +42,26 @@ ImageArea::ImageArea() : CMUI_Virtgroup() {
 
     set(MUIA_Frame, MUIV_Frame_Virtual);
 
+    CMUI_Rectangle rectangle(MUI_Rectangle_Direction::VERTICAL, 100, "");
+    cycle = new CMUI_Cycle("Cycle", rGenderContent);
+
+    cmuiRegister = new CMUI_Register(rGenderContent);
+    cmuiRegister->addMember(*rGender);
+    cmuiRegister->addMember(cycle->operator*());
+
+    addEvent(rGender, SELECT, [&]() -> void {
+        std::cout << " test " << std::endl;
+    });
+
+    addEvent(*cycle, ACTIVE, [&]() -> void {
+        std::cout << " test "  << cycle->active() << std::endl;
+    });
+
     addMember(*lHead);
     addMember(*lInfo);
     addMember(*obj_aux0);
-    addMember(*rGender);
+    addMember(*rectangle);
+    addMember(cmuiRegister->operator*());
 }
 
 IPTR ImageArea::handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* askMinMax) {

@@ -38,5 +38,5 @@ LONG CMUI_Virtgroup::width() const {
 }
 
 struct MUI_CustomClass *CMUI_Virtgroup::registerClass() {
-    return CMUI_Class::registerClassWithId((ClassID)MUIC_Virtgroup);
+    return CMUI_Class::registerClassWithId((ClassID) MUIC_Virtgroup);
 }
