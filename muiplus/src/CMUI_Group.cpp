@@ -87,5 +87,5 @@ IPTR CMUI_Group::sort(std::vector<Object> objects) {
 }
 
 struct MUI_CustomClass *CMUI_Group::registerClass() {
-    return CMUI_Area::registerClassWithId((ClassID)MUIC_Group);
+    return CMUI_Area::registerClassWithId((ClassID) MUIC_Group);
 }

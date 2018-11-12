@@ -256,18 +256,6 @@ IPTR CMUI_Area::show() {
     return DoMethod(object,MUIM_Show);
 }
 
-void CMUI_Area::setMaxWidth(LONG value) {
-    DoMethod(object, MUIA_MaxWidth, value);
-}
-
-void CMUI_Area::setFixWidth(LONG value) {
-    DoMethod(object, MUIA_FixWidth, value);
-}
-
-void CMUI_Area::setFixHeight(LONG value) {
-    DoMethod(object, MUIA_FixHeight, value);
-}
-
 struct MUI_CustomClass * CMUI_Area::registerClass() {
     return registerClassWithId((ClassID) MUIC_Area);
 }

@@ -47,9 +47,6 @@ public:
     void setVertDisappear(LONG value);
     WORD vertWeight() const;
     void setVertWeight(WORD value);
-    void setMaxWidth(LONG value);
-    void setFixWidth(LONG value);
-    void setFixHeight(LONG value);
     LONG width() const;
     struct Window * window() const;
     Object * windowObject() const;

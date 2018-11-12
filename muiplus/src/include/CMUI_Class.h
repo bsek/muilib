@@ -15,7 +15,7 @@ enum EventType {
 
 class CMUI_Class : public CMUI_Notify {
 private:
-    std::map<ULONG, std::function<void()>> eventIds;
+    std::map<ULONG, std::function<void(struct InstanceEvent*)>> eventIds;
     ULONG generateId();
     struct MUI_CustomClass* mcc;
     Object *classObj;
@@ -26,7 +26,7 @@ public:
     struct MUI_CustomClass * getMcc() const;
     void setMcc(struct MUI_CustomClass* mcc);
 
-    const std::map<ULONG, std::function<void()>> &getEventIds() const;
+    const std::map<ULONG, std::function<void(struct InstanceEvent*)>> &getEventIds() const;
 
     virtual ULONG handleDispatch(Class* cl, Object *object, Msg msg);
     virtual IPTR handleDraw(Class *cl, Object *obj, Msg msg);
@@ -39,7 +39,7 @@ public:
     virtual IPTR handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* msg);
     virtual IPTR handleEvent(Class *cl, Object *obj, Msg msg);
 
-    void addEvent(CMUI_Object &obj, EventType eventType, std::function<void()>);
+    void addEvent(Object *obj, EventType eventType, std::function<void(struct InstanceEvent*)>);
     bool hasEvent(ULONG eventId);
 
     struct MUI_CustomClass *registerClassWithId(ClassID classId);

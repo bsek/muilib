@@ -26,12 +26,12 @@ void MainWindow::init() {
 
     CMUI_Rectangle hBar(HORIZONTAL, 5, "Title");
 
-    mainGroup.addObject(scrollgroup->operator*());
-    mainGroup.addObject(*hBar);
+    mainGroup.addMember(scrollgroup->operator*());
+    mainGroup.addMember(*hBar);
 
     CMUI_Button button("test button");
-    mainGroup.addObject(*button);
-    mainGroup.addObject(*buttons);
+    mainGroup.addMember(*button);
+    mainGroup.addMember(*buttons);
 
     window.addChildToGroup(*mainGroup);
 }

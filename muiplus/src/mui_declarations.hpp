@@ -109,6 +109,12 @@ std::unique_ptr<IPTR> createTagListFromVector(std::vector<T> list, int offset) {
     return p;
 }
 
+struct InstanceEvent {
+    STACKED ULONG methodId; // equals CUSTOM_EVENT
+    STACKED ULONG eventId;
+    STACKED IPTR text;
+};
+
 
 #endif	/* MUI_DECLARATIONS_HPP */
 

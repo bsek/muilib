@@ -49,11 +49,11 @@ ImageArea::ImageArea() : CMUI_Virtgroup() {
     cmuiRegister->addMember(*rGender);
     cmuiRegister->addMember(cycle->operator*());
 
-    addEvent(rGender, SELECT, [&]() -> void {
+    addEvent(*rGender, SELECT, [&](struct InstanceEvent*) -> void {
         std::cout << " test " << std::endl;
     });
 
-    addEvent(*cycle, ACTIVE, [&]() -> void {
+    addEvent(cycle->operator*(), ACTIVE, [&](struct InstanceEvent* event) -> void {
         std::cout << " test "  << cycle->active() << std::endl;
     });
 

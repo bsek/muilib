@@ -7,6 +7,7 @@
 #include "Buttons.h"
 #include "ImageArea.h"
 #include <CMUI_Scrollgroup.h>
+#include <CMUI_VGroup.h>
 
 class MainWindow {
 private:
