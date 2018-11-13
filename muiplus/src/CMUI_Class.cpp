@@ -42,7 +42,7 @@ void CMUI_Class::addEvent(Object* obj, EventType eventType, std::function<void(s
 
     if (eventType == EventType::PRESSED) {
         std::cerr << "Setting up pressed event:" << CUSTOM_EVENT << ":" << id << " on " << object << '\n';
-        DoMethod(obj, MUIM_Notify, MUIA_Pressed, FALSE, object, 3, MUIM_Set, CUSTOM_EVENT, id);
+        DoMethod(obj, MUIM_Notify, MUIA_Pressed, FALSE, object, 3, CUSTOM_EVENT, id, MUIV_TriggerValue);
     }
 
     if (eventType == EventType::ACTIVE) {
@@ -152,7 +152,6 @@ IPTR CMUI_Class::handleEvent(struct IClass *cl, Object *obj, Msg msg) {
         callback(event);
     }
    // std::cout << "HandleEvent " << " value:" << event->text << std::endl;
-
 
     return DoSuperMethodA(cl, obj, (Msg)msg);
 }
