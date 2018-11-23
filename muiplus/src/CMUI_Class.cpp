@@ -8,14 +8,14 @@ struct InstanceData {
 
 #define CUSTOM_EVENT (TAG_USER + 20)
 
-ULONG generalDispatcher(struct IClass *cl, Object *obj, Msg msg){
-    InstanceData *instanceData;
+ULONG generalDispatcher(struct IClass *cl, Object *object, Msg msg) {
+    Object* obj = object;
 
     if (msg->MethodID == OM_NEW) {
-        return (IPTR) DoSuperMethodA (cl, obj, msg);
+        obj = (Object*) DoSuperMethod(cl, obj, OM_NEW, NULL);
     }
 
-    instanceData = (InstanceData *) INST_DATA(cl, obj);
+    InstanceData *instanceData = (InstanceData *) INST_DATA(cl, obj);
 
     if (instanceData->classObj != nullptr) {
         return std::invoke(&CMUI_Class::handleDispatch, instanceData->classObj, cl, obj, msg);
@@ -156,13 +156,14 @@ IPTR CMUI_Class::handleEvent(struct IClass *cl, Object *obj, Msg msg) {
     return DoSuperMethodA(cl, obj, (Msg)msg);
 }
 
-
 ULONG CMUI_Class::handleDispatch(struct IClass *cl, Object *obj, Msg msg) {
     //std::cout << "HandleDispatch with MethodId: " << msg->MethodID << " obj: " << obj << std::endl;
     /*
      * Watch out for methods we do understand.
     */
     switch (msg->MethodID) {
+        case OM_NEW:
+            return (IPTR) handleNew(cl, obj, msg);
         case MUIM_AskMinMax:
             return (IPTR) handleAskMinMax(cl, obj, (struct MUIP_AskMinMax *) msg);
         case MUIM_Cleanup:
