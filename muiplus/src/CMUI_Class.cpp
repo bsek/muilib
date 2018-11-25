@@ -1,18 +1,26 @@
 #include "include/CMUI_Class.h"
 #include <iostream>
 #include <algorithm>
+#include <SDI/SDI_compiler.h>
+#include <SDI/SDI_hook.h>
+#include <SDI/SDI_stdarg.h>
 
 struct InstanceData {
     CMUI_Class *classObj;
 };
 
 #define CUSTOM_EVENT (TAG_USER + 20)
+#define CUSTOM_MUI_CLASS (TAG_USER + 21)
 
 ULONG generalDispatcher(struct IClass *cl, Object *object, Msg msg) {
     Object* obj = object;
 
     if (msg->MethodID == OM_NEW) {
-        obj = (Object*) DoSuperMethod(cl, obj, OM_NEW, NULL);
+        struct TagItem *tags = ((struct opSet *)msg)->ops_AttrList;
+
+        CMUI_Class *clazz = (CMUI_Class*) GetTagData(CUSTOM_MUI_CLASS, (IPTR)" ",tags);
+
+        return std::invoke(&CMUI_Class::handleDispatch, clazz, cl, obj, msg);
     }
 
     InstanceData *instanceData = (InstanceData *) INST_DATA(cl, obj);
@@ -21,7 +29,7 @@ ULONG generalDispatcher(struct IClass *cl, Object *object, Msg msg) {
         return std::invoke(&CMUI_Class::handleDispatch, instanceData->classObj, cl, obj, msg);
     }
 
-    return DoSuperMethodA (cl, obj, msg);
+    return DoSuperMethodA(cl, obj, msg);
 }
 
 CMUI_Class::CMUI_Class() {
@@ -57,7 +65,7 @@ bool CMUI_Class::hasEvent(ULONG eventId) {
 }
 
 ULONG CMUI_Class::generateId() {
-    auto val = (TAG_USER + 20);
+    auto val = (TAG_USER + 22);
     val += rand();
     return (ULONG) val;
 }
@@ -68,23 +76,20 @@ const std::map<ULONG, std::function<void(struct InstanceEvent*)>> &CMUI_Class::g
 
 struct MUI_CustomClass *
 CMUI_Class::createCustomClass(ClassID classId) {
-    std::cout << "Creating custom class with id:" << classId << std::endl;
-
     auto mcc = MUI_CreateCustomClass(NULL, classId, NULL, sizeof(InstanceData), (APTR) generalDispatcher);
+
     if (!mcc) {
         std::cout << "Cannot create custom class" << std::endl;
         exit(1);
     }
 
-    this->object = (Object*) NewObject(mcc->mcc_Class, NULL, TAG_DONE);
+    this->object = (Object*) NewObject(mcc->mcc_Class, NULL, CUSTOM_MUI_CLASS, (IPTR) this, TAG_DONE);
 
     if (this->object) {
         // Save a reference to this class in the object´s instance data
         InstanceData *instanceData = (InstanceData *) INST_DATA(mcc->mcc_Class, this->object);
         instanceData->classObj = this;
     }
-
-    std::cout << "Class created: " << mcc << std::endl;
 
     setMcc(mcc);
     return mcc;
@@ -101,7 +106,7 @@ IPTR CMUI_Class::handleDraw(struct IClass *cl, Object *obj, Msg msg) {
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR CMUI_Class::handleNew(struct IClass *cl, Object *obj, Msg msg) {
+IPTR CMUI_Class::handleNew(struct IClass *cl, Object *obj, struct opSet *msg) {
     std::cout << "HandleNew" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
@@ -112,12 +117,6 @@ IPTR CMUI_Class::handleDispose(struct IClass *cl, Object *obj, Msg msg) {
 }
 
 IPTR CMUI_Class::handleSet(struct IClass *cl, Object *obj, Msg msg) {
-    std::cout << "HandleSet -> " << msg->MethodID << ":" << MUIM_Set << std::endl;
-    struct InstanceEvent *event = (struct InstanceEvent*) msg;
-    std::cerr << "Event ID -> " << event->eventId << std::endl;
-    if (event->eventId == CUSTOM_EVENT) {
-        std::cout << "FOUND!" << std::endl;
-    }
     return DoSuperMethodA(cl, obj, msg);
 }
 
@@ -151,7 +150,6 @@ IPTR CMUI_Class::handleEvent(struct IClass *cl, Object *obj, Msg msg) {
         std::function<void(struct InstanceEvent*)> callback = eventIds[id];
         callback(event);
     }
-   // std::cout << "HandleEvent " << " value:" << event->text << std::endl;
 
     return DoSuperMethodA(cl, obj, (Msg)msg);
 }
@@ -163,7 +161,7 @@ ULONG CMUI_Class::handleDispatch(struct IClass *cl, Object *obj, Msg msg) {
     */
     switch (msg->MethodID) {
         case OM_NEW:
-            return (IPTR) handleNew(cl, obj, msg);
+            return (IPTR) handleNew(cl, obj, (struct opSet *) msg);
         case MUIM_AskMinMax:
             return (IPTR) handleAskMinMax(cl, obj, (struct MUIP_AskMinMax *) msg);
         case MUIM_Cleanup:

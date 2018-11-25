@@ -10,6 +10,7 @@
 
 #include <proto/intuition.h>
 #include <proto/muimaster.h>
+#include <proto/utility.h>
 #include <clib/alib_protos.h>
 #endif
 

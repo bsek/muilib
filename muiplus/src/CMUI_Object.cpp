@@ -42,13 +42,13 @@ Tag CMUI_Object::operator()() const {
 
 // Dynamically adding and removing objects
 void CMUI_Object::addMember(Object *child) {
-    std::cout << "Adding member " << child << " to object " << object <<  std::endl;
+//    std::cout << "Adding member " << child << " to object " << object <<  std::endl;
 
     DoMethod(object, OM_ADDMEMBER, (IPTR)child);
 }
 
 void CMUI_Object::remMember(Object *child) {
-    std::cout << "Removing member " << child << " from object " << object << std::endl;
+//    std::cout << "Removing member " << child << " from object " << object << std::endl;
 
     DoMethod(object, OM_REMMEMBER, (IPTR)child);
 }

@@ -30,7 +30,7 @@ public:
 
     virtual ULONG handleDispatch(Class* cl, Object *object, Msg msg);
     virtual IPTR handleDraw(Class *cl, Object *obj, Msg msg);
-    virtual IPTR handleNew(Class *cl, Object *obj, Msg msg);
+    virtual IPTR handleNew(Class *cl, Object *obj, struct opSet *msg);
     virtual IPTR handleDispose(Class *cl, Object *obj, Msg msg);
     virtual IPTR handleSet(Class *cl, Object *obj, Msg msg);
     virtual IPTR handleGet(Class *cl, Object *obj, Msg msg);
