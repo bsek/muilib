@@ -15,7 +15,7 @@ private:
 public:
     ImageArea();
     IPTR handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* askMinMax) override;
-    ULONG handleDispatch(Class *cl, Object *obj, Msg msg);
+    IPTR handleDispatch(Class *cl, Object *obj, Msg msg);
  //   IPTR drawBackground(LONG left, LONG top, LONG width, LONG height, LONG xoffset, LONG yoffset, LONG flags) override;
 };
 

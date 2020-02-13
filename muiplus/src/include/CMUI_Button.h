@@ -3,6 +3,7 @@
 
 #include <string>
 #include "CMUI_Text.h"
+#include "ActionCommand.h"
 
 class CMUI_Button : public CMUI_Text {
 public:
@@ -10,6 +11,7 @@ public:
     CMUI_Button(std::string label);
     CMUI_Button & operator=(Object * obj);
 
+    void setAction(ActionCommand *actionCommand);
 protected:
     CMUI_Button();
 };

@@ -12,6 +12,7 @@
 #include <proto/muimaster.h>
 #include <proto/utility.h>
 #include <clib/alib_protos.h>
+#include <proto/alib.h>
 #endif
 
 #if defined (__AMIGA__) && !defined (__PPC__)

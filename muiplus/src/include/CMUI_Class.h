@@ -4,7 +4,7 @@
 #include <map>
 #include <functional>
 #include "CMUI_Notify.h"
-#include "CMUI_Object.h"
+//#include "CMUI_Object.h"
 
 enum EventType {
     PRESSED,
@@ -28,7 +28,7 @@ public:
 
     const std::map<ULONG, std::function<void(struct InstanceEvent*)>> &getEventIds() const;
 
-    virtual ULONG handleDispatch(Class* cl, Object *object, Msg msg);
+    virtual IPTR handleDispatch(Class* cl, Object *object, Msg msg);
     virtual IPTR handleDraw(Class *cl, Object *obj, Msg msg);
     virtual IPTR handleNew(Class *cl, Object *obj, struct opSet *msg);
     virtual IPTR handleDispose(Class *cl, Object *obj, Msg msg);

@@ -84,6 +84,6 @@ IPTR ImageArea::drawBackground(LONG left, LONG top, LONG width, LONG height, LON
     return CMUI_Area::drawBackground(left, top, width, height, xoffset, yoffset, flags);
 }
 */
-ULONG ImageArea::handleDispatch(Class *cl, Object *obj, Msg msg) {
+IPTR ImageArea::handleDispatch(Class *cl, Object *obj, Msg msg) {
     return CMUI_Area::handleDispatch(cl, obj, msg);
 }

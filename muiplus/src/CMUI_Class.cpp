@@ -154,7 +154,7 @@ IPTR CMUI_Class::handleEvent(struct IClass *cl, Object *obj, Msg msg) {
     return DoSuperMethodA(cl, obj, (Msg)msg);
 }
 
-ULONG CMUI_Class::handleDispatch(struct IClass *cl, Object *obj, Msg msg) {
+IPTR CMUI_Class::handleDispatch(struct IClass *cl, Object *obj, Msg msg) {
     //std::cout << "HandleDispatch with MethodId: " << msg->MethodID << " obj: " << obj << std::endl;
     /*
      * Watch out for methods we do understand.
