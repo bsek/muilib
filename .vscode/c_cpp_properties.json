@@ -1,0 +1,31 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        },
+        {
+            "name": "aros-x86",
+            "includePath": [
+                "${workspacefolder}/**/include",
+                "/home/bsek/src/x86/bin/linux-x86_64/tools/crosstools/lib/gcc/x86_64-aros/10.0.0/include",
+                "/home/bsek/src/x86/bin/linux-x86_64/AROS/Developer/include",
+                "/home/bsek/src/x86/bin/linux-x86_64/AROS/Developer/include/aros/posixc",
+                "/home/bsek/src/x86/bin/linux-x86_64/AROS/Developer/include/aros/stdc"
+            ],
+            "defines": [],
+            "compilerPath": "/home/bsek/src/x86/bin/linux-x86_64/tools/crosstools/x86_64-aros-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "clang-x64"
+        }
+    ],
+    "version": 4
+}

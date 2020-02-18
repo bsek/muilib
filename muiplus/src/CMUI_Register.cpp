@@ -3,7 +3,7 @@
 CMUI_Register::CMUI_Register() {
 }
 
-CMUI_Register::CMUI_Register(STRPTR titles[])
+CMUI_Register::CMUI_Register(CONST_STRPTR titles[])
         : CMUI_Group() {
     object = MUI_NewObject(MUIC_Register, MUIA_Register_Titles, titles, TAG_DONE);
 }

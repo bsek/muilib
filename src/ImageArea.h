@@ -9,7 +9,7 @@
 class ImageArea : public CMUI_Virtgroup {
 private:
     std::string label{"this is a label"};
-    STRPTR rGenderContent[3];
+    CONST_STRPTR *rGenderContent;
     CMUI_Register *cmuiRegister;
     CMUI_Cycle *cycle;
 public:

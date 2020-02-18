@@ -3,10 +3,10 @@
 
 
 #include <proto/intuition.h>
-#include <vector>
+#include <vector> 
 #include <string>
-#include "CMUI_Application.h"
-#include "CMUI_Window.h"
+#include <CMUI_Application.h>
+#include <CMUI_Window.h>
 
 
 class Application {

@@ -5,7 +5,7 @@ CMUI_Radio::CMUI_Radio(Object* obj)
     object = obj;
 }
 
-CMUI_Radio::CMUI_Radio(std::string& label, STRPTR entries[])
+CMUI_Radio::CMUI_Radio(std::string& label, CONST_STRPTR entries[])
 : CMUI_Group() {
    // object = MUI_MakeObject(MUIO_Radio, (IPTR) label.c_str(), (IPTR) entries);
    object = MUI_NewObject(MUIC_Radio, MUIA_Radio_Entries, entries, MUIA_FrameTitle, label.c_str(), TAG_END);

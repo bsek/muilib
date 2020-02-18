@@ -8,7 +8,7 @@ protected:
     CMUI_Register();
 
 public:
-    CMUI_Register(STRPTR titles[]);
+    CMUI_Register(CONST_STRPTR titles[]);
     CMUI_Register(Object * obj);
     CMUI_Register & operator=(Object * obj);
 

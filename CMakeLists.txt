@@ -13,15 +13,13 @@ set(sources
         src/MainWindow.cpp src/MainWindow.h src/Buttons.cpp src/Buttons.h src/ImageArea.cpp src/ImageArea.h)
 
 add_subdirectory(muiplus)
+add_subdirectory(zunegui)
 
 add_executable(test.exe ${sources})
-target_link_libraries(test.exe muiplus)
+target_link_libraries(test.exe muiplus zunegui)
 target_include_directories(test.exe PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/muiplus/src/include>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/zunegui/src/include>
         )
 
-if (AMIGAOS4)
-   # add_custom_command(TARGET test.exe POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_BINARY_DIR}/test.exe /mnt/c/Users/Public/Documents/Amiga\ Files/Shared/Workbench)
-else()
-    add_custom_command(TARGET test.exe POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_BINARY_DIR}/test.exe /home/bsek/src/x86_64/bin/linux-x86_64/AROS/)
-endif ()
+add_custom_command(TARGET test.exe POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_BINARY_DIR}/test.exe /home/bsek/src/x86/bin/linux-x86_64/AROS/)

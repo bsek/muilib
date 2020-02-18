@@ -6,7 +6,7 @@
 class CMUI_Cycle : public CMUI_Group {
 public:
     CMUI_Cycle(Object * obj);
-    CMUI_Cycle(std::string label, STRPTR entries[]);
+    CMUI_Cycle(std::string label, CONST_STRPTR entries[]);
     CMUI_Cycle & operator=(Object * obj);
 
     LONG active(void) const;

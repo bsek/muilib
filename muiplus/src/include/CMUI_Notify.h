@@ -76,11 +76,51 @@ IPTR CMUI_Notify::setAsString(IPTR attr, char *format, Args... val) {
 
 template<typename... Args>
 IPTR CMUI_Notify::notify(Args... params) {
-    auto p = createTagListFromVector<IPTR>({params...}, 1);
-    p.get()[0] = MUIM_Notify;
+//    auto args = createTagListFromVector<IPTR>({params...}, 0);
 
-    return DoMethodA(object, (Msg) p.get());
+    std::vector<IPTR> list = {params...};
+//    list.back(TAG_DONE);
+
+    int size = list.size();
+
+    IPTR * args = new IPTR[size + 1];
+
+    int i = 1;
+    for (auto val : list) {
+        args[i++] = val;
+    }
+
+    args[0] = MUIM_Notify;
+
+    auto retVal = DoMethodA(object, (Msg)(args));
+
+    delete args;
+    return retVal;
+
+/*
+
+    AROS_SLOWSTACKTAGS_PRE_AS(args.get(), IPTR)
+    retval = (IPTR)DoMethod(object, MUIM_Notify, (IPTR)AROS_SLOWSTACKTAGS_ARG(params), TAG_DONE);
+    AROS_SLOWSTACKTAGS_POST
+
+    return retval;
+*/
+//    const IPTR args[] = { AROS_PP_VARIADIC_CAST2IPTR(__VA_ARGS__) };
+/*    struct opUpdate msg;
+    msg.MethodID = MUIM_Notify;
+    msg.opu_AttrList = (struct TagItem *) &args;
+    msg.opu_Flags = 0;
+    msg.opu_GInfo = nullptr;
+
+    
+
+//    auto p = createTagListFromVector<IPTR>({params...}, 1);
+//    p.get()[0] = MUIM_Notify;
+
+    return DoMethodA(object, (Msg)(&msg));*/
+//    return 0;
 }
+
 
 #endif	/* CMUI_NOTIFY_H */
 

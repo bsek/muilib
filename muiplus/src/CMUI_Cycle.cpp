@@ -5,7 +5,7 @@ CMUI_Cycle::CMUI_Cycle(Object* obj)
     object = obj;
 }
 
-CMUI_Cycle::CMUI_Cycle(std::string label, STRPTR entries[])
+CMUI_Cycle::CMUI_Cycle(std::string label, CONST_STRPTR entries[])
 : CMUI_Group() {
     object = MUI_MakeObject(MUIO_Cycle, (IPTR) label.c_str(), (IPTR) entries);
 }

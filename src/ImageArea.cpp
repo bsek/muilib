@@ -10,6 +10,7 @@
 ImageArea::ImageArea() : CMUI_Virtgroup() {
     registerClass();
 
+    rGenderContent = new CONST_STRPTR[3];
     rGenderContent[0] = "Female";
     rGenderContent[1] = "Male";
     rGenderContent[2] = NULL;
