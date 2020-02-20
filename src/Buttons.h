@@ -16,6 +16,9 @@ private:
     CMUI_HGroup group;
 public:
     Buttons();
+    void handle();
+protected:
+    IPTR handleEvent(Class *cl, Object *obj, Msg msg);
 };
 
 

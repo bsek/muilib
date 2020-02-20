@@ -15,11 +15,11 @@ set(sources
 add_subdirectory(muiplus)
 add_subdirectory(zunegui)
 
-add_executable(test.exe ${sources})
-target_link_libraries(test.exe muiplus zunegui)
-target_include_directories(test.exe PUBLIC
+add_executable(testa ${sources})
+target_link_libraries(testa muiplus zunegui)
+target_include_directories(testa PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/muiplus/src/include>
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/zunegui/src/include>
         )
 
-add_custom_command(TARGET test.exe POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_BINARY_DIR}/test.exe /home/bsek/src/x86/bin/linux-x86_64/AROS/)
+add_custom_command(TARGET testa POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_BINARY_DIR}/testa /home/bsek/src/x86/bin/linux-x86_64/AROS/)

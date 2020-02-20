@@ -8,7 +8,6 @@ set(SOURCES_ZUNEGUI
 )
 set(HEADERS_ZUNEGUI
     "src/include/Application.h"
-    "src/include/ActionCommand.h"
     "src/include/Button.h"
 )
 

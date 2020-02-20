@@ -9,8 +9,7 @@ struct InstanceData {
     CMUI_Class *classObj;
 };
 
-#define CUSTOM_EVENT (TAG_USER + 20)
-#define CUSTOM_MUI_CLASS (TAG_USER + 21)
+
 
 ULONG generalDispatcher(struct IClass *cl, Object *object, Msg msg) {
     Object* obj = object;
@@ -44,33 +43,17 @@ struct MUI_CustomClass *CMUI_Class::getMcc() const {
     return mcc;
 }
 
-void CMUI_Class::addEvent(Object* obj, EventType eventType, std::function<void(struct InstanceEvent*)> callback) {
-    ULONG id = generateId();
-    eventIds[id] = callback;
-
-    if (eventType == EventType::PRESSED) {
-        std::cerr << "Setting up pressed event:" << CUSTOM_EVENT << ":" << id << " on " << object << '\n';
-        DoMethod(obj, MUIM_Notify, MUIA_Pressed, FALSE, object, 3, CUSTOM_EVENT, id, MUIV_TriggerValue);
-    }
-
-    if (eventType == EventType::ACTIVE) {
-        std::cerr << "Setting up active event:" << CUSTOM_EVENT << ":" << id << " on " << object << '\n';
-        DoMethod(obj, MUIM_Notify, MUIA_Cycle_Active, MUIV_EveryTime, object, 3, CUSTOM_EVENT, id, MUIV_TriggerValue);
-    }
-
-}
-
+/*
 bool CMUI_Class::hasEvent(ULONG eventId) {
     return (eventIds.find(eventId) != eventIds.end());
-}
-
+}*/
 ULONG CMUI_Class::generateId() {
     auto val = (TAG_USER + 22);
     val += rand();
     return (ULONG) val;
 }
 
-const std::map<ULONG, std::function<void(struct InstanceEvent*)>> &CMUI_Class::getEventIds() const {
+const std::map<ULONG, void (CMUI_Class::*)()> &CMUI_Class::getEventIds() const {
     return eventIds;
 }
 
@@ -141,7 +124,7 @@ IPTR CMUI_Class::handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_Ask
 }
 
 IPTR CMUI_Class::handleEvent(struct IClass *cl, Object *obj, Msg msg) {
-    struct InstanceEvent *event = (struct InstanceEvent*) msg;
+ /*   struct InstanceEvent *event = (struct InstanceEvent*) msg;
     IPTR text = event->text;
     std::cout << "HandleEvent " << " msg:" << event->eventId << " : " << event->methodId <<  " : " << text << std::endl;
     auto id = event->eventId;
@@ -149,13 +132,13 @@ IPTR CMUI_Class::handleEvent(struct IClass *cl, Object *obj, Msg msg) {
     if (hasEvent(id)) {
         std::function<void(struct InstanceEvent*)> callback = eventIds[id];
         callback(event);
-    }
+    }*/
 
     return DoSuperMethodA(cl, obj, (Msg)msg);
 }
 
 IPTR CMUI_Class::handleDispatch(struct IClass *cl, Object *obj, Msg msg) {
-    //std::cout << "HandleDispatch with MethodId: " << msg->MethodID << " obj: " << obj << std::endl;
+   // std::cout << "HandleDispatch with MethodId: " << msg->MethodID << " obj: " << obj << std::endl;
     /*
      * Watch out for methods we do understand.
     */

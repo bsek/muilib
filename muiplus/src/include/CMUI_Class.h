@@ -4,6 +4,7 @@
 #include <map>
 #include <functional>
 #include "CMUI_Notify.h"
+#include "ActionCommand.h"
 //#include "CMUI_Object.h"
 
 enum EventType {
@@ -13,9 +14,13 @@ enum EventType {
     ACTIVE
 };
 
+#define CUSTOM_EVENT (TAG_USER + 20)
+#define CUSTOM_MUI_CLASS (TAG_USER + 21)
+#define CUSTOM_ACTION_COMMAND (TAG_USER + 22)
+
 class CMUI_Class : public CMUI_Notify {
 private:
-    std::map<ULONG, std::function<void(struct InstanceEvent*)>> eventIds;
+    std::map<ULONG, void (CMUI_Class::*)() > eventIds;
     ULONG generateId();
     struct MUI_CustomClass* mcc;
     Object *classObj;
@@ -26,7 +31,7 @@ public:
     struct MUI_CustomClass * getMcc() const;
     void setMcc(struct MUI_CustomClass* mcc);
 
-    const std::map<ULONG, std::function<void(struct InstanceEvent*)>> &getEventIds() const;
+    const std::map<ULONG, void (CMUI_Class::*)()> &getEventIds() const;
 
     virtual IPTR handleDispatch(Class* cl, Object *object, Msg msg);
     virtual IPTR handleDraw(Class *cl, Object *obj, Msg msg);
@@ -39,13 +44,30 @@ public:
     virtual IPTR handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* msg);
     virtual IPTR handleEvent(Class *cl, Object *obj, Msg msg);
 
-    void addEvent(Object *obj, EventType eventType, std::function<void(struct InstanceEvent*)>);
-    bool hasEvent(ULONG eventId);
+    template<typename T>
+    void addEvent(Object *obj, EventType eventType, void (T::*)());//std::function<void(struct InstanceEvent*)>);
+ //   bool hasEvent(ULONG eventId);
 
     struct MUI_CustomClass *registerClassWithId(ClassID classId);
     virtual struct MUI_CustomClass *registerClass() = 0;
 };
 
+template<typename T>
+void CMUI_Class::addEvent(Object* obj, EventType eventType, void (T::*method)()) {//std::function<void(struct InstanceEvent*)> callback) {
+    ULONG id = generateId();
+    //eventIds[id] = method;
+
+    if (eventType == EventType::PRESSED) {
+        std::cerr << "Setting up pressed event:" << CUSTOM_EVENT << ": COMMAND: " << CUSTOM_ACTION_COMMAND << " : " << method << " on " << object << '\n';
+        DoMethod(obj, MUIM_Notify, MUIA_Pressed, FALSE, object, 4, (ULONG)CUSTOM_EVENT, (ULONG)CUSTOM_ACTION_COMMAND, (IPTR)id , (IPTR)TAG_DONE);
+    }
+/*
+    if (eventType == EventType::ACTIVE) {
+        std::cerr << "Setting up active event:" << CUSTOM_EVENT << ":" << id << " on " << object << '\n';
+        DoMethod(obj, MUIM_Notify, MUIA_Cycle_Active, MUIV_EveryTime, object, 3, CUSTOM_EVENT, id, MUIV_TriggerValue);
+    }
+*/
+}
 
 
 //OM_NEW; /* you dont know anything about display environment here */

@@ -5,6 +5,7 @@
 #include <CMUI_Rectangle.h>
 #include <CMUI_Cycle.h>
 #include <CMUI_Register.h>
+#include <Button.h>
 #include "ImageArea.h"
 
 ImageArea::ImageArea() : CMUI_Virtgroup() {
@@ -50,14 +51,14 @@ ImageArea::ImageArea() : CMUI_Virtgroup() {
     cmuiRegister->addMember(*rGender);
     cmuiRegister->addMember(cycle->operator*());
 
-    addEvent(*rGender, SELECT, [&](struct InstanceEvent*) -> void {
+/*    addEvent(*rGender, SELECT, [&](struct InstanceEvent*) -> void {
         std::cout << " test " << std::endl;
     });
 
     addEvent(cycle->operator*(), ACTIVE, [&](struct InstanceEvent* event) -> void {
         std::cout << " test "  << cycle->active() << std::endl;
     });
-
+*/
     addMember(*lHead);
     addMember(*lInfo);
     addMember(*obj_aux0);

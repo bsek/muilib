@@ -12,7 +12,6 @@
 #include <proto/utility.h>
 #include <clib/alib_protos.h>
 #include <proto/alib.h>
-#endif
 
 /* System */
 #include <dos/dos.h>
@@ -46,12 +45,6 @@ std::unique_ptr<IPTR> createTagListFromVector(std::vector<T> list, int offset) {
 
     return p;
 }
-
-struct InstanceEvent {
-    STACKED ULONG methodId; // equals CUSTOM_EVENT
-    STACKED ULONG eventId;
-    STACKED IPTR text;
-};
 
 
 #endif	/* MUI_DECLARATIONS_HPP */

@@ -79,6 +79,7 @@ set(SOURCES_MUIPLUS
 
 set(HEADER_MUIPLUS
         "src/mui_declarations.hpp"
+        "src/include/ActionCommand.h"
         "src/include/CMUI_Notify.h"
         "src/include/CMUI_Object.h"
         "src/include/CMUI_Application.h"

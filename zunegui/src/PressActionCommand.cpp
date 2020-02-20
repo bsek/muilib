@@ -1,11 +1,12 @@
-#include "include/ActionCommand.h"
+#include <ActionCommand.h>
+#include <stdio.h>
 
 PressActionCommand::PressActionCommand() {
-    eventType = EventType::PRESSED;
+    //eventType = EventType::PRESSED;
 }
 
-void PressActionCommand::execute(struct InstanceEvent* eventData) {
-    printf("execute()");
+void PressActionCommand::execute() {
+    printf("execute(%d)", i);
 
-    callback(eventData);
+  //  callback(eventData);
 }

@@ -14,16 +14,14 @@
         {
             "name": "aros-x86",
             "includePath": [
-                "${workspacefolder}/**/include",
-                "/home/bsek/src/x86/bin/linux-x86_64/tools/crosstools/lib/gcc/x86_64-aros/10.0.0/include",
-                "/home/bsek/src/x86/bin/linux-x86_64/AROS/Developer/include",
-                "/home/bsek/src/x86/bin/linux-x86_64/AROS/Developer/include/aros/posixc",
-                "/home/bsek/src/x86/bin/linux-x86_64/AROS/Developer/include/aros/stdc"
+                "${workspacefolder}/**",
+                "${workspacefolder}/muiplus/**",
+                "${workspacefolder}/zunegui/**"
             ],
             "defines": [],
-            "compilerPath": "/home/bsek/src/x86/bin/linux-x86_64/tools/crosstools/x86_64-aros-gcc",
+            "compilerPath": "/home/bsek/src/x86/bin/linux-x86_64/tools/crosstools/x86_64-aros-g++",
             "cStandard": "c11",
-            "cppStandard": "c++17",
+            "cppStandard": "c++17", 
             "intelliSenseMode": "clang-x64"
         }
     ],
