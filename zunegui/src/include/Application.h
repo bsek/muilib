@@ -1,7 +1,7 @@
 #ifndef MIU_PLUS_AROS_APPLICATION_H
 #define MIU_PLUS_AROS_APPLICATION_H
 
-
+#include <exec/types.h>
 #include <proto/intuition.h>
 #include <vector> 
 #include <string>

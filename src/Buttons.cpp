@@ -4,16 +4,29 @@
 #include <CMUI_Rectangle.h>
 #include <CMUI_Checkmark.h>
 #include <ActionCommand.h>
+#include <CMUI_VSpace.h>
+
+struct Data {
+    ULONG methodId;
+    IPTR tag;
+    IPTR value;
+};
 
 Buttons::Buttons() : CMUI_Group() {
     registerClass();
 
     CMUI_Rectangle rect{MUI_Rectangle_Direction::HORIZONTAL, 20, ""};
-    CMUI_Rectangle rect2{MUI_Rectangle_Direction::HORIZONTAL, 20, ""};
+  //  CMUI_Rectangle rect2{MUI_Rectangle_Direction::HORIZONTAL, 20, ""};
 
-    group.addMember(*rect);
+    CMUI_VSpace space{50};
+
+    bClose.setHorizWeight(5);
+    bAdd.setHorizWeight(5);
+
+    group.addMember(*space);
     group.addMember(*bAdd);
     group.addMember(*bClose);
+    group.addMember(*rect);
 //    group.addMember(*bInfo);
 
     addMember(*group);
@@ -25,25 +38,9 @@ Buttons::Buttons() : CMUI_Group() {
         }
     });
     */
-    addEvent(*bAdd, EventType::PRESSED, &Buttons::handle);
+    addEvent(*bAdd, EventType::PRESSED, this, &Buttons::handle);
 }
 
 void Buttons::handle() {
-    printf("TEST");
+    printf("TEST %d", this->someValue);
 }
-
-IPTR Buttons::handleEvent(Class *cl, Object *obj, Msg msg) {
-    
-    std::cout << "HandleEvent with MethodId: " << msg->MethodID << " obj: " << obj  << std::endl;
-
-//    ActionCommand *command = (ActionCommand*)((struct opSet *)msg)->ops_AttrList;
-    struct TagItem *tags = ((struct opSet *)msg)->ops_AttrList;
-
-    //ULONG id = (ULONG) GetTagData(CUSTOM_ACTION_COMMAND, (IPTR)" ",tags);
-//    std::cout << "Tags: " << tags->ti_Tag << " DATA: " << tags->ti_Data << std::endl; // " Data: " << tags->ti_Data;
-    printf("TAGS: %#010x, DATA: %#010lx", tags->ti_Tag, tags->ti_Data);
-//    std::invoke(&ActionCommand::execute, command);
-      
-    return DoSuperMethodA(cl, obj, (Msg)msg);
-}
-

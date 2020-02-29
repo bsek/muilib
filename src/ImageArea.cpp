@@ -7,6 +7,7 @@
 #include <CMUI_Register.h>
 #include <Button.h>
 #include "ImageArea.h"
+#include <proto/graphics.h>
 
 ImageArea::ImageArea() : CMUI_Virtgroup() {
     registerClass();
@@ -51,19 +52,20 @@ ImageArea::ImageArea() : CMUI_Virtgroup() {
     cmuiRegister->addMember(*rGender);
     cmuiRegister->addMember(cycle->operator*());
 
-/*    addEvent(*rGender, SELECT, [&](struct InstanceEvent*) -> void {
-        std::cout << " test " << std::endl;
-    });
+//    addEvent(*rGender, SELECT, [&](struct InstanceEvent*) -> void {
+//        std::cout << " test " << std::endl;
+//    });
 
-    addEvent(cycle->operator*(), ACTIVE, [&](struct InstanceEvent* event) -> void {
-        std::cout << " test "  << cycle->active() << std::endl;
-    });
-*/
+//    addEvent(cycle->operator*(), ACTIVE, [&](struct InstanceEvent* event) -> void {
+ //       std::cout << " test "  << cycle->active() << std::endl;
+ //   });
+
     addMember(*lHead);
     addMember(*lInfo);
     addMember(*obj_aux0);
     addMember(*rectangle);
     addMember(cmuiRegister->operator*());
+
 }
 
 IPTR ImageArea::handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* askMinMax) {
@@ -81,11 +83,32 @@ IPTR ImageArea::handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskM
 
     return 0;
 }
-/*
-IPTR ImageArea::drawBackground(LONG left, LONG top, LONG width, LONG height, LONG xoffset, LONG yoffset, LONG flags) {
-    return CMUI_Area::drawBackground(left, top, width, height, xoffset, yoffset, flags);
-}
-*/
-IPTR ImageArea::handleDispatch(Class *cl, Object *obj, Msg msg) {
-    return CMUI_Area::handleDispatch(cl, obj, msg);
+
+IPTR ImageArea::handleDraw(Class *cl, Object *obj, struct MUIP_Draw *msg) {
+    DoSuperMethodA(cl, obj, (Msg)msg); // ALWAYS REQUIRED!
+
+
+
+    std::cout << "In draw" << std::endl;
+
+    if(msg->flags & MADF_DRAWUPDATE)
+    {
+    }
+    else if(msg->flags & MADF_DRAWOBJECT)
+    {
+    }
+
+    auto rasterport = _rp(obj);
+    SetAPen(rasterport, 3);
+    auto top = _mtop(obj);
+    auto left = _mleft(obj);
+    auto right = _mright(obj);
+    auto bottom = _mbottom(obj);
+    RectFill(rasterport, left, top, right, bottom);
+
+    // if MADF_DRAWOBJECT wasn't set, MUI just wanted to update
+    // the frame or some other part of our object. In this case
+    // we just do nothing.
+
+    return 0;
 }

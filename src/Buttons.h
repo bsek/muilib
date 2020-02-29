@@ -14,11 +14,12 @@ private:
     CMUI_Button bClose{"Close"};
     CMUI_Button *bInfo;
     CMUI_HGroup group;
+    int someValue = 5;
 public:
     Buttons();
     void handle();
 protected:
-    IPTR handleEvent(Class *cl, Object *obj, Msg msg);
+ //   IPTR handleEvent(Class *cl, Object *obj, Msg msg);
 };
 
 

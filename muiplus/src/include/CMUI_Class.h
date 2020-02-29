@@ -5,6 +5,7 @@
 #include <functional>
 #include "CMUI_Notify.h"
 #include "ActionCommand.h"
+
 //#include "CMUI_Object.h"
 
 enum EventType {
@@ -14,27 +15,44 @@ enum EventType {
     ACTIVE
 };
 
-#define CUSTOM_EVENT (TAG_USER + 20)
-#define CUSTOM_MUI_CLASS (TAG_USER + 21)
-#define CUSTOM_ACTION_COMMAND (TAG_USER + 22)
+class Event {
+public:
+    virtual void invoke();
+};
+
+template<typename Receiver>
+class EventCommand : public Event {
+public:
+    Receiver *receiver;
+    std::function<void(Receiver*)> m_method;
+   // void (Receiver::*m_method)(;
+    void invoke() override {
+        //std::cout << "Receiver:" << typeid(receiver).name() << std::endl;
+        //std::invoke(&Receiver::decltype(m_method), receiver);
+
+        //((receiver)->*(m_methodVoid))();
+    }
+};
+
+constexpr const ULONG CUSTOM_EVENT=TAG_USER + 21;
+constexpr const ULONG CUSTOM_MUI_CLASS=TAG_USER + 20;
 
 class CMUI_Class : public CMUI_Notify {
 private:
-    std::map<ULONG, void (CMUI_Class::*)() > eventIds;
+    std::map<ULONG, Event*> eventIds;
     ULONG generateId();
     struct MUI_CustomClass* mcc;
-    Object *classObj;
+    Object* classObj;
+    struct MUI_CustomClass* createCustomClass(ClassID classId);
+    ULONG EVENT_ID_START=TAG_USER + 22;
 
-    struct MUI_CustomClass *createCustomClass(ClassID classId);
 public:
     CMUI_Class();
     struct MUI_CustomClass * getMcc() const;
     void setMcc(struct MUI_CustomClass* mcc);
 
-    const std::map<ULONG, void (CMUI_Class::*)()> &getEventIds() const;
-
     virtual IPTR handleDispatch(Class* cl, Object *object, Msg msg);
-    virtual IPTR handleDraw(Class *cl, Object *obj, Msg msg);
+    virtual IPTR handleDraw(Class *cl, Object *obj, struct MUIP_Draw *msg);
     virtual IPTR handleNew(Class *cl, Object *obj, struct opSet *msg);
     virtual IPTR handleDispose(Class *cl, Object *obj, Msg msg);
     virtual IPTR handleSet(Class *cl, Object *obj, Msg msg);
@@ -45,21 +63,26 @@ public:
     virtual IPTR handleEvent(Class *cl, Object *obj, Msg msg);
 
     template<typename T>
-    void addEvent(Object *obj, EventType eventType, void (T::*)());//std::function<void(struct InstanceEvent*)>);
- //   bool hasEvent(ULONG eventId);
+    void addEvent(Object *obj, EventType eventType, T*, std::function<void(T*)>);    //void (T::*)());//std::function<void(struct InstanceEvent*)>);
+    bool hasEvent(ULONG eventId);
 
     struct MUI_CustomClass *registerClassWithId(ClassID classId);
     virtual struct MUI_CustomClass *registerClass() = 0;
 };
 
 template<typename T>
-void CMUI_Class::addEvent(Object* obj, EventType eventType, void (T::*method)()) {//std::function<void(struct InstanceEvent*)> callback) {
+void CMUI_Class::addEvent(Object* obj, EventType eventType, T *t, std::function<void(T*)> method) {//std::function<void(struct InstanceEvent*)> callback) {
     ULONG id = generateId();
-    //eventIds[id] = method;
 
+/*    auto eventCommand = new EventCommand<T>{};
+    eventCommand->receiver = t;
+   // eventCommand->m_method = method;
+
+    this->eventIds[id] = static_cast<Event*>(eventCommand);
+*/
     if (eventType == EventType::PRESSED) {
-        std::cerr << "Setting up pressed event:" << CUSTOM_EVENT << ": COMMAND: " << CUSTOM_ACTION_COMMAND << " : " << method << " on " << object << '\n';
-        DoMethod(obj, MUIM_Notify, MUIA_Pressed, FALSE, object, 4, (ULONG)CUSTOM_EVENT, (ULONG)CUSTOM_ACTION_COMMAND, (IPTR)id , (IPTR)TAG_DONE);
+        std::cerr << "Setting up pressed event:" << id << std::endl; // << ": COMMAND: " << CUSTOM_ACTION_COMMAND << " : " << method << " on " << object << '\n';
+        DoMethod(obj, MUIM_Notify, MUIA_Pressed, FALSE, object, 3, CUSTOM_EVENT, id, TAG_DONE );
     }
 /*
     if (eventType == EventType::ACTIVE) {

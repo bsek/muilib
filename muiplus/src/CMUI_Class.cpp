@@ -9,8 +9,6 @@ struct InstanceData {
     CMUI_Class *classObj;
 };
 
-
-
 ULONG generalDispatcher(struct IClass *cl, Object *object, Msg msg) {
     Object* obj = object;
 
@@ -39,22 +37,17 @@ void CMUI_Class::setMcc(struct MUI_CustomClass *mcc) {
     this->mcc = mcc;
 }
 
-struct MUI_CustomClass *CMUI_Class::getMcc() const {
+struct MUI_CustomClass* CMUI_Class::getMcc() const {
     return mcc;
 }
 
-/*
+
 bool CMUI_Class::hasEvent(ULONG eventId) {
     return (eventIds.find(eventId) != eventIds.end());
-}*/
-ULONG CMUI_Class::generateId() {
-    auto val = (TAG_USER + 22);
-    val += rand();
-    return (ULONG) val;
 }
 
-const std::map<ULONG, void (CMUI_Class::*)()> &CMUI_Class::getEventIds() const {
-    return eventIds;
+ULONG CMUI_Class::generateId() {
+    return EVENT_ID_START++;
 }
 
 struct MUI_CustomClass *
@@ -84,9 +77,9 @@ CMUI_Class::registerClassWithId(ClassID classId) {
 }
 
 
-IPTR CMUI_Class::handleDraw(struct IClass *cl, Object *obj, Msg msg) {
+IPTR CMUI_Class::handleDraw(struct IClass *cl, Object *obj, struct MUIP_Draw *msg) {
     // std::cout << "HandleDraw" << std::endl;
-    return DoSuperMethodA(cl, obj, msg);
+    return DoSuperMethodA(cl, obj, (Msg)msg);
 }
 
 IPTR CMUI_Class::handleNew(struct IClass *cl, Object *obj, struct opSet *msg) {
@@ -123,7 +116,25 @@ IPTR CMUI_Class::handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_Ask
     return DoSuperMethodA(cl, obj, (Msg) msg);
 }
 
+struct Data {
+    ULONG methodId;
+    IPTR tag;
+    IPTR value;
+};
+
 IPTR CMUI_Class::handleEvent(struct IClass *cl, Object *obj, Msg msg) {
+    struct Data *data = (Data*)msg;
+
+    auto id = data->tag;
+    std::cout << "ID: " << id << std::endl;
+
+    if (hasEvent(id)) {
+        std::cout << "Found" << std::endl;
+        auto event = (this->eventIds[id]);
+        event->invoke();
+    }
+
+
  /*   struct InstanceEvent *event = (struct InstanceEvent*) msg;
     IPTR text = event->text;
     std::cout << "HandleEvent " << " msg:" << event->eventId << " : " << event->methodId <<  " : " << text << std::endl;
@@ -152,7 +163,7 @@ IPTR CMUI_Class::handleDispatch(struct IClass *cl, Object *obj, Msg msg) {
         case MUIM_Setup:
             return (IPTR) handleSetup(cl, obj, msg);
         case MUIM_Draw:
-            return (IPTR) handleDraw(cl, obj, msg);
+            return (IPTR) handleDraw(cl, obj, (struct MUIP_Draw *)msg);
         case OM_GET:
             return (IPTR) handleGet(cl, obj, msg);
         case OM_SET:

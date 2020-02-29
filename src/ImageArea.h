@@ -15,8 +15,9 @@ private:
 public:
     ImageArea();
     IPTR handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* askMinMax) override;
-    IPTR handleDispatch(Class *cl, Object *obj, Msg msg);
- //   IPTR drawBackground(LONG left, LONG top, LONG width, LONG height, LONG xoffset, LONG yoffset, LONG flags) override;
+
+    IPTR handleDraw(Class *cl, Object *obj, struct MUIP_Draw *msg) override;
+    //   IPTR drawBackground(LONG left, LONG top, LONG width, LONG height, LONG xoffset, LONG yoffset, LONG flags) override;
 };
 
 #endif //MIU_PLUS_AROS_IMAGEAREA_H
