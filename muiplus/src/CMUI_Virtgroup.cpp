@@ -37,6 +37,6 @@ LONG CMUI_Virtgroup::width() const {
     return (LONG) mGetAttr(MUIA_Virtgroup_Width);
 }
 
-struct MUI_CustomClass *CMUI_Virtgroup::registerClass() {
-    return CMUI_Class::registerClassWithId((ClassID) MUIC_Virtgroup);
+Class *CMUI_Virtgroup::registerClass() {
+    return CMUI_Area::registerClassWithId((ClassID) MUIC_Virtgroup);
 }

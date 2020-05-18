@@ -6,6 +6,8 @@
 #include <CMUI_HGroup.h>
 #include <CMUI_Checkmark.h>
 
+#include "SmallButton.h"
+
 class Buttons : public CMUI_Group {
 private:
     CMUI_Button importButton{"Test button"};
@@ -14,10 +16,12 @@ private:
     CMUI_Button bClose{"Close"};
     CMUI_Button *bInfo;
     CMUI_HGroup group;
+    SmallButton* smallButton;
     int someValue = 5;
 public:
     Buttons();
     void handle();
+    void handle2();
 protected:
  //   IPTR handleEvent(Class *cl, Object *obj, Msg msg);
 };

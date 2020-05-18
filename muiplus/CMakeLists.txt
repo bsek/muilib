@@ -79,7 +79,6 @@ set(SOURCES_MUIPLUS
 
 set(HEADER_MUIPLUS
         "src/mui_declarations.hpp"
-        "src/include/ActionCommand.h"
         "src/include/CMUI_Notify.h"
         "src/include/CMUI_Object.h"
         "src/include/CMUI_Application.h"
@@ -153,6 +152,11 @@ set(HEADER_MUIPLUS
         "src/include/CMUI_NListview.h"
         "src/include/CTMUI_NList.h"
         "src/include/CTMUI_NListview.h"
-        src/CMUI_Class.cpp src/include/CMUI_Class.h src/CMUI_VGroup.cpp src/include/CMUI_VGroup.h)
+        src/CMUI_VGroup.cpp src/include/CMUI_VGroup.h)
 
 add_library(muiplus STATIC ${SOURCES_MUIPLUS} ${HEADER_MUIPLUS})
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+    target_include_directories(muiplus PUBLIC "/usr/include/axrt")
+    target_link_libraries(muiplus muimaster mui)
+endif()

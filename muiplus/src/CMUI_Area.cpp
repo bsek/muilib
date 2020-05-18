@@ -1,5 +1,61 @@
 #include "include/CMUI_Area.h"
 
+#include <iostream>
+#include <algorithm>
+#include <SDI/SDI_compiler.h>
+#include <SDI/SDI_hook.h>
+#include <SDI/SDI_stdarg.h>
+
+struct InstanceData {
+    CMUI_Area *classObj;
+};
+
+struct Data {
+    ULONG methodId;
+    IPTR tag;
+    IPTR value;
+};
+
+IPTR generalDispatcher(struct IClass *cl, Object *obj, Msg msg) {
+    if (msg->MethodID == OM_NEW) {
+        struct TagItem *tags = ((struct opSet *) msg)->ops_AttrList;
+        CMUI_Area *clazz = (CMUI_Area *) GetTagData(CUSTOM_MUI_CLASS, (IPTR) " ", tags);
+        Object* instance = (Object*) std::invoke(&CMUI_Area::handleDispatch, clazz, cl, obj, msg);
+
+        // Save a reference to the class instance in the object´s instance data
+        InstanceData *instanceData = (InstanceData *) INST_DATA(cl, instance);
+        instanceData->classObj = clazz;
+
+        return (IPTR) instance;
+    }
+
+    InstanceData *instanceData = (InstanceData *) INST_DATA(cl, obj);
+
+    if (instanceData->classObj != nullptr) {
+        return std::invoke(&CMUI_Area::handleDispatch, instanceData->classObj, cl, obj, msg);
+    }
+
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+CMUI_Area::CMUI_Area() {}
+
+void CMUI_Area::setFixWidth(LONG value) {
+    setAttr(MUIA_FixWidth, (IPTR) value);
+}
+
+void CMUI_Area::setFixHeight(LONG value) {
+    setAttr(MUIA_FixHeight, (IPTR) value);
+}
+
+LONG CMUI_Area::fixHeigth() const {
+    return (LONG) mGetAttr(MUIA_FixHeight);
+}
+
+LONG CMUI_Area::fixWidth() const {
+    return (LONG) mGetAttr(MUIA_FixWidth);
+}
+
 void CMUI_Area::setBackground(LONG value) {
     setAttr(MUIA_Background, (IPTR) value);
 }
@@ -176,88 +232,211 @@ Object * CMUI_Area::windowObject() const {
     return (Object *) mGetAttr(MUIA_WindowObject);
 }
 
-IPTR CMUI_Area::askMinMax(struct MUI_MinMax * MinMaxInfo) {
-    return DoMethod(object,MUIM_AskMinMax, (IPTR)MinMaxInfo);
+IPTR CMUI_Area::handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* msg) {
+    return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR CMUI_Area::cleanup() {
-    return DoMethod(object,MUIM_Cleanup);
+IPTR CMUI_Area::handleCleanup(Class *cl, Object *obj, Msg msg) {
+    return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR CMUI_Area::contextMenuBuild(LONG mx, LONG my) {
+IPTR CMUI_Area::handleContextMenuBuild(LONG mx, LONG my) {
     return DoMethod(object,MUIM_ContextMenuBuild, mx, my);
 }
 
-IPTR CMUI_Area::contextMenuChoice(Object * item) {
+IPTR CMUI_Area::handleContextMenuChoice(Object * item) {
     return DoMethod(object,MUIM_ContextMenuChoice, (IPTR)item);
 }
 
-IPTR CMUI_Area::createBubble(LONG x, LONG y, char * txt, IPTR flags) {
+IPTR CMUI_Area::handleCreateBubble(LONG x, LONG y, char * txt, IPTR flags) {
     return DoMethod(object,MUIM_CreateBubble, x, y, txt, flags);
 }
 
-IPTR CMUI_Area::createShortHelp(LONG mx, LONG my) {
+IPTR CMUI_Area::handleCreateShortHelp(LONG mx, LONG my) {
     return DoMethod(object,MUIM_CreateShortHelp, mx, my);
 }
 
-IPTR CMUI_Area::deleteBubble(IPTR bubble) {
+IPTR CMUI_Area::handleDeleteBubble(IPTR bubble) {
     return DoMethod(object,MUIM_DeleteBubble, bubble);
 }
 
-IPTR CMUI_Area::deleteShortHelp(STRPTR help) {
+IPTR CMUI_Area::handleDeleteShortHelp(STRPTR help) {
     return DoMethod(object,MUIM_DeleteShortHelp,  (IPTR)help);
-}
-
-IPTR CMUI_Area::dragBegin(Object * obj) {
-    return DoMethod(object,MUIM_DragBegin,  (IPTR)obj);
-}
-
-IPTR CMUI_Area::dragDrop(Object * obj, LONG x, LONG y) {
-    return DoMethod(object,MUIM_DragDrop, (IPTR)obj, x, y);
-}
-
-IPTR CMUI_Area::dragFinish(Object * obj) {
-    return DoMethod(object,MUIM_DragFinish, (IPTR)obj);
-}
-
-IPTR CMUI_Area::dragQuery(Object * obj) {
-    return DoMethod(object,MUIM_DragQuery, (IPTR)obj);
-}
-
-IPTR CMUI_Area::dragReport(Object * obj, LONG x, LONG y, LONG update) {
-    return DoMethod(object,MUIM_DragReport, (IPTR)obj, x, y, update);
-}
-
-IPTR CMUI_Area::draw(IPTR flags) {
-    return DoMethod(object,MUIM_Draw, flags);
-}
-
-IPTR CMUI_Area::drawBackground(LONG left, LONG top, LONG width, LONG height, LONG xoffset, LONG yoffset, LONG flags) {
-    return DoMethod(object,MUIM_DrawBackground, left, top, width, height, xoffset, yoffset, flags);
-}
-
-IPTR CMUI_Area::handleEvent(struct IntuiMessage * imsg, LONG muikey) {
-    return DoMethod(object,MUIM_HandleEvent, (IPTR)imsg, muikey);
-}
-
-IPTR CMUI_Area::handleInput(struct IntuiMessage * imsg, LONG muikey) {
-    return DoMethod(object,MUIM_HandleInput, (IPTR)imsg, muikey);
 }
 
 IPTR CMUI_Area::hide() {
     return DoMethod(object,MUIM_Hide);
 }
 
-IPTR CMUI_Area::setup(struct MUI_RenderInfo * RenderInfo) {
-    return DoMethod(object,MUIM_Setup, (IPTR)RenderInfo);
-}
-
 IPTR CMUI_Area::show() {
     return DoMethod(object,MUIM_Show);
 }
 
-struct MUI_CustomClass * CMUI_Area::registerClass() {
+Class * CMUI_Area::registerClass() {
     return registerClassWithId((ClassID) MUIC_Area);
 }
 
-CMUI_Area::CMUI_Area() {}
+void CMUI_Area::addEventHandler(struct MUI_EventHandlerNode &ehNode) {
+    DoMethod(windowObject(), MUIM_Window_AddEventHandler, &ehNode);
+}
+
+void CMUI_Area::removeEventHandler(struct MUI_EventHandlerNode &ehNode) {
+    DoMethod(windowObject(), MUIM_Window_RemEventHandler, &ehNode);
+}
+
+void CMUI_Area::setMcc(Class *mcc) {
+    this->mcc = mcc;
+}
+
+Class *CMUI_Area::getMcc() const {
+    return mcc;
+}
+
+bool CMUI_Area::hasEvent(ULONG eventId) {
+    return (eventIds.find(eventId) != eventIds.end());
+}
+
+ULONG CMUI_Area::generateId() {
+    return EVENT_ID_START++;
+}
+
+Class *
+CMUI_Area::createCustomClass(ClassID classId) {
+    auto mcc = MUI_CreateCustomClass(NULL, classId, NULL, sizeof(InstanceData), (APTR) generalDispatcher);
+
+    if (!mcc) {
+        std::cout << "Cannot create custom class" << std::endl;
+        exit(RETURN_ERROR);
+    }
+
+    Object *object = (Object *) NewObject(mcc->mcc_Class, NULL, CUSTOM_MUI_CLASS, (IPTR) this, TAG_DONE);
+
+    if (!object) {
+        std::cerr << "Failed to create MUI object" << std::endl;
+        exit(RETURN_ERROR);
+    }
+
+    this->object = object;
+    setMcc(mcc->mcc_Class);
+    return mcc->mcc_Class;
+}
+
+Class *
+CMUI_Area::registerClassWithId(ClassID classId) {
+    return createCustomClass(classId);
+}
+
+
+IPTR CMUI_Area::handleDraw(struct IClass *cl, Object *obj, struct MUIP_Draw *msg) {
+    // std::cout << "HandleDraw" << std::endl;
+    return DoSuperMethodA(cl, obj, (Msg) msg);
+}
+
+IPTR CMUI_Area::handleNew(struct IClass *cl, Object *obj, struct opSet *msg) {
+    std::cout << "HandleNew" << std::endl;
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+IPTR CMUI_Area::handleDispose(struct IClass *cl, Object *obj, Msg msg) {
+    std::cout << "HandleDispose" << std::endl;
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+IPTR CMUI_Area::handleSet(struct IClass *cl, Object *obj, struct opSet *msg) {
+    std::cout << "HandleSet" << std::endl;
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+IPTR CMUI_Area::handleGet(struct IClass *cl, Object *obj, struct opGet *msg) {
+    std::cout << "HandleGet" << std::endl;
+    printf("Message: %x\n", msg->opg_AttrID);
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+IPTR CMUI_Area::handleEvent(Class *cl, Object *obj, struct MUIP_HandleEvent* msg) {
+    std::cout << "HandleEvent2" << std::endl;
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+IPTR CMUI_Area::handleInput(Class *cl, Object *obj, struct MUIP_HandleInput* msg) {
+    std::cout << "HandleInput2" << std::endl;
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+IPTR CMUI_Area::handleSetup(Class *cl, Object *obj, struct MUI_RenderInfo* msg) {
+    std::cout << "HandleSetup" << std::endl;
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+IPTR CMUI_Area::handleDrawBackground(Class* cl, Object *obj, struct MUIP_DrawBackground* msg) {
+    std::cout << "HandleDrawBackground" << std::endl;
+    return DoSuperMethodA(cl, obj, msg);
+}
+
+IPTR CMUI_Area::handleCustomEvent(struct IClass *cl, Object *obj, Msg msg) {
+    struct Data *data = (Data *) msg;
+
+    auto id = data->tag;
+    std::cout << "ID: " << id << std::endl;
+
+    if (hasEvent(id)) {
+        std::cout << "Found" << std::endl;
+        auto event = (this->eventIds[id]);
+        event->invoke();
+    }
+
+
+    /*   struct InstanceEvent *event = (struct InstanceEvent*) msg;
+       IPTR text = event->text;
+       std::cout << "HandleEvent " << " msg:" << event->eventId << " : " << event->methodId <<  " : " << text << std::endl;
+       auto id = event->eventId;
+
+       if (hasEvent(id)) {
+           std::function<void(struct InstanceEvent*)> callback = eventIds[id];
+           callback(event);
+       }*/
+
+    return DoSuperMethodA(cl, obj, (Msg) msg);
+}
+
+IPTR CMUI_Area::handleDispatch(struct IClass *cl, Object *obj, Msg msg) {
+
+
+    std::cout << "HandleDispatch with MethodId: " << msg->MethodID << " obj: " << obj << std::endl;
+
+    // printf("HandleDispatch with MethodID: %x\n", msg->MethodID);
+    /*
+     * Watch out for methods we do understand.
+    */
+    switch (msg->MethodID) {
+        case OM_NEW:
+            return (IPTR) handleNew(cl, obj, (struct opSet *) msg);
+        case MUIM_AskMinMax:
+            return (IPTR) handleAskMinMax(cl, obj, (struct MUIP_AskMinMax *) msg);
+        case MUIM_Cleanup:
+            return (IPTR) handleCleanup(cl, obj, msg);
+        case MUIM_Setup:
+            return (IPTR) handleSetup(cl, obj, (struct MUI_RenderInfo *) msg);
+        case MUIM_Draw:
+            return (IPTR) handleDraw(cl, obj, (struct MUIP_Draw *) msg);
+        case OM_GET:
+            return (IPTR) handleGet(cl, obj, (struct opGet *) msg);
+        case OM_SET:
+            return (IPTR) handleSet(cl, obj, (struct opSet *) msg);
+        case OM_DISPOSE:
+            return (IPTR) handleDispose(cl, obj, msg);
+        case MUIM_HandleEvent:
+            return (IPTR) handleEvent(cl, obj, (struct MUIP_HandleEvent *) msg);
+        case MUIM_HandleInput:
+            return (IPTR) handleInput(cl, obj, (struct MUIP_HandleInput *) msg);
+        case MUIM_DrawBackground:
+            return (IPTR) handleDrawBackground(cl, obj, (struct MUIP_DrawBackground *) msg);
+        case CUSTOM_EVENT:
+            return (IPTR) handleCustomEvent(cl, obj, msg);
+
+            printf("REFRESH");
+            break;
+    }
+
+    return DoSuperMethodA(cl, obj, msg);
+}

@@ -3,7 +3,6 @@
 
 #include "CMUI_Notify.h"
 #include "CMUI_Window.h"
-#include <rexx/storage.h>
 
 class CMUI_Application : public CMUI_Notify
 {

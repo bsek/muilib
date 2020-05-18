@@ -10,7 +10,7 @@
 #include <proto/intuition.h>
 #include <proto/muimaster.h>
 #include <proto/utility.h>
-#include <clib/alib_protos.h>
+//#include <clib/alib_protos.h>
 #include <proto/alib.h>
 
 /* System */
@@ -18,7 +18,6 @@
 
 /* ANSI C */
 #include <stdlib.h>
-#include <string.h>
 #include <stdio.h>
 #include <cstdint>
 

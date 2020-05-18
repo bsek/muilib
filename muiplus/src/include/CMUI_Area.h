@@ -2,10 +2,43 @@
 #define	CMUI_AREA_H
 
 #include "CMUI_Notify.h"
-#include "CMUI_Class.h"
 
-class CMUI_Area : public CMUI_Class {
+#include <map>
+#include <functional>
+
+enum EventType {
+    PRESSED,
+    CHECK,
+    SELECT,
+    ACTIVE
+};
+
+class Event {
 public:
+    virtual void invoke() = 0;
+};
+
+template<typename R>
+class EventCommand : public Event {
+public:
+    R* receiver;
+    void (R::*m_method)();
+    void invoke() override {
+        ((receiver)->*(m_method))();
+    }
+};
+
+constexpr ULONG CUSTOM_EVENT=TAG_USER + 21;
+constexpr ULONG CUSTOM_MUI_CLASS=TAG_USER + 20;
+
+class CMUI_Area : public CMUI_Notify {
+public:
+    CMUI_Area();
+
+    LONG fixWidth() const;
+    void setFixWidth(LONG value);
+    LONG fixHeigth() const;
+    void setFixHeight(LONG value);
     void setBackground(LONG value);
     LONG bottomEdge() const;
     Object * contextMenu() const;
@@ -50,35 +83,81 @@ public:
     LONG width() const;
     struct Window * window() const;
     Object * windowObject() const;
-    IPTR askMinMax(struct MUI_MinMax * MinMaxInfo);
-    IPTR cleanup();
-    IPTR contextMenuBuild(LONG mx, LONG my);
-    IPTR contextMenuChoice(Object * item);
-    IPTR createBubble(LONG x, LONG y, char * txt, IPTR flags);
-    IPTR createShortHelp(LONG mx, LONG my);
-    IPTR deleteBubble(IPTR bubble);
-    IPTR deleteShortHelp(STRPTR help);
-    IPTR dragBegin(Object * obj);
-    IPTR dragDrop(Object * obj, LONG x, LONG y);
-    IPTR dragFinish(Object * obj);
-    IPTR dragQuery(Object * obj);
-    IPTR dragReport(Object * obj, LONG x, LONG y, LONG update);
-    IPTR draw(IPTR flags);
-
-    virtual IPTR drawBackground(LONG left, LONG top, LONG width, LONG height, LONG xoffset, LONG yoffset, LONG flags);
-    IPTR handleEvent(struct IntuiMessage * imsg, LONG muikey);
-    IPTR handleInput(struct IntuiMessage * imsg, LONG muikey);
     IPTR hide();
-    IPTR setup(struct MUI_RenderInfo * RenderInfo);
     IPTR show();
 
-    struct MUI_CustomClass *registerClass() override;
+    void addEventHandler(struct MUI_EventHandlerNode &ehNode);
+    void removeEventHandler(struct MUI_EventHandlerNode &ehNode);
 
-protected:
-    CMUI_Area();
+    Class * getMcc() const;
+    void setMcc(Class* mcc);
 
+    virtual IPTR handleContextMenuBuild(LONG mx, LONG my);
+    virtual IPTR handleContextMenuChoice(Object * item);
+    virtual IPTR handleCreateBubble(LONG x, LONG y, char * txt, IPTR flags);
+    virtual IPTR handleCreateShortHelp(LONG mx, LONG my);
+    virtual IPTR handleDeleteBubble(IPTR bubble);
+    virtual IPTR handleDeleteShortHelp(STRPTR help);
+/*
+    virtual IPTR handleDragBegin(Object * obj);
+    virtual IPTR handleDragDrop(Object * obj, LONG x, LONG y);
+    virtual IPTR handleDragFinish(Object * obj);
+    virtual IPTR handleDragQuery(Object * obj);
+    virtual IPTR handleDragReport(Object * obj, LONG x, LONG y, LONG update);
+    */
+
+    virtual IPTR handleDrawBackground(Class* cl, Object *object, struct MUIP_DrawBackground* msg);
+    virtual IPTR handleDispatch(Class* cl, Object *object, Msg msg);
+    virtual IPTR handleDraw(Class *cl, Object *obj, struct MUIP_Draw *msg);
+    virtual IPTR handleNew(Class *cl, Object *obj, struct opSet* msg);
+    virtual IPTR handleDispose(Class *cl, Object *obj, Msg msg);
+    virtual IPTR handleSet(Class *cl, Object *obj, struct opSet* msg);
+    virtual IPTR handleGet(Class *cl, Object *obj, struct opGet* msg);
+    virtual IPTR handleSetup(Class *cl, Object *obj, struct MUI_RenderInfo* msg);
+    virtual IPTR handleCleanup(Class *cl, Object *obj, Msg msg);
+    virtual IPTR handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* msg);
+    virtual IPTR handleCustomEvent(Class *cl, Object *obj, Msg msg);
+    virtual IPTR handleEvent(Class *cl, Object *obj, struct MUIP_HandleEvent* msg);
+    virtual IPTR handleInput(Class *cl, Object *obj, struct MUIP_HandleInput* msg);
+
+    virtual Class *registerClass();
+
+    template<typename T>
+    void addEvent(CMUI_Notify *obj, EventType eventType, T*, void (T::*)());
+    bool hasEvent(ULONG eventId);
+
+    Class *registerClassWithId(ClassID classId);
+
+private:
+    std::map<ULONG, Event*> eventIds;
+    ULONG generateId();
+    Class* mcc;
+    Class* createCustomClass(ClassID classId);
+    ULONG EVENT_ID_START=TAG_USER + 22;
 };
 
+template<typename T>
+void CMUI_Area::addEvent(CMUI_Notify* object, EventType eventType, T *t, void (T::*method)()) {
+    ULONG id = generateId();
+
+    auto eventCommand = new EventCommand<T>{};
+    eventCommand->receiver = t;
+    eventCommand->m_method = method;
+
+    this->eventIds[id] = static_cast<Event*>(eventCommand);
+
+    if (eventType == EventType::PRESSED) {
+        std::cerr << "Setting up pressed event:" << id << std::endl; // << ": COMMAND: " << CUSTOM_ACTION_COMMAND << " : " << method << " on " << object << '\n';
+
+        object->notify((IPTR)MUIA_Pressed, (IPTR)FALSE, (IPTR)this->object, (IPTR)2, (IPTR)CUSTOM_EVENT, (IPTR)id);
+    }
+/*
+    if (eventType == EventType::ACTIVE) {
+        std::cerr << "Setting up active event:" << CUSTOM_EVENT << ":" << id << " on " << object << '\n';
+        DoMethod(obj, MUIM_Notify, MUIA_Cycle_Active, MUIV_EveryTime, object, 3, CUSTOM_EVENT, id, MUIV_TriggerValue);
+    }
+*/
+}
 
 #endif	/* CMUI_AREA_H */
 

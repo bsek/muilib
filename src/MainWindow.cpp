@@ -8,6 +8,12 @@
 #include "MainWindow.h"
 #include "Buttons.h"
 
+MainWindow::MainWindow(LONG id, CMUI_Application *app) : window(id) {
+    std::cout << "MainWindow base const" << std::endl;
+    init();
+    this->application = app;
+}
+
 MainWindow::MainWindow(LONG id) : window(id) {
     std::cout << "MainWindow base const" << std::endl;
     init();
@@ -19,20 +25,28 @@ MainWindow::MainWindow(CMUI_Window &win) : window(std::move(win)) {
 
 void MainWindow::init() {
     std::cout << "MainWindow init" << std::endl;
-    mainGroup = CMUI_VGroup();
 
-    imageArea = new ImageArea();
+    mainGroup = CMUI_VGroup{};
+
+    imageArea = new ImageArea{};
+    //sourceEditor = new SourceEditor{};
+
     scrollgroup = new CMUI_Scrollgroup(imageArea->operator*(), true, true);
 
     CMUI_Rectangle hBar(HORIZONTAL, 5, "Title");
 
     mainGroup.addMember(scrollgroup->operator*());
+    auto hGroup = new CMUI_HGroup{};
+    //hGroup->addMember(*(*imageArea));
+    //hGroup->addMember(*(*sourceEditor));
+
+    mainGroup.addMember(*(*hGroup));
     mainGroup.addMember(*hBar);
 
     CMUI_Button button("test button");
     mainGroup.addMember(*button);
-    mainGroup.addMember(*buttons);
 
+    mainGroup.addMember(*buttons);
     window.addChildToGroup(*mainGroup);
 }
 

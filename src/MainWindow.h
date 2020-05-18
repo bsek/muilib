@@ -6,6 +6,7 @@
 #include <Application.h>
 #include "Buttons.h"
 #include "ImageArea.h"
+#include "SourceEditor.h"
 #include <CMUI_Scrollgroup.h>
 #include <CMUI_VGroup.h>
 
@@ -13,12 +14,15 @@ class MainWindow {
 private:
     Buttons buttons;
     ImageArea *imageArea;
+    SourceEditor *sourceEditor;
     CMUI_Window window;
     CMUI_Scrollgroup *scrollgroup;
     CMUI_VGroup mainGroup;
+    CMUI_Application *application;
 public:
     MainWindow(CMUI_Window &win);
     MainWindow(LONG id);
+    MainWindow(LONG id, CMUI_Application *app);
 
     void init();
 

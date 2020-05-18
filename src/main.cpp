@@ -17,17 +17,9 @@
 
 #include "MainWindow.h"
 
-#if defined(__amigaos4__)
-
-struct Library *MUIMasterBase;
-struct MUIMasterIFace *IMUIMaster;
-struct IntuitionIFace* IIntuition;
-struct Library *IntuitionBase;
-
-#else
 struct Library *MUIMasterBase;
 struct IntuitionBase *IntuitionBase;
-#endif
+
 
 #define		BUTTONADD		0x00ff
 /*
@@ -85,7 +77,7 @@ LONG ShowAddedRecord(void)
     strcat(cMessage, getstr(StrPhoneNumber));
     strcat(cMessage, "\n      Gender : ");
     strcat(cMessage, rGenderContent[getradioindex(rGender)]);
-    return (MUI_RequestA(App,winForm,0,"Added Record Info","*OK",cMessage,NULL));
+    return (MUI_RequestA(App,winForm,0,"Added Record Info","*OK","hello",NULL));
 }
 
 
@@ -99,41 +91,6 @@ BOOL AreYouSure(void)
 }
 */
 
-
-#if defined(__amigaos4__)
-template<typename L, typename I>
-inline bool openMainLibInterface(L*& library, I*& interface, const char* name, uint32 version)
-{
-    if ( (library = (L*)IExec->OpenLibrary(name, version)) ) {
-        if ( (interface = (I*)IExec->GetInterface((Library*)library, "main", 1, NULL)) ) {
-            return true;
-        }
-        else {
-            std::fprintf(stderr, "Opened %s [%p] but failed to get main\n", name, library);
-        }
-    }
-    else {
-        std::fprintf(stderr, "Failed to open: %s\n", name);
-    }
-    return false;
-}
-
-template<typename L, typename I>
-inline void closeMainLibInterface(L*& library, I*& interface)
-{
-    if (interface) {
-        IExec->DropInterface((Interface*)interface);
-        interface = 0;
-    }
-    if (library) {
-        IExec->CloseLibrary((Library*)library);
-        library = 0;
-    }
-}
-
-#endif
-
-#if not defined(__amigaos4__)
 template<typename L>
 inline bool openLib(L *&library, const char *name, uint32_t version) {
     if ((library = (L *) OpenLibrary(name, version))) {
@@ -151,7 +108,6 @@ inline void closeLib(L *&library) {
         library = 0;
     }
 }
-#endif
 
 struct Args {
 
@@ -159,10 +115,6 @@ struct Args {
 
 int main(int argc, char **argv) {
 
-#if defined(__amigaos4__)
-    openMainLibInterface(IntuitionBase, IIntuition, "intuition.library", nullptr);
-    openMainLibInterface(MUIMasterBase, IMUIMaster, "muimaster.library", nullptr);
-#else
     if (!(MUIMasterBase = OpenLibrary("muimaster.library",0))) {
          printf("Could not open muimaster library");
          exit(1);
@@ -170,23 +122,15 @@ int main(int argc, char **argv) {
 
     IntuitionBase = (struct IntuitionBase *)OpenLibrary("intuition.library", 39);
 /*
-    bool open = openLib(IntuitionBase, "intuition.library", 0);
-    if (!open) {
-        printf("Could not open intuition library");
-        exit(1);
-    }
-    */
-#endif
-
-/*
     CONST_STRPTR cycleOS[] = {"Amiga OS 3.x", "Amiga OS 4.x", "Aros", "MorphOS", NULL};
     CONST_STRPTR radioOS[] = {"Amiga OS 3.x", "Amiga OS 4.x", "Aros", "MorphOS", NULL};
     CONST_STRPTR amigasList[] = {"Amiga 1000", "Amiga 500", "Amiga 2000", "Amiga 3000", "Amiga 500+",
                                  "Amiga CDTV", "Amiga 600", "Amiga 1200", "Amiga CD32", "Amiga 4000", "Amiga 4000T",
                                  NULL};
-*/
+
     std::cout << "start" << std::endl;
-/*
+    std::cout << "end" << std::endl;
+
     APTR	grpRoot, grpVirtual, lHead, lInfo, obj_aux0, obj_aux1, obj_aux2, obj_aux3;
     APTR	hBar;
 
@@ -274,6 +218,9 @@ int main(int argc, char **argv) {
             WindowContents, grpRoot,
     End;
 
+    auto window = CMUI_Window(2);
+    window.addChildToGroup((Object*) grpRoot);
+
     App = ApplicationObject,
             MUIA_Application_Title      , "Virtual Group Example",
             MUIA_Application_Version    , "$VER: Virtual Group Example 1.0",
@@ -281,8 +228,8 @@ int main(int argc, char **argv) {
             MUIA_Application_Author     , "emarti",
             MUIA_Application_Description, "MUI Virtual Group Example",
             MUIA_Application_Base       , "Amiga",
-            MUIA_Application_Menustrip  , MUI_MakeObject(MUIO_MenustripNM,MenuStr,0),
-            SubWindow, winForm,
+        //    MUIA_Application_Menustrip  , MUI_MakeObject(MUIO_MenustripNM,MenuStr,0),
+            SubWindow, window.operator*(),
 
 
     End;
@@ -302,7 +249,7 @@ int main(int argc, char **argv) {
     DoMethod(bAdd,MUIM_Notify,MUIA_Pressed,FALSE,
              App,2,MUIM_Application_ReturnID,BUTTONADD);
 
-    SetAttrs(winForm,MUIA_Window_Open,TRUE, TAG_DONE);
+    window.setOpen(TRUE);
 
     while(running)
     {
@@ -333,21 +280,20 @@ int main(int argc, char **argv) {
     SetAttrs(winForm,MUIA_Window_Open,FALSE, TAG_DONE);
 
     if(App) MUI_DisposeObject(App);
-    IExec->CloseLibrary(MUIMasterBase);
-    IExec->CloseLibrary(IntuitionBase);
-    exit(TRUE);
+
+    CloseLibrary(MUIMasterBase);
+    closeLib(IntuitionBase);
+
+    exit(RETURN_OK);
 */
 
     MainWindow mainWindow((LONG)2);
     Application application(mainWindow.getWindow(), "Test application");
     application.exec();
 
-#if defined(__amigaos4__)
-    closeMainLibInterface(IntuitionBase, IIntuition);
-    closeMainLibInterface(MUIMasterBase, IMUIMaster);
-#else
     CloseLibrary(MUIMasterBase);
-  //  closeLib(IntuitionBase);
+    closeLib(IntuitionBase);
+
+    exit(RETURN_OK);
     return 0;
-#endif
  }

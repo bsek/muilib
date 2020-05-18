@@ -2,12 +2,10 @@
 #define BUTTON_H
 
 #include <CMUI_Button.h>
-#include "UIElement.h"
-#include "ActionCommand.h"
 
-class Button : UIElement {
+class Button {
 protected:
-    void render(CMUI_Object *object) override;
+//    void render(CMUI_Object *object) override;
 
 public:
     void setText(const std::string &text);

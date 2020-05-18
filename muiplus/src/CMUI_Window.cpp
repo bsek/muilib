@@ -7,6 +7,7 @@ CMUI_Window::CMUI_Window(LONG id)
 : CMUI_Notify() {
     Object *mui_win = MUI_NewObject(MUIC_Window,
                                     MUIA_Window_ID, id,
+                                    MUIA_Window_AppWindow, TRUE,
                                     MUIA_Window_CloseGadget, TRUE,
                                     MUIA_Window_DepthGadget, TRUE,
                                     MUIA_Window_SizeGadget, TRUE,

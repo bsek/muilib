@@ -2,7 +2,6 @@
 #define	CMUI_GROUP_H
 
 #include "CMUI_Area.h"
-#include "CMUI_Class.h"
 
 class CMUI_Group : public CMUI_Area {
 protected:
@@ -29,7 +28,7 @@ public:
     IPTR initChange();
     IPTR sort(std::vector<Object> obj);
 
-    struct MUI_CustomClass *registerClass() override;
+    Class *registerClass() override;
 };
 
 

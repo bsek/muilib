@@ -17,7 +17,7 @@ public:
 
 protected:
     CMUI_Virtgroup();
-    struct MUI_CustomClass *registerClass() override;
+    Class *registerClass() override;
 };
 
 #endif /* CMUI_VIRTGROUP_H */

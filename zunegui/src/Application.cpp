@@ -30,8 +30,7 @@ void Application::addWindow(const CMUI_Window &win) {
     app.addWindow(*win);
 }
 
-BOOL Application::areYouSure()
-{
+BOOL Application::areYouSure() {
     return (MUI_RequestA(*app, windowList.at(0).operator*(), 0, "Quit?", "_Yes|_No", "\33cAre you sure?", 0) == 0);
 }
 
@@ -39,7 +38,7 @@ void Application::exec() {
     auto mainWindow = std::move(windowList.at(0));
 
     mainWindow.setOpen(true);
-    mainWindow.notify(MUIA_Window_CloseRequest, (IPTR) TRUE, (IPTR) *app, (IPTR) 2, MUIM_Application_ReturnID,
+    mainWindow.notify(MUIA_Window_CloseRequest, (IPTR) TRUE, (IPTR) *(app), (IPTR) 2, MUIM_Application_ReturnID,
                       MUIM_Application_AboutMUI);
 
     ULONG sigs = 0;
