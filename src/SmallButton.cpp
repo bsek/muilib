@@ -1,7 +1,7 @@
 #include "SmallButton.h"
 #include <proto/graphics.h>
 
-SmallButton::SmallButton(std::string text) : CMUI_Area() {
+SmallButton::SmallButton(std::string text) : Area() {
     registerClass();
     width = 50;
     set(MUIA_InputMode, MUIV_InputMode_RelVerify);

@@ -1,15 +1,15 @@
-#include <CMUI_Virtgroup.h>
-#include <CMUI_Label.h>
-#include <CMUI_String.h>
-#include <CMUI_Radio.h>
-#include <CMUI_Rectangle.h>
-#include <CMUI_Cycle.h>
-#include <CMUI_Register.h>
+#include <Virtgroup.h>
+#include <Label.h>
+#include <String.h>
+#include <Radio.h>
+#include <Rectangle.h>
+#include <Cycle.h>
+#include <Register.h>
 #include <Button.h>
 #include "ImageArea.h"
 #include <proto/graphics.h>
 
-ImageArea::ImageArea() : CMUI_Virtgroup() {
+ImageArea::ImageArea() : Virtgroup() {
     registerClass();
 
     mouse_x = 0;
@@ -21,39 +21,39 @@ ImageArea::ImageArea() : CMUI_Virtgroup() {
     rGenderContent[1] = "Male";
     rGenderContent[2] = NULL;
 
-    CMUI_Label lHead("New Personal Record", MUIO_Label_Centered);
-    CMUI_Label lInfo("   Please, fill in the blanks to add new personal record.   ", MUIO_Label_Centered);
+    Label lHead("New Personal Record", MUIO_Label_Centered);
+    Label lInfo("   Please, fill in the blanks to add new personal record.   ", MUIO_Label_Centered);
 
-    CMUI_String StrName("", 50);
+    String StrName("", 50);
     StrName.set(MUIA_Frame, MUIV_Frame_String);
 
-    CMUI_Label obj_aux1("        Name :", MUIO_Label_DoubleFrame);
+    Label obj_aux1("        Name :", MUIO_Label_DoubleFrame);
 
     Object *obj = MUI_NewObject(MUIC_Group, TAG_END);
-    CMUI_Group obj_aux0{obj};
+    Group obj_aux0{obj};
     obj_aux0.setColumns(2);
     obj_aux0.addMember(*obj_aux1);
     obj_aux0.addMember(*StrName);
 
-    CMUI_String StrPhoneNumber("", 50);
+    String StrPhoneNumber("", 50);
     StrPhoneNumber.set(MUIA_Frame, MUIV_Frame_String);
     StrPhoneNumber.set(MUIA_String_Accept, (IPTR) "0123456789");
 
-    CMUI_Label obj_aux3("Phone Number :", MUIO_Label_DoubleFrame);
+    Label obj_aux3("Phone Number :", MUIO_Label_DoubleFrame);
 
     obj_aux0.addMember(*obj_aux3);
     obj_aux0.addMember(*StrPhoneNumber);
 
-    CMUI_Radio rGender(label, rGenderContent);
+    Radio rGender(label, rGenderContent);
     rGender.set(MUIA_Frame, MUIV_Frame_Group);
 
     set(MUIA_Frame, MUIV_Frame_Virtual);
     set(MUIA_InputMode, MUIV_InputMode_RelVerify);
 
-    CMUI_Rectangle rectangle(MUI_Rectangle_Direction::VERTICAL, 100, "");
-    cycle = new CMUI_Cycle("Cycle", rGenderContent);
+    Rectangle rectangle(MUI_Rectangle_Direction::VERTICAL, 100, "");
+    cycle = new Cycle("Cycle", rGenderContent);
 
-    cmuiRegister = new CMUI_Register(rGenderContent);
+    cmuiRegister = new Register(rGenderContent);
     cmuiRegister->addMember(*rGender);
     cmuiRegister->addMember(cycle->operator*());
 

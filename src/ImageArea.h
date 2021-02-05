@@ -1,17 +1,17 @@
 #ifndef MIU_PLUS_AROS_IMAGEAREA_H
 #define MIU_PLUS_AROS_IMAGEAREA_H
 
-#include <CMUI_Virtgroup.h>
-#include <CMUI_Button.h>
-#include <CMUI_Register.h>
-#include <CMUI_Cycle.h>
+#include <Virtgroup.h>
+#include <Button.h>
+#include <Register.h>
+#include <Cycle.h>
 
-class ImageArea : public CMUI_Virtgroup {
+class ImageArea : public Virtgroup {
 private:
     std::string label{"this is a label"};
     CONST_STRPTR *rGenderContent;
-    CMUI_Register *cmuiRegister;
-    CMUI_Cycle *cycle;
+    Register *cmuiRegister;
+    Cycle *cycle;
     struct MUI_EventHandlerNode ehnode;
 
     int mouse_x;

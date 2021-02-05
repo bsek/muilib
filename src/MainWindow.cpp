@@ -1,14 +1,14 @@
 #include <iostream>
-#include <CMUI_Checkmark.h>
-#include <CMUI_Button.h>
-#include <CMUI_HGroup.h>
-#include <CMUI_Text.h>
-#include <CMUI_Rectangle.h>
-#include <CMUI_VSpace.h>
+#include <Checkmark.h>
+#include <Button.h>
+#include <HGroup.h>
+#include <Text.h>
+#include <Rectangle.h>
+#include <VSpace.h>
 #include "MainWindow.h"
 #include "Buttons.h"
 
-MainWindow::MainWindow(LONG id, CMUI_Application *app) : window(id) {
+MainWindow::MainWindow(LONG id, Application *app) : window(id) {
     std::cout << "MainWindow base const" << std::endl;
     init();
     this->application = app;
@@ -19,38 +19,38 @@ MainWindow::MainWindow(LONG id) : window(id) {
     init();
 }
 
-MainWindow::MainWindow(CMUI_Window &win) : window(std::move(win)) {
+MainWindow::MainWindow(Window &win) : window(std::move(win)) {
     std::cout << "MainWindow cmui win const" << std::endl;
 }
 
 void MainWindow::init() {
     std::cout << "MainWindow init" << std::endl;
 
-    mainGroup = CMUI_VGroup{};
+    mainGroup = VGroup{};
 
     imageArea = new ImageArea{};
     //sourceEditor = new SourceEditor{};
 
-    scrollgroup = new CMUI_Scrollgroup(imageArea->operator*(), true, true);
+    scrollgroup = new Scrollgroup(imageArea->operator*(), true, true);
 
-    CMUI_Rectangle hBar(HORIZONTAL, 5, "Title");
+    Rectangle hBar(HORIZONTAL, 5, "Title");
 
     mainGroup.addMember(scrollgroup->operator*());
-    auto hGroup = new CMUI_HGroup{};
+    auto hGroup = new HGroup{};
     //hGroup->addMember(*(*imageArea));
     //hGroup->addMember(*(*sourceEditor));
 
     mainGroup.addMember(*(*hGroup));
     mainGroup.addMember(*hBar);
 
-    CMUI_Button button("test button");
+    Button button("test button");
     mainGroup.addMember(*button);
 
     mainGroup.addMember(*buttons);
     window.addChildToGroup(*mainGroup);
 }
 
-CMUI_Window& MainWindow::getWindow() {
+Window& MainWindow::getWindow() {
     return window;
 }
 

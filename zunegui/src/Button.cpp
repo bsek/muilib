@@ -1,12 +1,12 @@
 #include "include/Button.h"
-#include <CMUI_Object.h>
+#include <Object.h>
 
 void Button::setText(const std::string &text) {
     this->text = text;
 }
 /*
-void Button::render(CMUI_Object *object) {
-    button = new CMUI_Button(this->text);
+void Button::render(Object *object) {
+    button = new Button(this->text);
     object->addMember(*(*button));
 }
 */

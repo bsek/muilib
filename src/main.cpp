@@ -9,11 +9,11 @@
 #include <cstdlib>
 #include <string>
 #include <iostream>
-#include "CMUI_Window.h"
-#include "CMUI_Application.h"
-#include "CMUI_Button.h"
-#include "CMUI_Checkmark.h"
-#include "CMUI_HGroup.h"
+#include "Window.h"
+#include "Application.h"
+#include "Button.h"
+#include "Checkmark.h"
+#include "HGroup.h"
 
 #include "MainWindow.h"
 
@@ -218,7 +218,7 @@ int main(int argc, char **argv) {
             WindowContents, grpRoot,
     End;
 
-    auto window = CMUI_Window(2);
+    auto window = Window(2);
     window.addChildToGroup((Object*) grpRoot);
 
     App = ApplicationObject,

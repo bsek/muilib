@@ -1,9 +1,9 @@
 #ifndef SMALL_BUTTON_H
 #define SMALL_BUTTON_H
 
-#include <CMUI_Area.h>
+#include <Area.h>
 
-class SmallButton : public CMUI_Area {
+class SmallButton : public Area {
 private:
     int width;
     std::string text;

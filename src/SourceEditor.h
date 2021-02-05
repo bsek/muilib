@@ -1,9 +1,9 @@
 #ifndef MIU_PLUS_AROS_SOURCEEDITOR_H
 #define MIU_PLUS_AROS_SOURCEEDITOR_H
 
-#include <CMUI_Area.h>
+#include <Area.h>
 
-class SourceEditor : public CMUI_Area {
+class SourceEditor : public Area {
 public:
     SourceEditor();
 

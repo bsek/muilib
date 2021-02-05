@@ -1,18 +1,18 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include <CMUI_Button.h>
+#include <Button.h>
 
 class Button {
 protected:
-//    void render(CMUI_Object *object) override;
+//    void render(Object *object) override;
 
 public:
     void setText(const std::string &text);
 
 private:
     Button();
-    CMUI_Button *button;
+    Button *button;
     std::string &text;
 };
 

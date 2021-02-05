@@ -5,23 +5,23 @@
 #include <proto/intuition.h>
 #include <vector> 
 #include <string>
-#include <CMUI_Application.h>
-#include <CMUI_Window.h>
+#include <Application.h>
+#include <Window.h>
 
 
 class Application {
 private:
-    CMUI_Application app;
+    Application app;
 protected:
-    std::vector<CMUI_Window> windowList;
+    std::vector<Window> windowList;
     const std::string& name;
 public:
-    Application(CMUI_Application& app, const std::string&& title);
+    Application(Application& app, const std::string&& title);
     Application(Object* object, const std::string&& title);
-    Application(CMUI_Window& window, const std::string&& title);
+    Application(Window& window, const std::string&& title);
 
     BOOL areYouSure();
-    void addWindow(const CMUI_Window &win);
+    void addWindow(const Window &win);
     Object* getAppObject();
 
     void exec();

@@ -1,19 +1,19 @@
 #include "Buttons.h"
 #include <stdio.h>
 #include <iostream>
-#include <CMUI_Rectangle.h>
-#include <CMUI_Checkmark.h>
-#include <CMUI_VSpace.h>
-#include <CMUI_HSpace.h>
+#include <Rectangle.h>
+#include <Checkmark.h>
+#include <VSpace.h>
+#include <HSpace.h>
 
-Buttons::Buttons() : CMUI_Group() {
+Buttons::Buttons() : Group() {
     registerClass();
 
-    CMUI_Rectangle rect{MUI_Rectangle_Direction::HORIZONTAL, 20, "Some test"};
-  //  CMUI_Rectangle rect2{MUI_Rectangle_Direction::HORIZONTAL, 20, ""};
+    Rectangle rect{MUI_Rectangle_Direction::HORIZONTAL, 20, "Some test"};
+  //  Rectangle rect2{MUI_Rectangle_Direction::HORIZONTAL, 20, ""};
 
-    CMUI_VSpace space{50};
-    CMUI_HSpace hspace{100};
+    VSpace space{50};
+    HSpace hspace{100};
 
     bAdd.setFixWidth(100);
 

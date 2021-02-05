@@ -2,31 +2,31 @@
 #define MIU_PLUS_AROS_MAINWINDOW_H
 
 
-#include <CMUI_Window.h>
+#include <Window.h>
 #include <Application.h>
 #include "Buttons.h"
 #include "ImageArea.h"
 #include "SourceEditor.h"
-#include <CMUI_Scrollgroup.h>
-#include <CMUI_VGroup.h>
+#include <Scrollgroup.h>
+#include <VGroup.h>
 
 class MainWindow {
 private:
     Buttons buttons;
     ImageArea *imageArea;
     SourceEditor *sourceEditor;
-    CMUI_Window window;
-    CMUI_Scrollgroup *scrollgroup;
-    CMUI_VGroup mainGroup;
-    CMUI_Application *application;
+    Window window;
+    Scrollgroup *scrollgroup;
+    VGroup mainGroup;
+    Application *application;
 public:
-    MainWindow(CMUI_Window &win);
+    MainWindow(Window &win);
     MainWindow(LONG id);
-    MainWindow(LONG id, CMUI_Application *app);
+    MainWindow(LONG id, Application *app);
 
     void init();
 
-    CMUI_Window &getWindow();
+    Window &getWindow();
 };
 
 

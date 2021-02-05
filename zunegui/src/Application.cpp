@@ -5,14 +5,14 @@
 #include <libraries/mui.h>
 #include <iostream>
 
-Application::Application(CMUI_Window& window, const std::string&& title)
+Application::Application(Window& window, const std::string&& title)
         : app(window)
         , name(title) {
     std::cout << "Application: title:" << title << std::endl;
     windowList.push_back(window);
 }
 
-Application::Application(CMUI_Application& application, const std::string&& title)
+Application::Application(Application& application, const std::string&& title)
         : app(application)
         , name(title) {}
 
@@ -25,7 +25,7 @@ Object* Application::getAppObject() {
     return Application::app.operator*();
 }
 
-void Application::addWindow(const CMUI_Window &win) {
+void Application::addWindow(const Window &win) {
     windowList.push_back(win);
     app.addWindow(*win);
 }
