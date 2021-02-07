@@ -1,110 +1,168 @@
 #ifndef AREA_H
 #define AREA_H
 
-#include "Notify.h"
-
 #include <map>
 #include <functional>
+#include "ZuneObject.h"
+#include "Notify.h"
 
-namespace Zune
-{
-    enum EventType
-    {
+namespace Zune {
+    enum EventType {
         PRESSED,
         CHECK,
         SELECT,
         ACTIVE
     };
 
-    class Event
-    {
+    class Event {
     public:
         virtual void invoke() = 0;
     };
 
-    template <typename R>
-    class EventCommand : public Event
-    {
+    template<typename R>
+    class EventCommand : public Event {
     public:
         R *receiver;
+
         void (R::*m_method)();
-        void invoke() override
-        {
+
+        void invoke() override {
             ((receiver)->*(m_method))();
         }
     };
 
     constexpr ULONG CUSTOM_EVENT = TAG_USER + 21;
     constexpr ULONG CUSTOM_MUI_CLASS = TAG_USER + 20;
+}
 
-    class Area : public Notify
-    {
+namespace Zune {
+
+    class Window;
+
+    class Area : public Notify {
     public:
         Area();
 
         LONG fixWidth() const;
+
         void setFixWidth(LONG value);
-        LONG fixHeigth() const;
+
+        LONG fixHeight() const;
+
         void setFixHeight(LONG value);
+
         void setBackground(LONG value);
+
         LONG bottomEdge() const;
+
         Object *contextMenu() const;
+
         void setContextMenu(Object *value);
+
         Object *contextMenuTrigger() const;
+
         char controlChar() const;
+
         void setControlChar(char value);
+
         LONG cycleChain() const;
+
         void setCycleChain(LONG value);
+
         BOOL disabled() const;
+
         void setDisabled(BOOL value);
+
         BOOL draggable() const;
+
         void setDraggable(BOOL value);
+
         BOOL dropable() const;
+
         void setDropable(BOOL value);
+
         void setFillArea(BOOL value);
+
         struct TextFont *font() const;
+
         LONG height() const;
+
         LONG horizDisappear() const;
+
         void setHorizDisappear(LONG value);
+
         WORD horizWeight() const;
+
         void setHorizWeight(WORD value);
+
         LONG innerBottom() const;
+
         LONG innerLeft() const;
+
         LONG innerRight() const;
+
         LONG innerTop() const;
+
         LONG leftEdge() const;
+
         BOOL pressed() const;
+
         LONG rightEdge() const;
+
         BOOL selected() const;
+
         void setSelected(BOOL value);
+
         STRPTR shortHelp() const;
+
         void setShortHelp(STRPTR value);
+
         BOOL showMe() const;
+
         void setShowMe(BOOL value);
+
         LONG timer() const;
+
         LONG topEdge() const;
+
         LONG vertDisappear() const;
+
         void setVertDisappear(LONG value);
+
         WORD vertWeight() const;
+
         void setVertWeight(WORD value);
+
         LONG width() const;
+
         struct Window *window() const;
+
         Object *windowObject() const;
+
         IPTR hide();
+
         IPTR show();
 
         void addEventHandler(struct MUI_EventHandlerNode &ehNode);
+
         void removeEventHandler(struct MUI_EventHandlerNode &ehNode);
 
         Class *getMcc() const;
+
         void setMcc(Class *mcc);
 
         virtual IPTR handleContextMenuBuild(LONG mx, LONG my);
+
         virtual IPTR handleContextMenuChoice(Object *item);
+
         virtual IPTR handleCreateBubble(LONG x, LONG y, char *txt, IPTR flags);
+
         virtual IPTR handleCreateShortHelp(LONG mx, LONG my);
+
         virtual IPTR handleDeleteBubble(IPTR bubble);
+
         virtual IPTR handleDeleteShortHelp(STRPTR help);
+
         /*
     virtual IPTR handleDragBegin(Object * obj);
     virtual IPTR handleDragDrop(Object * obj, LONG x, LONG y);
@@ -114,37 +172,55 @@ namespace Zune
     */
 
         virtual IPTR handleDrawBackground(Class *cl, Object *object, struct MUIP_DrawBackground *msg);
+
         virtual IPTR handleDispatch(Class *cl, Object *object, Msg msg);
+
         virtual IPTR handleDraw(Class *cl, Object *obj, struct MUIP_Draw *msg);
+
         virtual IPTR handleNew(Class *cl, Object *obj, struct opSet *msg);
+
         virtual IPTR handleDispose(Class *cl, Object *obj, Msg msg);
+
         virtual IPTR handleSet(Class *cl, Object *obj, struct opSet *msg);
+
         virtual IPTR handleGet(Class *cl, Object *obj, struct opGet *msg);
+
         virtual IPTR handleSetup(Class *cl, Object *obj, struct MUI_RenderInfo *msg);
+
         virtual IPTR handleCleanup(Class *cl, Object *obj, Msg msg);
+
         virtual IPTR handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax *msg);
+
         virtual IPTR handleCustomEvent(Class *cl, Object *obj, Msg msg);
+
         virtual IPTR handleEvent(Class *cl, Object *obj, struct MUIP_HandleEvent *msg);
+
         virtual IPTR handleInput(Class *cl, Object *obj, struct MUIP_HandleInput *msg);
 
         virtual Class *registerClass();
 
-        template <typename T>
+        template<typename T>
         void addEvent(Notify *obj, EventType eventType, T *, void (T::*)());
+
         bool hasEvent(ULONG eventId);
 
         Class *registerClassWithId(ClassID classId);
 
     private:
         std::map<ULONG, Event *> eventIds;
+
         ULONG generateId();
+
         Class *mcc;
+
         Class *createCustomClass(ClassID classId);
+
         ULONG EVENT_ID_START = TAG_USER + 22;
     };
+}
 
     template <typename T>
-    void Area::addEvent(Notify *object, EventType eventType, T *t, void (T::*method)())
+    void Zune::Area::addEvent(Notify *object, EventType eventType, T *t, void (T::*method)())
     {
         ULONG id = generateId();
 
@@ -168,5 +244,4 @@ namespace Zune
 */
     }
 
-} // namespace Zune
 #endif /* AREA_H */

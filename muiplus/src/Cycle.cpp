@@ -1,26 +1,28 @@
 #include "include/Cycle.h"
+#include "include/Group.h"
+#include "include/ZuneObject.h"
 
-Cycle::Cycle(Object* obj)
+Zune::Cycle::Cycle(Object* obj)
 : Group() {
     object = obj;
 }
 
-Cycle::Cycle(std::string label, CONST_STRPTR entries[])
+Zune::Cycle::Cycle(std::string label, CONST_STRPTR entries[])
 : Group() {
     object = MUI_MakeObject(MUIO_Cycle, (IPTR) label.c_str(), (IPTR) entries);
 }
 
-Cycle& Cycle::operator=(Object* obj) {
+Zune::Cycle& Zune::Cycle::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-LONG Cycle::active() const {
+LONG Zune::Cycle::active() const {
     return (LONG) mGetAttr(MUIA_Cycle_Active);
 }
 
-void Cycle::setActive(LONG value) {
+void Zune::Cycle::setActive(LONG value) {
     setAttr(MUIA_Cycle_Active, (IPTR) value);
 }
 
-Cycle::Cycle() {}
+Zune::Cycle::Cycle() {}

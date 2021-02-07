@@ -1,5 +1,4 @@
 #include "include/Mccprefs.h"
 
-Mccprefs::Mccprefs()
-: Group() {
+Zune::Mccprefs::Mccprefs() : Group() {
 }

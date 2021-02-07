@@ -9,7 +9,7 @@
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "intelliSenseMode": "linux-gcc-x64"
         },
         {
             "name": "aros-x86",
@@ -21,8 +21,9 @@
             "defines": [],
             "compilerPath": "/home/bsek/src/x86/bin/linux-x86_64/tools/crosstools/x86_64-aros-g++",
             "cStandard": "c11",
-            "cppStandard": "c++17", 
-            "intelliSenseMode": "clang-x64"
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compileCommands": "${workspaceFolder}/build/compile_commands.json"
         }
     ],
     "version": 4

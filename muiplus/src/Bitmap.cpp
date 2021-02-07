@@ -1,82 +1,83 @@
 #include "include/Bitmap.h"
+#include "include/ZuneObject.h"
 
-Bitmap::Bitmap()
+Zune::Bitmap::Bitmap()
 : Area() {
 
 }
 
-Bitmap::Bitmap(struct BitMap * value)
+Zune::Bitmap::Bitmap(struct BitMap * value)
         : Area() {
     object = MUI_NewObject(MUIC_Bitmap, MUIA_Bitmap_Bitmap, (IPTR) value, TAG_END);
 }
 
-Bitmap::Bitmap(Object* obj)
+Zune::Bitmap::Bitmap(Object* obj)
 : Area() {
     object = obj;
 }
 
-Bitmap & Bitmap::operator=(Object * obj) {
+Zune::Bitmap & Zune::Bitmap::operator=(Object * obj) {
     object = obj;
     return *this;
 }
 
-struct BitMap * Bitmap::bitmap(void) const {
+struct BitMap * Zune::Bitmap::bitmap(void) const {
     return (struct BitMap *) mGetAttr(MUIA_Bitmap_Bitmap);
 }
 
-void Bitmap::setBitmap(struct BitMap * value) {
+void Zune::Bitmap::setBitmap(struct BitMap * value) {
     setAttr(MUIA_Bitmap_Bitmap, (IPTR) value);
 }
 
-LONG Bitmap::height(void) const {
+LONG Zune::Bitmap::height(void) const {
     return (LONG) mGetAttr(MUIA_Bitmap_Height);
 }
 
-void Bitmap::setHeight(LONG value) {
+void Zune::Bitmap::setHeight(LONG value) {
     setAttr(MUIA_Bitmap_Height, (IPTR) value);
 }
 
-UBYTE * Bitmap::mappingTable(void) const {
+UBYTE * Zune::Bitmap::mappingTable(void) const {
     return (UBYTE *) mGetAttr(MUIA_Bitmap_MappingTable);
 }
 
-void Bitmap::setMappingTable(UBYTE * value) {
+void Zune::Bitmap::setMappingTable(UBYTE * value) {
     setAttr(MUIA_Bitmap_MappingTable, (IPTR) value);
 }
 
-LONG Bitmap::precision(void) const {
+LONG Zune::Bitmap::precision(void) const {
     return (LONG) mGetAttr(MUIA_Bitmap_Precision);
 }
 
-void Bitmap::setPrecision(LONG value) {
+void Zune::Bitmap::setPrecision(LONG value) {
     setAttr(MUIA_Bitmap_Precision, (IPTR) value);
 }
 
-struct BitMap * Bitmap::remappedBitmap(void) const {
+struct BitMap * Zune::Bitmap::remappedBitmap(void) const {
     return (struct BitMap *) mGetAttr(MUIA_Bitmap_RemappedBitmap);
 }
 
-IPTR * Bitmap::sourceColors(void) const {
+IPTR * Zune::Bitmap::sourceColors(void) const {
     return (IPTR *) mGetAttr(MUIA_Bitmap_SourceColors);
 }
 
-void Bitmap::setSourceColors(IPTR * value) {
+void Zune::Bitmap::setSourceColors(IPTR * value) {
     setAttr(MUIA_Bitmap_SourceColors, (IPTR) value);
 }
 
-LONG Bitmap::transparent(void) const {
+LONG Zune::Bitmap::transparent(void) const {
     return (LONG) mGetAttr(MUIA_Bitmap_Transparent);
 }
 
-void Bitmap::setTransparent(LONG value) {
+void Zune::Bitmap::setTransparent(LONG value) {
     setAttr(MUIA_Bitmap_Transparent, (IPTR) value);
 }
 
-LONG Bitmap::width(void) const {
+LONG Zune::Bitmap::width(void) const {
     return (LONG) mGetAttr(MUIA_Bitmap_Width);
 }
 
-void Bitmap::setWidth(LONG value) {
+void Zune::Bitmap::setWidth(LONG value) {
     setAttr(MUIA_Bitmap_Width, (IPTR) value);
 }
 

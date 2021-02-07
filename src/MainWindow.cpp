@@ -1,14 +1,17 @@
 #include <iostream>
 #include <Checkmark.h>
 #include <Button.h>
-#include <HGroup.h>
 #include <Text.h>
 #include <Rectangle.h>
-#include <VSpace.h>
+#include <Group.h>
+
 #include "MainWindow.h"
 #include "Buttons.h"
+#include "Scrollgroup.h"
+#include "Window.h"
 
-MainWindow::MainWindow(LONG id, Application *app) : window(id) {
+MainWindow::MainWindow(LONG id,
+                       Zune::Application *app) : window(id) {
     std::cout << "MainWindow base const" << std::endl;
     init();
     this->application = app;
@@ -19,38 +22,38 @@ MainWindow::MainWindow(LONG id) : window(id) {
     init();
 }
 
-MainWindow::MainWindow(Window &win) : window(std::move(win)) {
+MainWindow::MainWindow(Zune::Window &win) : window(std::move(win)) {
     std::cout << "MainWindow cmui win const" << std::endl;
 }
 
 void MainWindow::init() {
     std::cout << "MainWindow init" << std::endl;
 
-    mainGroup = VGroup{};
+    mainGroup = Zune::Group{};
 
     imageArea = new ImageArea{};
     //sourceEditor = new SourceEditor{};
 
-    scrollgroup = new Scrollgroup(imageArea->operator*(), true, true);
+    scrollgroup = new Zune::Scrollgroup(imageArea->operator*(), true, true);
 
-    Rectangle hBar(HORIZONTAL, 5, "Title");
+    Zune::Rectangle hBar(Zune::HORIZONTAL, 5, "Title");
 
     mainGroup.addMember(scrollgroup->operator*());
-    auto hGroup = new HGroup{};
+    auto hGroup = new Zune::Group{};
     //hGroup->addMember(*(*imageArea));
     //hGroup->addMember(*(*sourceEditor));
 
     mainGroup.addMember(*(*hGroup));
     mainGroup.addMember(*hBar);
 
-    Button button("test button");
+    Zune::Button button("test button");
     mainGroup.addMember(*button);
 
     mainGroup.addMember(*buttons);
     window.addChildToGroup(*mainGroup);
 }
 
-Window& MainWindow::getWindow() {
+Zune::Window& MainWindow::getWindow() {
     return window;
 }
 

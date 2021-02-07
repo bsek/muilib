@@ -1,5 +1,4 @@
 #include <Virtgroup.h>
-#include <Label.h>
 #include <String.h>
 #include <Radio.h>
 #include <Rectangle.h>
@@ -7,9 +6,11 @@
 #include <Register.h>
 #include <Button.h>
 #include "ImageArea.h"
+#include <Group.h>
+#include <ZuneObject.h>
 #include <proto/graphics.h>
 
-ImageArea::ImageArea() : Virtgroup() {
+ImageArea::ImageArea() : Zune::Virtgroup() {
     registerClass();
 
     mouse_x = 0;
@@ -21,39 +22,39 @@ ImageArea::ImageArea() : Virtgroup() {
     rGenderContent[1] = "Male";
     rGenderContent[2] = NULL;
 
-    Label lHead("New Personal Record", MUIO_Label_Centered);
-    Label lInfo("   Please, fill in the blanks to add new personal record.   ", MUIO_Label_Centered);
+    Object *lHead = MUI_MakeObject(MUIO_Label, "New Personal Record", MUIO_Label_Centered);
+    Object *lInfo = MUI_MakeObject(MUIO_Label, "   Please, fill in the blanks to add new personal record.   ", MUIO_Label_Centered);
 
-    String StrName("", 50);
+    Zune::String StrName("", 50);
     StrName.set(MUIA_Frame, MUIV_Frame_String);
 
-    Label obj_aux1("        Name :", MUIO_Label_DoubleFrame);
+    Object *obj_aux1 = MUI_MakeObject(MUIO_Label, "        Name :", MUIO_Label_DoubleFrame);
 
     Object *obj = MUI_NewObject(MUIC_Group, TAG_END);
-    Group obj_aux0{obj};
+    Zune::Group obj_aux0{obj};
     obj_aux0.setColumns(2);
-    obj_aux0.addMember(*obj_aux1);
+    obj_aux0.addMember(obj_aux1);
     obj_aux0.addMember(*StrName);
 
-    String StrPhoneNumber("", 50);
+    Zune::String StrPhoneNumber("", 50);
     StrPhoneNumber.set(MUIA_Frame, MUIV_Frame_String);
     StrPhoneNumber.set(MUIA_String_Accept, (IPTR) "0123456789");
 
-    Label obj_aux3("Phone Number :", MUIO_Label_DoubleFrame);
+    Object * obj_aux3 = MUI_MakeObject(MUIO_Label,"Phone Number :", MUIO_Label_DoubleFrame);
 
-    obj_aux0.addMember(*obj_aux3);
+    obj_aux0.addMember(obj_aux3);
     obj_aux0.addMember(*StrPhoneNumber);
 
-    Radio rGender(label, rGenderContent);
+    Zune::Radio rGender(label, rGenderContent);
     rGender.set(MUIA_Frame, MUIV_Frame_Group);
 
     set(MUIA_Frame, MUIV_Frame_Virtual);
     set(MUIA_InputMode, MUIV_InputMode_RelVerify);
 
-    Rectangle rectangle(MUI_Rectangle_Direction::VERTICAL, 100, "");
-    cycle = new Cycle("Cycle", rGenderContent);
+    Zune::Rectangle rectangle(Zune::MUI_Rectangle_Direction::VERTICAL, 100, "");
+    cycle = new Zune::Cycle("Cycle", rGenderContent);
 
-    cmuiRegister = new Register(rGenderContent);
+    cmuiRegister = new Zune::Register(rGenderContent);
     cmuiRegister->addMember(*rGender);
     cmuiRegister->addMember(cycle->operator*());
 
@@ -66,7 +67,7 @@ ImageArea::ImageArea() : Virtgroup() {
     //   });
 
 
-    addEvent(this, EventType::PRESSED, this, &ImageArea::setMoveActive);
+    addEvent(this, Zune::EventType::PRESSED, this, &ImageArea::setMoveActive);
 
     /* addMember(*lHead);
      addMember(*lInfo);

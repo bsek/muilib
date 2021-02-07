@@ -2,14 +2,17 @@
 #define SETTINGSGROUP_H
 
 #include "Group.h"
+#include "ZuneObject.h"
 
-class Settingsgroup : public Group {
-public:
-    IPTR ConfigToGadgets(Object * configdata);
-    IPTR GadgetsToConfig(Object * configdata);
-protected:
-    Settingsgroup();
-};
+namespace Zune {
+    class Settingsgroup : public Zune::Group {
+    public:
+        IPTR ConfigToGadgets(Object * configdata);
+        IPTR GadgetsToConfig(Object * configdata);
+    protected:
+        Settingsgroup();
+    };
+}
 
 #endif /* SETTINGSGROUP_H */
 

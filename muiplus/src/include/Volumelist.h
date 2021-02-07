@@ -1,16 +1,15 @@
 #ifndef VOLUMELIST_H
 #define VOLUMELIST_H
 
-#include "List.h"
+#include "ZuneList.h"
+#include "ZuneObject.h"
 
-class Volumelist : public List {
-public:
-    Volumelist(Object * obj);
-    Volumelist & operator=(Object * obj);
-
-protected:
-    Volumelist();
-};
+namespace Zune {
+class Volumelist : public Zune::ZuneList<std::string> {
+    public:
+        Volumelist & operator=(Object * obj);
+    };
+}
 
 
 #endif /* VOLUMELIST_H */

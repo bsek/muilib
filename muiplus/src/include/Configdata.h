@@ -3,11 +3,13 @@
 
 #include "Dataspace.h"
 
-class Configdata : public Dataspace {
-public:
-protected:
-    Configdata();
-};
+namespace Zune {
+    class Configdata : public Dataspace {
+    public:
+    protected:
+        Configdata();
+    };
+}
 
 
 #endif

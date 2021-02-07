@@ -3,19 +3,19 @@
 
 #include <Button.h>
 #include <Group.h>
-#include <HGroup.h>
+#include <Group.h>
 #include <Checkmark.h>
 
 #include "SmallButton.h"
 
-class Buttons : public Group {
+class Buttons : public Zune::Group {
 private:
-    Button importButton{"Test button"};
-    Checkmark *importJPEG;
-    Button bAdd{"Add & show new record"};
-    Button bClose{"Close"};
-    Button *bInfo;
-    HGroup group;
+    Zune::Button importButton{"Test button"};
+    Zune::Checkmark *importJPEG;
+    Zune::Button bAdd{"Add & show new record"};
+    Zune::Button bClose{"Close"};
+    Zune::Button *bInfo;
+    Zune::Group group{Zune::GroupDirection::Horizontal};
     SmallButton* smallButton;
     int someValue = 5;
 public:

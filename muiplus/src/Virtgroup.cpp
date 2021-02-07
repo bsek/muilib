@@ -1,42 +1,44 @@
 #include "include/Virtgroup.h"
+#include "include/Group.h"
+#include "include/ZuneObject.h"
 
-Virtgroup::Virtgroup()
-: Group() {
+Zune::Virtgroup::Virtgroup()
+: Zune::Group() {
 }
 
-Virtgroup::Virtgroup(Object* obj)
-: Group(obj) {
+Zune::Virtgroup::Virtgroup(Object* obj)
+: Zune::Group(obj) {
 }
 
-Virtgroup& Virtgroup::operator=(Object* obj) {
+Zune::Virtgroup& Zune::Virtgroup::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-LONG Virtgroup::height() const {
+LONG Zune::Virtgroup::height() const {
     return (LONG) mGetAttr(MUIA_Virtgroup_Height);
 }
 
-LONG Virtgroup::left() const {
+LONG Zune::Virtgroup::left() const {
     return (LONG) mGetAttr(MUIA_Virtgroup_Left);
 }
 
-void Virtgroup::setLeft(LONG value) {
+void Zune::Virtgroup::setLeft(LONG value) {
     setAttr(MUIA_Virtgroup_Left, (IPTR) value);
 }
 
-LONG Virtgroup::top() const {
+LONG Zune::Virtgroup::top() const {
     return (LONG) mGetAttr(MUIA_Virtgroup_Top);
 }
 
-void Virtgroup::setTop(LONG value) {
+void Zune::Virtgroup::setTop(LONG value) {
     setAttr(MUIA_Virtgroup_Top, (IPTR) value);
 }
 
-LONG Virtgroup::width() const {
+LONG Zune::Virtgroup::width() const {
     return (LONG) mGetAttr(MUIA_Virtgroup_Width);
 }
 
-Class *Virtgroup::registerClass() {
+Class *Zune::Virtgroup::registerClass() {
     return Area::registerClassWithId((ClassID) MUIC_Virtgroup);
 }

@@ -1,41 +1,43 @@
 #include "include/Palette.h"
+#include "include/Group.h"
+#include "include/ZuneObject.h"
 
-Palette::Palette()
+Zune::Palette::Palette()
 : Group() {
 }
 
-Palette::Palette(BOOL groupable, struct MUI_Palette_Entry *entries, STRPTR *names) {
+Zune::Palette::Palette(BOOL groupable, struct MUI_Palette_Entry *entries, STRPTR *names) {
     object = MUI_NewObject(MUIC_Palette, MUIA_Palette_Groupable, (IPTR) groupable,
             MUIA_Palette_Entries, (IPTR) entries, MUIA_Palette_Names, (IPTR) names, TAG_END);
 }
 
-Palette::Palette(Object* obj)
+Zune::Palette::Palette(Object* obj)
 : Group() {
     object = obj;
 }
 
-Palette& Palette::operator=(Object* obj) {
+Zune::Palette& Zune::Palette::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-struct MUI_Palette_Entry * Palette::entries() const {
+struct MUI_Palette_Entry * Zune::Palette::entries() const {
     return (struct MUI_Palette_Entry *) mGetAttr(MUIA_Palette_Entries);
 }
 
-BOOL Palette::groupable() const {
+BOOL Zune::Palette::groupable() const {
     return (BOOL) mGetAttr(MUIA_Palette_Groupable);
 }
 
-void Palette::setGroupable(BOOL value) {
+void Zune::Palette::setGroupable(BOOL value) {
     setAttr(MUIA_Palette_Groupable, (IPTR) value);
 }
 
-char ** Palette::names() const {
+char ** Zune::Palette::names() const {
     return (char **) mGetAttr(MUIA_Palette_Names);
 }
 
-void Palette::setNames(STRPTR value[]) {
+void Zune::Palette::setNames(STRPTR value[]) {
     setAttr(MUIA_Palette_Names, (IPTR) value);
 }
 

@@ -1,15 +1,8 @@
 #include "include/Volumelist.h"
+#include "include/ZuneList.h"
+#include "include/ZuneObject.h"
 
-Volumelist::Volumelist()
-: List() {
-}
-
-Volumelist::Volumelist(Object* obj)
-: List() {
-    object = obj;
-}
-
-Volumelist& Volumelist::operator=(Object* obj) {
+Zune::Volumelist& Zune::Volumelist::operator=(Object* obj) {
     object = obj;
     return *this;
 }

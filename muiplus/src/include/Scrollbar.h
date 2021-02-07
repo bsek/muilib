@@ -2,16 +2,18 @@
 #define SCROLLBAR_H
 
 #include "Group.h"
+#include "ZuneObject.h"
 
-class Scrollbar : public Group {
-public:
-    Scrollbar(Object * obj);
-    Scrollbar & operator=(Object * obj);
+namespace Zune {
+    class Scrollbar : public Zune::Group {
+    public:
+        Scrollbar(Object * obj);
+        Scrollbar & operator=(Object * obj);
 
-protected:
-    Scrollbar();
-};
-
+    protected:
+        Scrollbar();
+    };
+}
 
 #endif /* SCROLLBAR_H */
 

@@ -1,4 +1,6 @@
 #include "include/Area.h"
+#include "include/ZuneObject.h"
+#include "include/Window.h"
 
 #include <iostream>
 #include <algorithm>
@@ -7,7 +9,7 @@
 #include <SDI/SDI_stdarg.h>
 
 struct InstanceData {
-    Area *classObj;
+    Zune::Area *classObj;
 };
 
 struct Data {
@@ -19,8 +21,8 @@ struct Data {
 IPTR generalDispatcher(struct IClass *cl, Object *obj, Msg msg) {
     if (msg->MethodID == OM_NEW) {
         struct TagItem *tags = ((struct opSet *) msg)->ops_AttrList;
-        Area *clazz = (Area *) GetTagData(CUSTOM_MUI_CLASS, (IPTR) " ", tags);
-        Object* instance = (Object*) std::invoke(&Area::handleDispatch, clazz, cl, obj, msg);
+        Zune::Area *clazz = (Zune::Area *) GetTagData(Zune::CUSTOM_MUI_CLASS, (IPTR) " ", tags);
+        Object* instance = (Object*) std::invoke(&Zune::Area::handleDispatch, clazz, cl, obj, msg);
 
         // Save a reference to the class instance in the object´s instance data
         InstanceData *instanceData = (InstanceData *) INST_DATA(cl, instance);
@@ -32,276 +34,274 @@ IPTR generalDispatcher(struct IClass *cl, Object *obj, Msg msg) {
     InstanceData *instanceData = (InstanceData *) INST_DATA(cl, obj);
 
     if (instanceData->classObj != nullptr) {
-        return std::invoke(&Area::handleDispatch, instanceData->classObj, cl, obj, msg);
+        return std::invoke(&Zune::Area::handleDispatch, instanceData->classObj, cl, obj, msg);
     }
 
     return DoSuperMethodA(cl, obj, msg);
 }
 
-Area::Area() {}
-
-void Area::setFixWidth(LONG value) {
+void Zune::Area::setFixWidth(LONG value) {
     setAttr(MUIA_FixWidth, (IPTR) value);
 }
 
-void Area::setFixHeight(LONG value) {
+void Zune::Area::setFixHeight(LONG value) {
     setAttr(MUIA_FixHeight, (IPTR) value);
 }
 
-LONG Area::fixHeigth() const {
+LONG Zune::Area::fixHeight() const {
     return (LONG) mGetAttr(MUIA_FixHeight);
 }
 
-LONG Area::fixWidth() const {
+LONG Zune::Area::fixWidth() const {
     return (LONG) mGetAttr(MUIA_FixWidth);
 }
 
-void Area::setBackground(LONG value) {
+void Zune::Area::setBackground(LONG value) {
     setAttr(MUIA_Background, (IPTR) value);
 }
 
-LONG Area::bottomEdge() const {
+LONG Zune::Area::bottomEdge() const {
     return (LONG) mGetAttr(MUIA_BottomEdge);
 }
 
-Object * Area::contextMenu() const {
+Object * Zune::Area::contextMenu() const {
     return (Object *) mGetAttr(MUIA_ContextMenu);
 }
 
-void Area::setContextMenu(Object * value) {
+void Zune::Area::setContextMenu(Object * value) {
     setAttr(MUIA_ContextMenu, (IPTR) value);
 }
 
-Object * Area::contextMenuTrigger() const {
+Object * Zune::Area::contextMenuTrigger() const {
     return (Object *) mGetAttr(MUIA_ContextMenuTrigger);
 }
 
-char Area::controlChar() const {
+char Zune::Area::controlChar() const {
     return (char) mGetAttr(MUIA_ControlChar);
 }
 
-void Area::setControlChar(char value) {
+void Zune::Area::setControlChar(char value) {
     setAttr(MUIA_ControlChar, (IPTR) value);
 }
 
-LONG Area::cycleChain() const {
+LONG Zune::Area::cycleChain() const {
     return (LONG) mGetAttr(MUIA_CycleChain);
 }
 
-void Area::setCycleChain(LONG value) {
+void Zune::Area::setCycleChain(LONG value) {
     setAttr(MUIA_CycleChain, (IPTR) value);
 }
 
-BOOL Area::disabled() const {
+BOOL Zune::Area::disabled() const {
     return (BOOL) mGetAttr(MUIA_Disabled);
 }
 
-void Area::setDisabled(BOOL value) {
+void Zune::Area::setDisabled(BOOL value) {
     setAttr(MUIA_Disabled, (IPTR) value);
 }
 
-BOOL Area::draggable() const {
+BOOL Zune::Area::draggable() const {
     return (BOOL) mGetAttr(MUIA_Draggable);
 }
 
-void Area::setDraggable(BOOL value) {
+void Zune::Area::setDraggable(BOOL value) {
     setAttr(MUIA_Draggable, (IPTR) value);
 }
 
-BOOL Area::dropable() const {
+BOOL Zune::Area::dropable() const {
     return (BOOL) mGetAttr(MUIA_Dropable);
 }
 
-void Area::setDropable(BOOL value) {
+void Zune::Area::setDropable(BOOL value) {
     setAttr(MUIA_Dropable, (IPTR) value);
 }
 
-void Area::setFillArea(BOOL value) {
+void Zune::Area::setFillArea(BOOL value) {
     setAttr(MUIA_FillArea, (IPTR) value);
 }
 
-struct TextFont * Area::font() const {
+struct TextFont * Zune::Area::font() const {
     return (struct TextFont *) mGetAttr(MUIA_Font);
 }
 
-LONG Area::height() const {
+LONG Zune::Area::height() const {
     return (LONG) mGetAttr(MUIA_Height);
 }
 
-LONG Area::horizDisappear() const {
+LONG Zune::Area::horizDisappear() const {
     return (LONG) mGetAttr(MUIA_HorizDisappear);
 }
 
-void Area::setHorizDisappear(LONG value) {
+void Zune::Area::setHorizDisappear(LONG value) {
     setAttr(MUIA_HorizDisappear, (IPTR) value);
 }
 
-WORD Area::horizWeight() const {
+WORD Zune::Area::horizWeight() const {
     return (WORD) mGetAttr(MUIA_HorizWeight);
 }
 
-void Area::setHorizWeight(WORD value) {
+void Zune::Area::setHorizWeight(WORD value) {
     setAttr(MUIA_HorizWeight, (IPTR) value);
 }
 
-LONG Area::innerBottom() const {
+LONG Zune::Area::innerBottom() const {
     return (LONG) mGetAttr(MUIA_InnerBottom);
 }
 
-LONG Area::innerLeft() const {
+LONG Zune::Area::innerLeft() const {
     return (LONG) mGetAttr(MUIA_InnerLeft);
 }
 
-LONG Area::innerRight() const {
+LONG Zune::Area::innerRight() const {
     return (LONG) mGetAttr(MUIA_InnerRight);
 }
 
-LONG Area::innerTop() const {
+LONG Zune::Area::innerTop() const {
     return (LONG) mGetAttr(MUIA_InnerTop);
 }
 
-LONG Area::leftEdge() const {
+LONG Zune::Area::leftEdge() const {
     return (LONG) mGetAttr(MUIA_LeftEdge);
 }
 
-BOOL Area::pressed() const {
+BOOL Zune::Area::pressed() const {
     return (BOOL) mGetAttr(MUIA_Pressed);
 }
 
-LONG Area::rightEdge() const {
+LONG Zune::Area::rightEdge() const {
     return (LONG) mGetAttr(MUIA_RightEdge);
 }
 
-BOOL Area::selected() const {
+BOOL Zune::Area::selected() const {
     return (BOOL) mGetAttr(MUIA_Selected);
 }
 
-void Area::setSelected(BOOL value) {
+void Zune::Area::setSelected(BOOL value) {
     setAttr(MUIA_Selected, (IPTR) value);
 }
 
-STRPTR Area::shortHelp() const {
+STRPTR Zune::Area::shortHelp() const {
     return (STRPTR) mGetAttr(MUIA_ShortHelp);
 }
 
-void Area::setShortHelp(STRPTR value) {
+void Zune::Area::setShortHelp(STRPTR value) {
     setAttr(MUIA_ShortHelp, (IPTR) value);
 }
 
-BOOL Area::showMe() const {
+BOOL Zune::Area::showMe() const {
     return (BOOL) mGetAttr(MUIA_ShowMe);
 }
 
-void Area::setShowMe(BOOL value) {
+void Zune::Area::setShowMe(BOOL value) {
     setAttr(MUIA_ShowMe, (IPTR) value);
 }
 
-LONG Area::timer() const {
+LONG Zune::Area::timer() const {
     return (LONG) mGetAttr(MUIA_Timer);
 }
 
-LONG Area::topEdge() const {
+LONG Zune::Area::topEdge() const {
     return (LONG) mGetAttr(MUIA_TopEdge);
 }
 
-LONG Area::vertDisappear() const {
+LONG Zune::Area::vertDisappear() const {
     return (LONG) mGetAttr(MUIA_VertDisappear);
 }
 
-void Area::setVertDisappear(LONG value) {
+void Zune::Area::setVertDisappear(LONG value) {
     setAttr(MUIA_VertDisappear, (IPTR) value);
 }
 
-WORD Area::vertWeight() const {
+WORD Zune::Area::vertWeight() const {
     return (WORD) mGetAttr(MUIA_VertWeight);
 }
 
-void Area::setVertWeight(WORD value) {
+void Zune::Area::setVertWeight(WORD value) {
     setAttr(MUIA_VertWeight, (IPTR) value);
 }
 
-LONG Area::width() const {
+LONG Zune::Area::width() const {
     return (LONG) mGetAttr(MUIA_Width);
 }
 
-struct Window * Area::window() const {
-    return (struct Window *) mGetAttr(MUIA_Window);
+struct Zune::Window * Zune::Area::window() const {
+    return (struct Zune::Window *) mGetAttr(MUIA_Window);
 }
 
-Object * Area::windowObject() const {
+Object * Zune::Area::windowObject() const {
     return (Object *) mGetAttr(MUIA_WindowObject);
 }
 
-IPTR Area::handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* msg) {
+IPTR Zune::Area::handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* msg) {
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Area::handleCleanup(Class *cl, Object *obj, Msg msg) {
+IPTR Zune::Area::handleCleanup(Class *cl, Object *obj, Msg msg) {
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Area::handleContextMenuBuild(LONG mx, LONG my) {
+IPTR Zune::Area::handleContextMenuBuild(LONG mx, LONG my) {
     return DoMethod(object,MUIM_ContextMenuBuild, mx, my);
 }
 
-IPTR Area::handleContextMenuChoice(Object * item) {
+IPTR Zune::Area::handleContextMenuChoice(Object * item) {
     return DoMethod(object,MUIM_ContextMenuChoice, (IPTR)item);
 }
 
-IPTR Area::handleCreateBubble(LONG x, LONG y, char * txt, IPTR flags) {
+IPTR Zune::Area::handleCreateBubble(LONG x, LONG y, char * txt, IPTR flags) {
     return DoMethod(object,MUIM_CreateBubble, x, y, txt, flags);
 }
 
-IPTR Area::handleCreateShortHelp(LONG mx, LONG my) {
+IPTR Zune::Area::handleCreateShortHelp(LONG mx, LONG my) {
     return DoMethod(object,MUIM_CreateShortHelp, mx, my);
 }
 
-IPTR Area::handleDeleteBubble(IPTR bubble) {
+IPTR Zune::Area::handleDeleteBubble(IPTR bubble) {
     return DoMethod(object,MUIM_DeleteBubble, bubble);
 }
 
-IPTR Area::handleDeleteShortHelp(STRPTR help) {
+IPTR Zune::Area::handleDeleteShortHelp(STRPTR help) {
     return DoMethod(object,MUIM_DeleteShortHelp,  (IPTR)help);
 }
 
-IPTR Area::hide() {
+IPTR Zune::Area::hide() {
     return DoMethod(object,MUIM_Hide);
 }
 
-IPTR Area::show() {
+IPTR Zune::Area::show() {
     return DoMethod(object,MUIM_Show);
 }
 
-Class * Area::registerClass() {
+Class * Zune::Area::registerClass() {
     return registerClassWithId((ClassID) MUIC_Area);
 }
 
-void Area::addEventHandler(struct MUI_EventHandlerNode &ehNode) {
+void Zune::Area::addEventHandler(struct MUI_EventHandlerNode &ehNode) {
     DoMethod(windowObject(), MUIM_Window_AddEventHandler, &ehNode);
 }
 
-void Area::removeEventHandler(struct MUI_EventHandlerNode &ehNode) {
+void Zune::Area::removeEventHandler(struct MUI_EventHandlerNode &ehNode) {
     DoMethod(windowObject(), MUIM_Window_RemEventHandler, &ehNode);
 }
 
-void Area::setMcc(Class *mcc) {
+void Zune::Area::setMcc(Class *mcc) {
     this->mcc = mcc;
 }
 
-Class *Area::getMcc() const {
+Class *Zune::Area::getMcc() const {
     return mcc;
 }
 
-bool Area::hasEvent(ULONG eventId) {
+bool Zune::Area::hasEvent(ULONG eventId) {
     return (eventIds.find(eventId) != eventIds.end());
 }
 
-ULONG Area::generateId() {
+ULONG Zune::Area::generateId() {
     return EVENT_ID_START++;
 }
 
 Class *
-Area::createCustomClass(ClassID classId) {
+Zune::Area::createCustomClass(ClassID classId) {
     auto mcc = MUI_CreateCustomClass(NULL, classId, NULL, sizeof(InstanceData), (APTR) generalDispatcher);
 
     if (!mcc) {
@@ -322,58 +322,58 @@ Area::createCustomClass(ClassID classId) {
 }
 
 Class *
-Area::registerClassWithId(ClassID classId) {
+Zune::Area::registerClassWithId(ClassID classId) {
     return createCustomClass(classId);
 }
 
 
-IPTR Area::handleDraw(struct IClass *cl, Object *obj, struct MUIP_Draw *msg) {
+IPTR Zune::Area::handleDraw(struct IClass *cl, Object *obj, struct MUIP_Draw *msg) {
     // std::cout << "HandleDraw" << std::endl;
     return DoSuperMethodA(cl, obj, (Msg) msg);
 }
 
-IPTR Area::handleNew(struct IClass *cl, Object *obj, struct opSet *msg) {
+IPTR Zune::Area::handleNew(struct IClass *cl, Object *obj, struct opSet *msg) {
     std::cout << "HandleNew" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Area::handleDispose(struct IClass *cl, Object *obj, Msg msg) {
+IPTR Zune::Area::handleDispose(struct IClass *cl, Object *obj, Msg msg) {
     std::cout << "HandleDispose" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Area::handleSet(struct IClass *cl, Object *obj, struct opSet *msg) {
+IPTR Zune::Area::handleSet(struct IClass *cl, Object *obj, struct opSet *msg) {
     std::cout << "HandleSet" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Area::handleGet(struct IClass *cl, Object *obj, struct opGet *msg) {
+IPTR Zune::Area::handleGet(struct IClass *cl, Object *obj, struct opGet *msg) {
     std::cout << "HandleGet" << std::endl;
     printf("Message: %x\n", msg->opg_AttrID);
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Area::handleEvent(Class *cl, Object *obj, struct MUIP_HandleEvent* msg) {
+IPTR Zune::Area::handleEvent(Class *cl, Object *obj, struct MUIP_HandleEvent* msg) {
     std::cout << "HandleEvent2" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Area::handleInput(Class *cl, Object *obj, struct MUIP_HandleInput* msg) {
+IPTR Zune::Area::handleInput(Class *cl, Object *obj, struct MUIP_HandleInput* msg) {
     std::cout << "HandleInput2" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Area::handleSetup(Class *cl, Object *obj, struct MUI_RenderInfo* msg) {
+IPTR Zune::Area::handleSetup(Class *cl, Object *obj, struct MUI_RenderInfo* msg) {
     std::cout << "HandleSetup" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Area::handleDrawBackground(Class* cl, Object *obj, struct MUIP_DrawBackground* msg) {
+IPTR Zune::Area::handleDrawBackground(Class* cl, Object *obj, struct MUIP_DrawBackground* msg) {
     std::cout << "HandleDrawBackground" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Area::handleCustomEvent(struct IClass *cl, Object *obj, Msg msg) {
+IPTR Zune::Area::handleCustomEvent(struct IClass *cl, Object *obj, Msg msg) {
     struct Data *data = (Data *) msg;
 
     auto id = data->tag;
@@ -399,7 +399,7 @@ IPTR Area::handleCustomEvent(struct IClass *cl, Object *obj, Msg msg) {
     return DoSuperMethodA(cl, obj, (Msg) msg);
 }
 
-IPTR Area::handleDispatch(struct IClass *cl, Object *obj, Msg msg) {
+IPTR Zune::Area::handleDispatch(struct IClass *cl, Object *obj, Msg msg) {
 
 
     std::cout << "HandleDispatch with MethodId: " << msg->MethodID << " obj: " << obj << std::endl;
@@ -440,3 +440,5 @@ IPTR Area::handleDispatch(struct IClass *cl, Object *obj, Msg msg) {
 
     return DoSuperMethodA(cl, obj, msg);
 }
+
+Zune::Area::Area() {}

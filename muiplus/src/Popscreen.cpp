@@ -1,15 +1,16 @@
 #include "include/Popscreen.h"
+#include "include/ZuneObject.h"
 
-Popscreen::Popscreen()
-: Popobject() {
+Zune::Popscreen::Popscreen()
+: Zune::Popobject() {
 }
 
-Popscreen::Popscreen(Object* obj)
-: Popobject() {
+Zune::Popscreen::Popscreen(Object* obj)
+: Zune::Popobject() {
     object = obj;
 }
 
-Popscreen& Popscreen::operator=(Object* obj) {
+Zune::Popscreen& Zune::Popscreen::operator=(Object* obj) {
     object = obj;
     return *this;
 }

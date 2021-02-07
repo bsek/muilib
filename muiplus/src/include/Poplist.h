@@ -2,16 +2,19 @@
 #define POPLIST_H
 
 #include "Popobject.h"
+#include "ZuneObject.h"
 
-class Poplist : public Popobject {
-public:
-    Poplist(STRPTR list[]);
-    Poplist(Object * obj);
-    Poplist & operator=(Object * obj);
+namespace Zune {
+    class Poplist : public Popobject {
+    public:
+        Poplist(STRPTR list[]);
+        Poplist(Object * obj);
+        Poplist & operator=(Object * obj);
 
-protected:
-    Poplist();
-};
+    protected:
+        Poplist();
+    };
+}
 
 
 #endif /* POPLIST_H */

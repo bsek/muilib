@@ -2,16 +2,19 @@
 #define POPPEN_H
 
 #include "Pendisplay.h"
+#include "ZuneObject.h"
 
-class Poppen : public Pendisplay {
-public:
-    Poppen(std::string title, uint8_t cycleChain);
-    Poppen(Object * obj);
-    Poppen & operator=(Object * obj);
+namespace Zune {
+    class Poppen : public Zune::Pendisplay {
+    public:
+        Poppen(std::string title, uint8_t cycleChain);
+        Poppen(Object * obj);
+        Poppen & operator=(Object * obj);
 
-protected:
-    Poppen();
-};
+    protected:
+        Poppen();
+    };
+}
 
 
 #endif /* POPPEN_H */

@@ -1,22 +1,24 @@
 #ifndef SEMAPHORE_H
 #define SEMAPHORE_H
 
-#include "Object.h"
+#include "ZuneObject.h"
 
-class Semaphore : public Object {
-protected:
-    Semaphore();
+namespace Zune {
+    class Semaphore : public Zune::ZuneObject {
+    protected:
+        Semaphore();
 
-public:
-    Semaphore(Object * obj);
-    Semaphore & operator=(Object * obj);
+    public:
+        Semaphore(Object * obj);
+        Semaphore & operator=(Object * obj);
 
-    IPTR Attempt();
-    IPTR AttemptShared();
-    IPTR Obtain();
-    IPTR ObtainShared();
-    IPTR Release();
-};
+        IPTR Attempt();
+        IPTR AttemptShared();
+        IPTR Obtain();
+        IPTR ObtainShared();
+        IPTR Release();
+    };
+}
 
 #endif /* SEMAPHORE_H */
 

@@ -1,36 +1,38 @@
 #include "include/Menu.h"
+#include "include/Family.h"
+#include "include/ZuneObject.h"
 
-Menu::Menu()
-: Family() {
+Zune::Menu::Menu()
+: Zune::Family() {
 }
 
-Menu::Menu(std::string title, BOOL copyStrings, BOOL menuEnable) {
+Zune::Menu::Menu(std::string title, BOOL copyStrings, BOOL menuEnable) {
     object = MUI_NewObject(MUIC_Menu, MUIA_Menu_Title, (IPTR) title.c_str(), MUIA_Menu_Enabled, (IPTR) menuEnable, TAG_END);
 }
 
-Menu::Menu(Object* obj)
-: Family() {
+Zune::Menu::Menu(Object* obj)
+: Zune::Family() {
     object = obj;
 }
 
-Menu& Menu::operator=(Object* obj) {
+Zune::Menu& Zune::Menu::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-BOOL Menu::enabled(void) const {
+BOOL Zune::Menu::enabled(void) const {
     return (BOOL) mGetAttr(MUIA_Menu_Enabled);
 }
 
-void Menu::setEnabled(BOOL value) {
+void Zune::Menu::setEnabled(BOOL value) {
     setAttr(MUIA_Menu_Enabled, (IPTR) value);
 }
 
-STRPTR Menu::title(void) const {
+STRPTR Zune::Menu::title(void) const {
     return (STRPTR) mGetAttr(MUIA_Menu_Title);
 }
 
-void Menu::setTitle(STRPTR value) {
+void Zune::Menu::setTitle(STRPTR value) {
     setAttr(MUIA_Menu_Title, (IPTR) value);
 }
 

@@ -4,22 +4,25 @@
 #include <string>
 
 #include "Area.h"
+#include "ZuneObject.h"
 
-class Text : public Area
-{
-public:
-	Text(Object * obj);
-	Text& operator =(Object * obj);
+namespace Zune {
+    class Text : public Area
+    {
+    public:
+        Text(Object * obj);
+        Text& operator =(Object * obj);
 
-	operator const char *();
-	Text& operator = (const char *contents);
-	STRPTR contents() const;
-	void setContents(std::string value);
-	STRPTR preParse() const;
-	void setPreParse(std::string value);
+        operator CONST_STRPTR();
+        Text& operator = (CONST_STRPTR contents);
+        STRPTR contents() const;
+        void setContents(std::string value);
+        STRPTR preParse() const;
+        void setPreParse(std::string value);
 
-protected:
-	Text();
-};
+    protected:
+        Text();
+    };
+}
 
 #endif	/* TEXT_H */

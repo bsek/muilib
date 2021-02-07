@@ -8,25 +8,25 @@
 #include "ImageArea.h"
 #include "SourceEditor.h"
 #include <Scrollgroup.h>
-#include <VGroup.h>
+#include <Group.h>
 
 class MainWindow {
 private:
     Buttons buttons;
     ImageArea *imageArea;
     SourceEditor *sourceEditor;
-    Window window;
-    Scrollgroup *scrollgroup;
-    VGroup mainGroup;
-    Application *application;
+    Zune::Window window;
+    Zune::Scrollgroup *scrollgroup;
+    Zune::Group mainGroup;
+    Zune::Application *application;
 public:
-    MainWindow(Window &win);
+    MainWindow(Zune::Window &win);
     MainWindow(LONG id);
-    MainWindow(LONG id, Application *app);
+    MainWindow(LONG id, Zune::Application *app);
 
     void init();
 
-    Window &getWindow();
+    Zune::Window &getWindow();
 };
 
 

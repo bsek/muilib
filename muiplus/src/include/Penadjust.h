@@ -3,11 +3,13 @@
 
 #include "Register.h"
 
-class Penadjust : public Register {
-public:
-protected:
-    Penadjust();
-};
+namespace Zune {
+    class Penadjust : public Register {
+    public:
+    protected:
+        Penadjust();
+    };
+}
 
 #endif	/* PENADJUST_H */
 

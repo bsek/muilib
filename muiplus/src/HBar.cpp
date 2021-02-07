@@ -1,20 +1,21 @@
 #include "include/HBar.h"
+#include "include/ZuneObject.h"
 
-HBar::HBar()
+Zune::HBar::HBar()
 : Rectangle() {
 }
 
-HBar::HBar(Object* obj)
+Zune::HBar::HBar(Object* obj)
 : Rectangle() {
     object = obj;
 }
 
-HBar::HBar(LONG space)
+Zune::HBar::HBar(LONG space)
 : Rectangle() {
     object = MUI_MakeObject(MUIO_HBar, (IPTR) space);
 }
 
-HBar& HBar::operator=(Object* obj) {
+Zune::HBar& Zune::HBar::operator=(Object* obj) {
     object = obj;
     return *this;
 }

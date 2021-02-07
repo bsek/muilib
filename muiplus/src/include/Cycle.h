@@ -2,19 +2,22 @@
 #define	CYCLE_H
 
 #include "Group.h"
+#include "ZuneObject.h"
 
-class Cycle : public Group {
-public:
-    Cycle(Object * obj);
-    Cycle(std::string label, CONST_STRPTR entries[]);
-    Cycle & operator=(Object * obj);
+namespace Zune {
+    class Cycle : public Group {
+    public:
+        Cycle(Object * obj);
+        Cycle(std::string label, CONST_STRPTR entries[]);
+        Cycle & operator=(Object * obj);
 
-    LONG active(void) const;
-    void setActive(LONG value);
+        LONG active(void) const;
+        void setActive(LONG value);
 
-protected:
-    Cycle();
-};
+    protected:
+        Cycle();
+    };
+}
 
 #endif	/* CYCLE_H */
 

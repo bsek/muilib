@@ -1,6 +1,7 @@
 #include "include/Configdata.h"
+#include "include/Dataspace.h"
 
-Configdata::Configdata()
+Zune::Configdata::Configdata()
 : Dataspace() {
     object = MUI_NewObject(MUIC_Configdata, TAG_END);
 }

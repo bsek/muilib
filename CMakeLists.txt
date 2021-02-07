@@ -7,28 +7,25 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wno-unused-parameter -fpermissive -D__AROS__
 set(CMAKE_CXX_STANDARD 17)
 
 set(sources
-        src/main.cpp src/MainWindow.cpp src/MainWindow.h src/Buttons.cpp src/Buttons.h src/ImageArea.cpp src/ImageArea.h src/SmallButton.h src/SmallButton.cpp src/SourceEditor.cpp src/SourceEditor.h)
+        src/main.cpp src/MainWindow.cpp src/MainWindow.h src/Buttons.cpp src/Buttons.h src/ImageArea.cpp src/ImageArea.h src/SmallButton.h src/SmallButton.cpp src/SourceEditor.cpp src/SourceEditor.h src/Application.cpp src/Application.h)
 add_subdirectory(muiplus)
-add_subdirectory(zunegui)
 
 add_executable(testa ${sources})
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Linux")
-    target_link_libraries(testa PUBLIC muiplus zunegui muimaster intuition dos locale utility mui exec graphics
+    target_link_libraries(testa PUBLIC muiplus muimaster intuition dos locale utility mui exec graphics autoinit amiga axrt
             /usr/lib/x86_64-linux-gnu/startup.o
             /usr/lib/x86_64-linux-gnu/axrt.ld
             )
     set(CMAKE_EXE_LINKER_FLAGS "-specs=/usr/lib/x86_64-linux-gnu/axrt.specs")
     target_include_directories(testa PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/muiplus/src/include>
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/zunegui/src/include>
             "/usr/include/axrt"
             )
 else()
-    target_link_libraries(testa muiplus zunegui)
+    target_link_libraries(testa muiplus muimaster mui)
     target_include_directories(testa PUBLIC
             $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/muiplus/src/include>
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/zunegui/src/include>
             /home/bsek/src/x86/bin/linux-x86_64/tools/crosstools/lib/gcc/x86_64-aros/10.0.0/include/c++ SYSTEM
             /home/bsek/src/x86/bin/linux-x86_64/tools/crosstools/lib/gcc/x86_64-aros/10.0.0/include/c++/x86_64-aros SYSTEM
             /home/bsek/src/x86/bin/linux-x86_64/tools/crosstools/lib/gcc/x86_64-aros/10.0.0/include/c++/backward SYSTEM

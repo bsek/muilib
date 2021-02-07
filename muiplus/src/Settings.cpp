@@ -1,5 +1,6 @@
 #include "include/Settings.h"
+#include "include/Group.h"
 
-Settings::Settings()
-: Group() {
+Zune::Settings::Settings()
+: Zune::Group() {
 }

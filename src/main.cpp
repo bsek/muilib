@@ -13,7 +13,7 @@
 #include "Application.h"
 #include "Button.h"
 #include "Checkmark.h"
-#include "HGroup.h"
+#include "Group.h"
 
 #include "MainWindow.h"
 
@@ -262,7 +262,7 @@ int main(int argc, char **argv) {
                 break;
 
             case MENU_ABOUT:
-                MUI_RequestA(App,winForm,0,"About","*OK","MUI Virtual Group Object Example on Amiga OS 3.X\n\nLink\nhttps://github.com/emartisoft/AmigaOS3.X-MUI-Examples",NULL);
+                MUI_RequestA(App,winForm,0,"About","*OK","MUI Virtual Group ZuneObject Example on Amiga OS 3.X\n\nLink\nhttps://github.com/emartisoft/AmigaOS3.X-MUI-Examples",NULL);
                 break;
 
             case MENU_EXIT:

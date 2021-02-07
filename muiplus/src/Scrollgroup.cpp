@@ -6,12 +6,14 @@
  */
 
 #include "include/Scrollgroup.h"
+#include "include/Group.h"
+#include "include/ZuneObject.h"
 
-Scrollgroup::Scrollgroup()
+Zune::Scrollgroup::Scrollgroup()
         : Group() {
 }
 
-Scrollgroup::Scrollgroup(Object* contents, bool showVert, bool showHoriz)
+Zune::Scrollgroup::Scrollgroup(Object* contents, bool showVert, bool showHoriz)
 : Group() {
     object = MUI_NewObject(MUIC_Scrollgroup,
                            MUIA_Scrollgroup_FreeVert, showVert,
@@ -20,24 +22,24 @@ Scrollgroup::Scrollgroup(Object* contents, bool showVert, bool showHoriz)
                            TAG_END);
 }
 
-Scrollgroup::Scrollgroup(Object* obj)
+Zune::Scrollgroup::Scrollgroup(Object* obj)
 : Group() {
     object = obj;
 }
 
-Scrollgroup& Scrollgroup::operator=(Object* obj) {
+Zune::Scrollgroup& Zune::Scrollgroup::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-Object * Scrollgroup::horizBar() const {
+Object * Zune::Scrollgroup::horizBar() const {
     return (Object *) mGetAttr(MUIA_Scrollgroup_HorizBar);
 }
 
-Object * Scrollgroup::vertBar() const {
+Object * Zune::Scrollgroup::vertBar() const {
     return (Object *) mGetAttr(MUIA_Scrollgroup_VertBar);
 }
 
-void Scrollgroup::setContents(Object *object) {
+void Zune::Scrollgroup::setContents(Object *object) {
     setAttr(MUIA_Scrollgroup_Contents, *object);
 }

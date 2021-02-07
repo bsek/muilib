@@ -1,18 +1,20 @@
 #include "include/Numericbutton.h"
+#include "include/ZuneObject.h"
+#include "include/Numeric.h"
 
-Numericbutton::Numericbutton(Object* obj)
+Zune::Numericbutton::Numericbutton(Object* obj)
 : Numeric() {
     object = obj;
 }
 
-Numericbutton::Numericbutton(LONG min, LONG max, std::string format)
+Zune::Numericbutton::Numericbutton(LONG min, LONG max, std::string format)
 : Numeric() {
     object = MUI_MakeObject(MUIO_NumericButton, (IPTR) min, (IPTR) max, (IPTR) format.c_str());
 }
 
-Numericbutton& Numericbutton::operator=(Object* obj) {
+Zune::Numericbutton& Zune::Numericbutton::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-Numericbutton::Numericbutton() {}
+Zune::Numericbutton::Numericbutton() {}

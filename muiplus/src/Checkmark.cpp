@@ -1,18 +1,20 @@
 #include "include/Checkmark.h"
+#include "include/Image.h"
+#include "include/ZuneObject.h"
 
-Checkmark::Checkmark(Object* obj)
+Zune::Checkmark::Checkmark(Object* obj)
 : Image() {
     object = obj;
 }
 
-Checkmark::Checkmark(std::string label)
+Zune::Checkmark::Checkmark(std::string label)
 : Image() {
     object = MUI_MakeObject(MUIO_Checkmark, (IPTR) label.c_str());
 }
 
-Checkmark& Checkmark::operator=(Object* obj) {
+Zune::Checkmark& Zune::Checkmark::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-Checkmark::Checkmark() {}
+Zune::Checkmark::Checkmark() {}

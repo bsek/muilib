@@ -1,4 +1,5 @@
 #include "include/HGroup.h"
+#include "include/ZuneObject.h"
 
 HGroup::HGroup()
 : Group() {
@@ -6,7 +7,8 @@ HGroup::HGroup()
     std::cout << "Horizontal Group: created: " << object << std::endl;
 }
 
-HGroup::HGroup(Object* obj)
+HGroup::HGroup(
+Object* obj)
 : Group() {
     object = obj;
 }

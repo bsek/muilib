@@ -1,26 +1,25 @@
 #include "Buttons.h"
+#include <Group.h>
 #include <stdio.h>
 #include <iostream>
 #include <Rectangle.h>
 #include <Checkmark.h>
-#include <VSpace.h>
-#include <HSpace.h>
 
-Buttons::Buttons() : Group() {
+Buttons::Buttons() : Zune::Group() {
     registerClass();
 
-    Rectangle rect{MUI_Rectangle_Direction::HORIZONTAL, 20, "Some test"};
+    Zune::Rectangle rect{Zune::MUI_Rectangle_Direction::HORIZONTAL, 20, "Some test"};
   //  Rectangle rect2{MUI_Rectangle_Direction::HORIZONTAL, 20, ""};
 
-    VSpace space{50};
-    HSpace hspace{100};
+    Object *space = MUI_MakeObject(MUIO_VSpace, 50);
+    Object *hspace = MUI_MakeObject(MUIO_HSpace, 100);
 
     bAdd.setFixWidth(100);
 
     smallButton = new SmallButton{"test"};
-    group.addMember(*space);
+    group.addMember(space);
     group.addMember(*bAdd);
-    group.addMember(*hspace);
+    group.addMember(hspace);
     group.addMember(smallButton->operator*());
     group.addMember(*bClose);
     group.addMember(*rect);
@@ -35,8 +34,8 @@ Buttons::Buttons() : Group() {
         }
     });
     */
-    addEvent(&bAdd, EventType::PRESSED, this, &Buttons::handle);
-    addEvent(&bClose, EventType::PRESSED, this, &Buttons::handle2);
+    addEvent(&bAdd, Zune::EventType::PRESSED, this, &Buttons::handle);
+    addEvent(&bClose, Zune::EventType::PRESSED, this, &Buttons::handle2);
 }
 
 void Buttons::handle2() {

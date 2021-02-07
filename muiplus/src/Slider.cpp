@@ -1,28 +1,30 @@
 #include "include/Slider.h"
+#include "include/ZuneObject.h"
+#include "include/Numeric.h"
 
-Slider::Slider()
+Zune::Slider::Slider()
 : Numeric() {
 }
 
-Slider::Slider(Object* obj)
+Zune::Slider::Slider(Object* obj)
 : Numeric() {
     object = obj;
 }
 
-Slider::Slider(std::string label, LONG min, LONG max)
+Zune::Slider::Slider(std::string label, LONG min, LONG max)
 : Numeric() {
     object = MUI_MakeObject(MUIO_Slider, (IPTR) label.c_str(), (IPTR) min, (IPTR) max);
 }
 
-Slider& Slider::operator=(Object* obj) {
+Zune::Slider& Zune::Slider::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-BOOL Slider::horiz() const {
+BOOL Zune::Slider::horiz() const {
     return (BOOL) mGetAttr(MUIA_Slider_Horiz);
 }
 
-void Slider::setHoriz(BOOL value) {
+void Zune::Slider::setHoriz(BOOL value) {
     setAttr(MUIA_Slider_Horiz, (IPTR) value);
 }

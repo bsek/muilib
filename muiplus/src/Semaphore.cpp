@@ -1,35 +1,36 @@
 #include "include/Semaphore.h"
+#include "include/ZuneObject.h"
 
-Semaphore::Semaphore()
-: Object() {
+Zune::Semaphore::Semaphore()
+: Zune::ZuneObject() {
 }
 
-Semaphore::Semaphore(Object* obj)
-        : Object() {
+Zune::Semaphore::Semaphore(Object* obj)
+        : Zune::ZuneObject() {
     object = obj;
 }
 
-Semaphore& Semaphore::operator=(Object* obj) {
+Zune::Semaphore& Zune::Semaphore::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-IPTR Semaphore::Attempt() {
+IPTR Zune::Semaphore::Attempt() {
     return DoMethod(object,MUIM_Semaphore_Attempt);
 }
 
-IPTR Semaphore::AttemptShared() {
+IPTR Zune::Semaphore::AttemptShared() {
     return DoMethod(object,MUIM_Semaphore_AttemptShared);
 }
 
-IPTR Semaphore::Obtain() {
+IPTR Zune::Semaphore::Obtain() {
     return DoMethod(object,MUIM_Semaphore_Obtain);
 }
 
-IPTR Semaphore::ObtainShared() {
+IPTR Zune::Semaphore::ObtainShared() {
     return DoMethod(object,MUIM_Semaphore_ObtainShared);
 }
 
-IPTR Semaphore::Release() {
+IPTR Zune::Semaphore::Release() {
     return DoMethod(object,MUIM_Semaphore_Release);
 }

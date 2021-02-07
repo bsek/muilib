@@ -3,7 +3,7 @@
 
 #include <exec/types.h>
 #include <proto/intuition.h>
-#include <vector> 
+#include <vector>
 #include <string>
 #include <Application.h>
 #include <Window.h>
@@ -11,17 +11,17 @@
 
 class Application {
 private:
-    Application app;
+    Zune::Application app;
 protected:
-    std::vector<Window> windowList;
+    std::vector<Zune::Window> windowList;
     const std::string& name;
 public:
-    Application(Application& app, const std::string&& title);
-    Application(Object* object, const std::string&& title);
-    Application(Window& window, const std::string&& title);
+    Application(Zune::Application& app, const std::string title);
+    Application(Object* object, const std::string title);
+    Application(Zune::Window& window, const std::string title);
 
     BOOL areYouSure();
-    void addWindow(const Window &win);
+    void addWindow(const Zune::Window &win);
     Object* getAppObject();
 
     void exec();

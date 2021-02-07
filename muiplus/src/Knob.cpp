@@ -1,16 +1,18 @@
 #include "include/Knob.h"
+#include "include/ZuneObject.h"
+#include "include/Numeric.h"
 
-Knob::Knob()
+Zune::Knob::Knob()
 : Numeric() {
     object = MUI_NewObject(MUIC_Knob, TAG_END);
 }
 
-Knob::Knob(Object * obj)
+Zune::Knob::Knob(Object * obj)
 : Numeric() {
     object = obj;
 }
 
-Knob & Knob::operator=(Object * obj) {
+Zune::Knob & Zune::Knob::operator=(Object * obj) {
     object = obj;
     return *this;
 }

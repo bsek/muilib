@@ -1,51 +1,52 @@
 #include "include/Gauge.h"
+#include "include/ZuneObject.h"
 
-Gauge::Gauge(LONG current, ULONG divide, BOOL horiz, std::string infoText, LONG max)
+Zune::Gauge::Gauge(LONG current, ULONG divide, BOOL horiz, std::string infoText, LONG max)
 : Area() {
     object = MUI_NewObject(MUIC_Gauge, MUIA_Gauge_Current, current, MUIA_Gauge_Divide, divide, MUIA_Gauge_Horiz, horiz,
             MUIA_Gauge_InfoText, infoText.c_str(), MUIA_Gauge_Max, max);
 }
 
-Gauge::Gauge(Object* obj)
+Zune::Gauge::Gauge(Object* obj)
 : Area() {
     object = obj;
 }
 
-Gauge& Gauge::operator=(Object* obj) {
+Zune::Gauge& Zune::Gauge::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-LONG Gauge::current() const {
+LONG Zune::Gauge::current() const {
     return (LONG) mGetAttr(MUIA_Gauge_Current);
 }
 
-void Gauge::setCurrent(LONG value) {
+void Zune::Gauge::setCurrent(LONG value) {
     setAttr(MUIA_Gauge_Current, (IPTR) value);
 }
 
-BOOL Gauge::divide() const {
+BOOL Zune::Gauge::divide() const {
     return (BOOL) mGetAttr(MUIA_Gauge_Divide);
 }
 
-void Gauge::setDivide(BOOL value) {
+void Zune::Gauge::setDivide(BOOL value) {
     setAttr(MUIA_Gauge_Divide, (IPTR) value);
 }
 
-STRPTR Gauge::infoText() const {
+STRPTR Zune::Gauge::infoText() const {
     return (STRPTR) mGetAttr(MUIA_Gauge_InfoText);
 }
 
-void Gauge::setInfoText(STRPTR value) {
+void Zune::Gauge::setInfoText(STRPTR value) {
     setAttr(MUIA_Gauge_InfoText, (IPTR) value);
 }
 
-LONG Gauge::max() const {
+LONG Zune::Gauge::max() const {
     return (LONG) mGetAttr(MUIA_Gauge_Max);
 }
 
-void Gauge::setMax(LONG value) {
+void Zune::Gauge::setMax(LONG value) {
     setAttr(MUIA_Gauge_Max, (IPTR) value);
 }
 
-Gauge::Gauge() {}
+Zune::Gauge::Gauge() {}

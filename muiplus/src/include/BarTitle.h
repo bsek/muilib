@@ -2,15 +2,18 @@
 #define	BARTITLE_H
 
 #include "Rectangle.h"
+#include "ZuneObject.h"
 
-class BarTitle : public Rectangle {
-protected:
-    BarTitle();
-public:
-    BarTitle(Object * obj);
-    BarTitle(LONG space);
-    BarTitle & operator=(Object * obj);
-};
+namespace Zune {
+    class BarTitle : public Rectangle {
+    protected:
+        BarTitle();
+    public:
+        BarTitle(Object * obj);
+        BarTitle(LONG space);
+        BarTitle & operator=(Object * obj);
+    };
+}
 
 #endif	/* BARTITLE_H */
 

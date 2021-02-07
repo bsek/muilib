@@ -1,22 +1,22 @@
-#include "include/Application.h"
+#include "Application.h"
 #include <exec/types.h>
 #include <proto/dos.h>
 #include <proto/exec.h>
 #include <libraries/mui.h>
 #include <iostream>
 
-Application::Application(Window& window, const std::string&& title)
+Application::Application(Zune::Window& window, const std::string title)
         : app(window)
         , name(title) {
     std::cout << "Application: title:" << title << std::endl;
     windowList.push_back(window);
 }
 
-Application::Application(Application& application, const std::string&& title)
+Application::Application(Zune::Application& application, const std::string title)
         : app(application)
         , name(title) {}
 
-Application::Application(Object* object, const std::string&& title) : app(object), name(title) {
+Application::Application(Object* object, const std::string title) : app(object), name(title) {
     std::cout << "Applicaition object const" << std::endl;
     app.set(MUIA_Application_Title, (IPTR) title.c_str());
 }
@@ -25,7 +25,7 @@ Object* Application::getAppObject() {
     return Application::app.operator*();
 }
 
-void Application::addWindow(const Window &win) {
+void Application::addWindow(const Zune::Window &win) {
     windowList.push_back(win);
     app.addWindow(*win);
 }
@@ -39,14 +39,14 @@ void Application::exec() {
 
     mainWindow.setOpen(true);
     mainWindow.notify(MUIA_Window_CloseRequest, (IPTR) TRUE, (IPTR) *(app), (IPTR) 2, MUIM_Application_ReturnID,
-                      MUIM_Application_AboutMUI);
+                      MUIM_Application_ReturnID);
 
     ULONG sigs = 0;
     BOOL running = TRUE;
 
     while (running) {
         switch (app.newInput(&sigs)) {
-            case MUIM_Application_AboutMUI:
+            case MUIM_Application_ReturnID:
                 running = areYouSure();
                 break;
         }

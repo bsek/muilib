@@ -3,15 +3,18 @@
 
 #include <string>
 #include "Text.h"
+#include "ZuneObject.h"
 
-class Button : public Text {
-public:
-    Button(Object * obj);
-    Button(std::string label);
-    Button & operator=(Object * obj);
-protected:
-    Button();
-};
+namespace Zune {
+    class Button : public Text {
+    public:
+        Button(Object * obj);
+        Button(std::string label);
+        Button & operator=(Object * obj);
+    protected:
+        Button();
+    };
+}
 
 
 #endif

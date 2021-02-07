@@ -6,13 +6,13 @@
  */
 
 #include "include/HTMLtext.h"
-
-HTMLtext::HTMLtext()
+/*
+Zune::HTMLtext()
 : Virtgroup() {
 }
 
-HTMLtext::HTMLtext(TagItem* tags)
-: Virtgroup() {
+Zune::HTMLtext(TagItem* tags)
+: Zune::Virtgroup() {
     object = MUI_NewObjectA(MUIC_HTMLtext, tags);
 #ifdef MUIPP_DEBUG
     if (object == NULL)
@@ -20,8 +20,8 @@ HTMLtext::HTMLtext(TagItem* tags)
 #endif
 }
 
-HTMLtext::HTMLtext(Tag tag1, ...)
-: Virtgroup() {
+Zune::HTMLtext(Tag tag1, ...)
+: Zune::Virtgroup() {
     object = MUI_NewObjectA(MUIC_HTMLtext, (struct TagItem *) &tag1);
 #ifdef MUIPP_DEBUG
     if (object == NULL)
@@ -29,56 +29,57 @@ HTMLtext::HTMLtext(Tag tag1, ...)
 #endif
 }
 
-HTMLtext::HTMLtext(Object* obj)
-: Virtgroup() {
+Zune::HTMLtext(Object* obj)
+: Zune::Virtgroup() {
     object = obj;
 }
 
-HTMLtext & HTMLtext::operator=(Object * obj) {
+Zune::HTMLtext & Zune::HTMLtext::operator=(Object * obj) {
     object = obj;
     return *this;
 }
 
-char * HTMLtext::Block(void) const {
+char * Zune::HTMLtext::Block(void) const {
     return (char *) MGetAttr(MUIA_HTMLtext_Block);
 }
 
-STRPTR HTMLtext::Contents(void) const {
+STRPTR Zune::HTMLtext::Contents(void) const {
     return (STRPTR) MGetAttr(MUIA_HTMLtext_Contents);
 }
 
-void HTMLtext::SetContents(STRPTR value) {
+void Zune::HTMLtext::SetContents(STRPTR value) {
     SetAttr(MUIA_HTMLtext_Contents, (IPTR) value);
 }
 
-BOOL HTMLtext::MDoubleClick(void) const {
+BOOL Zune::HTMLtext::MDoubleClick(void) const {
     return (BOOL) MGetAttr(MUIA_HTMLtext_DoubleClick);
 }
 
-void HTMLtext::SetLoadImages(BOOL value) {
+void Zune::HTMLtext::SetLoadImages(BOOL value) {
     SetAttr(MUIA_HTMLtext_LoadImages, (IPTR) value);
 }
 
-void HTMLtext::SetOpenURLHook(struct Hook * value) {
+void Zune::HTMLtext::SetOpenURLHook(struct Hook * value) {
     SetAttr(MUIA_HTMLtext_OpenURLHook, (IPTR) value);
 }
 
-STRPTR HTMLtext::Path(void) const {
+STRPTR Zune::HTMLtext::Path(void) const {
     return (STRPTR) MGetAttr(MUIA_HTMLtext_Path);
 }
 
-void HTMLtext::SetPath(STRPTR value) {
+void Zune::HTMLtext::SetPath(STRPTR value) {
     SetAttr(MUIA_HTMLtext_Path, (IPTR) value);
 }
 
-STRPTR HTMLtext::Title(void) const {
+STRPTR Zune::HTMLtext::Title(void) const {
     return (STRPTR) MGetAttr(MUIA_HTMLtext_Title);
 }
 
-STRPTR HTMLtext::URL(void) const {
+STRPTR Zune::HTMLtext::URL(void) const {
     return (STRPTR) MGetAttr(MUIA_HTMLtext_URL);
 }
 
-void HTMLtext::SetURL(STRPTR value) {
+void Zune::HTMLtext::SetURL(STRPTR value) {
     SetAttr(MUIA_HTMLtext_URL, (IPTR) value);
 }
+*/

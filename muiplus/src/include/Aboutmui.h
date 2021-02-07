@@ -3,6 +3,7 @@
 
 #include "Window.h"
 #include "Application.h"
+#include "ZuneObject.h"
 
 namespace Zune
 {

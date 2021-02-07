@@ -2,15 +2,18 @@
 #define KNOB_H
 
 #include "Numeric.h"
+#include "ZuneObject.h"
 
-class Knob : public Numeric {
-protected:
-    Knob();
+namespace Zune {
+    class Knob : public Numeric {
+    protected:
+        Knob();
 
-public:
-    Knob(Object * obj);
-    Knob & operator=(Object * obj);
-};
+    public:
+        Knob(Object * obj);
+        Knob & operator=(Object * obj);
+    };
+}
 
 
 #endif /* KNOB_H */

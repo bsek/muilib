@@ -3,11 +3,13 @@
 
 #include "Group.h"
 
-class Mccprefs : public Group {
-public:
-protected:
-    Mccprefs();
-};
+namespace Zune {
+    class Mccprefs : public Zune::Group {
+    public:
+    protected:
+        Mccprefs();
+    };
+}
 
 
 #endif /* MCCPREFS_H */

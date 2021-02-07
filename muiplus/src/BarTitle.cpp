@@ -1,20 +1,22 @@
 #include "include/BarTitle.h"
+#include "include/ZuneObject.h"
+#include "include/Rectangle.h"
 
-BarTitle::BarTitle()
+Zune::BarTitle::BarTitle()
 : Rectangle() {
 }
 
-BarTitle::BarTitle(Object* obj)
+Zune::BarTitle::BarTitle(Object* obj)
 : Rectangle() {
     object = obj;
 }
 
-BarTitle::BarTitle(LONG space)
+Zune::BarTitle::BarTitle(LONG space)
 : Rectangle() {
     object = MUI_MakeObject(MUIO_BarTitle, (IPTR) space);
 }
 
-BarTitle & BarTitle::operator=(Object * obj) {
+Zune::BarTitle & Zune::BarTitle::operator=(Object * obj) {
     object = obj;
     return *this;
 }

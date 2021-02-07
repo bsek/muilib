@@ -1,6 +1,7 @@
 #include "include/Penadjust.h"
+#include "include/Register.h"
 
-Penadjust::Penadjust()
+Zune::Penadjust::Penadjust()
 : Register() {
 }
 

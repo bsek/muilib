@@ -1,20 +1,22 @@
 #include "include/Poppen.h"
+#include "include/ZuneObject.h"
+#include "include/Pendisplay.h"
 
-Poppen::Poppen(std::string title, uint8_t cycleChain)
+Zune::Poppen::Poppen(std::string title, uint8_t cycleChain)
 : Pendisplay() {
     object = MUI_NewObject(MUIC_Poppen, MUIA_Window_Title, (IPTR) title.c_str(), MUIA_CycleChain, cycleChain, TAG_DONE);
 }
 
-Poppen::Poppen(Object* obj)
+Zune::Poppen::Poppen(Object* obj)
 : Pendisplay() {
     object = obj;
 }
 
-Poppen& Poppen::operator=(Object* obj) {
+Zune::Poppen& Zune::Poppen::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-Poppen::Poppen() {
+Zune::Poppen::Poppen() {
 
 }

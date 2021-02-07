@@ -1,98 +1,98 @@
 #include "include/Numeric.h"
 
-BOOL Numeric::checkAllSizes() const {
+BOOL Zune::Numeric::checkAllSizes() const {
     return (BOOL) mGetAttr(MUIA_Numeric_CheckAllSizes);
 }
 
-void Numeric::setCheckAllSizes(BOOL value) {
+void Zune::Numeric::setCheckAllSizes(BOOL value) {
     setAttr(MUIA_Numeric_CheckAllSizes, (IPTR) value);
 }
 
-LONG Numeric::getDefault() const {
+LONG Zune::Numeric::getDefault() const {
     return (LONG) mGetAttr(MUIA_Numeric_Default);
 }
 
-void Numeric::setDefault(LONG value) {
+void Zune::Numeric::setDefault(LONG value) {
     setAttr(MUIA_Numeric_Default, (IPTR) value);
 }
 
-STRPTR Numeric::format() const {
+STRPTR Zune::Numeric::format() const {
     return (STRPTR) mGetAttr(MUIA_Numeric_Format);
 }
 
-void Numeric::setFormat(STRPTR value) {
+void Zune::Numeric::setFormat(STRPTR value) {
     setAttr(MUIA_Numeric_Format, (IPTR) value);
 }
 
-LONG Numeric::max() const {
+LONG Zune::Numeric::max() const {
     return (LONG) mGetAttr(MUIA_Numeric_Max);
 }
 
-void Numeric::setMax(LONG value) {
+void Zune::Numeric::setMax(LONG value) {
     setAttr(MUIA_Numeric_Max, (IPTR) value);
 }
 
-LONG Numeric::min() const {
+LONG Zune::Numeric::min() const {
     return (LONG) mGetAttr(MUIA_Numeric_Min);
 }
 
-void Numeric::setMin(LONG value) {
+void Zune::Numeric::setMin(LONG value) {
     setAttr(MUIA_Numeric_Min, (IPTR) value);
 }
 
-BOOL Numeric::reverse() const {
+BOOL Zune::Numeric::reverse() const {
     return (BOOL) mGetAttr(MUIA_Numeric_Reverse);
 }
 
-void Numeric::setReverse(BOOL value) {
+void Zune::Numeric::setReverse(BOOL value) {
     setAttr(MUIA_Numeric_Reverse, (IPTR) value);
 }
 
-BOOL Numeric::revLeftRight() const {
+BOOL Zune::Numeric::revLeftRight() const {
     return (BOOL) mGetAttr(MUIA_Numeric_RevLeftRight);
 }
 
-void Numeric::setRevLeftRight(BOOL value) {
+void Zune::Numeric::setRevLeftRight(BOOL value) {
     setAttr(MUIA_Numeric_RevLeftRight, (IPTR) value);
 }
 
-BOOL Numeric::revUpDown() const {
+BOOL Zune::Numeric::revUpDown() const {
     return (BOOL) mGetAttr(MUIA_Numeric_RevUpDown);
 }
 
-void Numeric::setRevUpDown(BOOL value) {
+void Zune::Numeric::setRevUpDown(BOOL value) {
     setAttr(MUIA_Numeric_RevUpDown, (IPTR) value);
 }
 
-LONG Numeric::value() const {
+LONG Zune::Numeric::value() const {
     return (LONG) mGetAttr(MUIA_Numeric_Value);
 }
 
-void Numeric::setValue(LONG value) {
+void Zune::Numeric::setValue(LONG value) {
     setAttr(MUIA_Numeric_Value, (IPTR) value);
 }
 
-IPTR Numeric::decrease(LONG amount) {
+IPTR Zune::Numeric::decrease(LONG amount) {
     return DoMethod(object,MUIM_Numeric_Decrease, amount);
 }
 
-IPTR Numeric::increase(LONG amount) {
+IPTR Zune::Numeric::increase(LONG amount) {
     return DoMethod(object,MUIM_Numeric_Increase, amount);
 }
 
-IPTR Numeric::scaleToValue(LONG scalemin, LONG scalemax, LONG scale) {
+IPTR Zune::Numeric::scaleToValue(LONG scalemin, LONG scalemax, LONG scale) {
     return DoMethod(object,MUIM_Numeric_ScaleToValue, scalemin, scalemax, scale);
 }
 
-IPTR Numeric::setDefault() {
+IPTR Zune::Numeric::setDefault() {
     return DoMethod(object,MUIM_Numeric_SetDefault);
 }
 
-IPTR Numeric::stringify(LONG value) {
+IPTR Zune::Numeric::stringify(LONG value) {
     return DoMethod(object,MUIM_Numeric_Stringify, value);
 }
 
-IPTR Numeric::valueToScale(LONG scalemin, LONG scalemax) {
+IPTR Zune::Numeric::valueToScale(LONG scalemin, LONG scalemax) {
     return DoMethod(object,MUIM_Numeric_ValueToScale, scalemin, scalemax);
 }
 
@@ -100,7 +100,7 @@ IPTR Numeric::valueToScale(LONG scalemin, LONG scalemax) {
 //    return Value();
 //}
 
-Numeric::operator int () {
+Zune::Numeric::operator int () {
     return (int) value();
 }
 //
@@ -109,45 +109,45 @@ Numeric::operator int () {
 //    return *this;
 //}
 
-Numeric & Numeric::operator=(int value) {
+Zune::Numeric & Zune::Numeric::operator=(int value) {
     setValue((LONG) value);
     return *this;
 }
 
-Numeric Numeric::operator++() // prefix
+Zune::Numeric Zune::Numeric::operator++() // prefix
 {
     increase(1);
     return *this;
 }
 
-Numeric Numeric::operator++(int dummy) // postfix
+Zune::Numeric Zune::Numeric::operator++(int dummy) // postfix
 {
     increase(1);
     return *this;
 }
 
-Numeric & Numeric::operator+=(LONG value) {
+Zune::Numeric & Zune::Numeric::operator+=(LONG value) {
     increase(value);
     return *this;
 }
 
-Numeric Numeric::operator--() // prefix
+Zune::Numeric Zune::Numeric::operator--() // prefix
 {
     decrease(1);
     return *this;
 }
 
-Numeric Numeric::operator--(int dummy) // postfix
+Zune::Numeric Zune::Numeric::operator--(int dummy) // postfix
 {
     decrease(1);
     return *this;
 }
 
-Numeric & Numeric::operator-=(LONG value) {
+Zune::Numeric & Zune::Numeric::operator-=(LONG value) {
     decrease(value);
     return *this;
 }
 
-Numeric::Numeric()
+Zune::Numeric::Numeric()
 : Area() {
 }

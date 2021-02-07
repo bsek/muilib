@@ -3,11 +3,13 @@
 
 #include "Group.h"
 
-class Settings : public Group {
-public:
-protected:
-    Settings();
-};
+namespace Zune {
+    class Settings : public Zune::Group {
+    public:
+    protected:
+        Settings();
+    };
+}
 
 #endif /* SETTINGS_H */
 

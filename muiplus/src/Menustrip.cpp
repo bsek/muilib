@@ -1,26 +1,28 @@
 #include "include/Menustrip.h"
+#include "include/Family.h"
+#include "include/ZuneObject.h"
 
-Menustrip::Menustrip(Object* obj)
-: Family() {
+Zune::Menustrip::Menustrip(Object* obj)
+: Zune::Family() {
     object = obj;
 }
 
-Menustrip::Menustrip(NewMenu* nm, IPTR flags)
-: Family() {
+Zune::Menustrip::Menustrip(NewMenu* nm, IPTR flags)
+: Zune::Family() {
     object = MUI_MakeObject(MUIO_MenustripNM, (IPTR)nm, flags);
 }
 
-Menustrip& Menustrip::operator=(Object* obj) {
+Zune::Menustrip& Zune::Menustrip::operator=(Object* obj) {
     object = obj;
     return *this;
 }
 
-BOOL Menustrip::enabled() const {
+BOOL Zune::Menustrip::enabled() const {
     return (BOOL) mGetAttr(MUIA_Menustrip_Enabled);
 }
 
-void Menustrip::setEnabled(BOOL value) {
+void Zune::Menustrip::setEnabled(BOOL value) {
     setAttr(MUIA_Menustrip_Enabled, (IPTR) value);
 }
 
-Menustrip::Menustrip() {}
+Zune::Menustrip::Menustrip() {}

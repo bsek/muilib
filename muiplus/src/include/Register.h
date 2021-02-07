@@ -2,18 +2,21 @@
 #define REGISTER_H
 
 #include "Group.h"
+#include "ZuneObject.h"
 
-class Register : public Group {
-protected:
-    Register();
+namespace Zune {
+    class Register : public Zune::Group {
+    protected:
+        Register();
 
-public:
-    Register(CONST_STRPTR titles[]);
-    Register(Object * obj);
-    Register & operator=(Object * obj);
+    public:
+        Register(CONST_STRPTR titles[]);
+        Register(Object * obj);
+        Register & operator=(Object * obj);
 
-    STRPTR * titles() const;
-};
+        STRPTR * titles() const;
+    };
+}
 
 #endif /* REGISTER_H */
 

@@ -1,13 +1,15 @@
 #include "include/Settingsgroup.h"
+#include "include/Group.h"
+#include "include/ZuneObject.h"
 
-Settingsgroup::Settingsgroup()
-: Group() {
+Zune::Settingsgroup::Settingsgroup()
+: Zune::Group() {
 }
 
-IPTR Settingsgroup::ConfigToGadgets(Object * configdata) {
+IPTR Zune::Settingsgroup::ConfigToGadgets(Object * configdata) {
     return DoMethod(object,MUIM_Settingsgroup_ConfigToGadgets, (IPTR)configdata);
 }
 
-IPTR Settingsgroup::GadgetsToConfig(Object * configdata) {
+IPTR Zune::Settingsgroup::GadgetsToConfig(Object * configdata) {
     return DoMethod(object,MUIM_Settingsgroup_GadgetsToConfig, (IPTR)configdata);
 }

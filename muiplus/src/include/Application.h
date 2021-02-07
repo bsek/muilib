@@ -3,6 +3,8 @@
 
 #include "Notify.h"
 #include "Window.h"
+#include "ZuneList.h"
+#include "ZuneObject.h"
 
 namespace Zune
 {
@@ -29,7 +31,7 @@ namespace Zune
 		void setCommands(struct MUI_Command *value);
 		STRPTR copyright() const;
 		STRPTR description() const;
-		struct DiskObject *diskObject() const;
+		IPTR diskObject() const;
 		void setDiskObject(struct DiskObject *value);
 		BOOL doubleStart() const;
 		void setDropObject(Object *value);
@@ -40,9 +42,9 @@ namespace Zune
 		void setIconified(BOOL value);
 		IPTR menuAction() const;
 		IPTR menuHelp() const;
-		struct Hook *rexxHook() const;
+		IPTR rexxHook() const;
 		void setRexxHook(struct Hook *value);
-		struct RxMsg *rexxMsg() const;
+		IPTR rexxMsg() const;
 		void setRexxString(STRPTR value);
 		void setSleep(BOOL value);
 		STRPTR title() const;
