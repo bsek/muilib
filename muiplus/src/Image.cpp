@@ -2,15 +2,16 @@
 #include "include/ZuneObject.h"
 
 Zune::Image::Image()
-: Area() {
+        : Area() {
 }
 
 Zune::Image::Image(LONG state, BOOL fontMatch, BOOL fontMatchHeight, BOOL fontMatchWidth, BOOL freeHoriz,
                    BOOL freeVert, std::string spec, struct Zune::Image *oldImage, BOOL copySpec) : Area() {
     object = MUI_NewObject(MUIC_Image, MUIA_Image_Spec, spec.c_str(), MUIA_Image_FontMatch, fontMatch,
-            MUIA_Image_FontMatchHeight, fontMatchHeight, MUIA_Image_FontMatchWidth, fontMatchWidth,
-            MUIA_Image_FreeHoriz, freeHoriz, MUIA_Image_FreeVert, freeVert, MUIA_Image_Spec, spec.c_str(),
-            MUIA_Image_State, state);
+                           MUIA_Image_FontMatchHeight, fontMatchHeight, MUIA_Image_FontMatchWidth, fontMatchWidth,
+                           MUIA_Image_FreeHoriz, freeHoriz, MUIA_Image_FreeVert, freeVert, MUIA_Image_Spec,
+                           spec.c_str(),
+                           MUIA_Image_State, state);
 }
 
 Zune::Image::Image(Object *obj) {

@@ -3,20 +3,20 @@
 #include "include/Numeric.h"
 
 Zune::Slider::Slider()
-: Numeric() {
+        : Numeric() {
 }
 
-Zune::Slider::Slider(Object* obj)
-: Numeric() {
+Zune::Slider::Slider(Object *obj)
+        : Numeric() {
     object = obj;
 }
 
 Zune::Slider::Slider(std::string label, LONG min, LONG max)
-: Numeric() {
+        : Numeric() {
     object = MUI_MakeObject(MUIO_Slider, (IPTR) label.c_str(), (IPTR) min, (IPTR) max);
 }
 
-Zune::Slider& Zune::Slider::operator=(Object* obj) {
+Zune::Slider &Zune::Slider::operator=(Object *obj) {
     object = obj;
     return *this;
 }

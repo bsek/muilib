@@ -2,19 +2,19 @@
 #include "include/Group.h"
 #include "include/ZuneObject.h"
 
-Zune::Radio::Radio(Object* obj)
-: Group() {
+Zune::Radio::Radio(Object *obj)
+        : Group() {
     object = obj;
 }
 
-Zune::Radio::Radio(std::string& label, CONST_STRPTR entries[])
-: Group() {
-   // object = MUI_MakeObject(MUIO_Radio, (IPTR) label.c_str(), (IPTR) entries);
-   object = MUI_NewObject(MUIC_Radio, MUIA_Radio_Entries, entries, MUIA_FrameTitle, label.c_str(), TAG_END);
+Zune::Radio::Radio(std::string &label, CONST_STRPTR entries[])
+        : Group() {
+    // object = MUI_MakeObject(MUIO_Radio, (IPTR) label.c_str(), (IPTR) entries);
+    object = MUI_NewObject(MUIC_Radio, MUIA_Radio_Entries, entries, MUIA_FrameTitle, label.c_str(), TAG_END);
 }
 
 
-Zune::Radio& Zune::Radio::operator=(Object* obj) {
+Zune::Radio &Zune::Radio::operator=(Object *obj) {
     object = obj;
     return *this;
 }

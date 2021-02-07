@@ -2,17 +2,17 @@
 #include "include/Family.h"
 #include "include/ZuneObject.h"
 
-Zune::Menuitem::Menuitem(Object* obj)
-: Family() {
+Zune::Menuitem::Menuitem(Object *obj)
+        : Family() {
     object = obj;
 }
 
 Zune::Menuitem::Menuitem(std::string label, std::string shortcut)
-: Family() {
+        : Family() {
     object = MUI_MakeObject(MUIO_Menuitem, (IPTR) label.c_str(), (IPTR) shortcut.c_str());
 }
 
-Zune::Menuitem& Zune::Menuitem::operator=(Object* obj) {
+Zune::Menuitem &Zune::Menuitem::operator=(Object *obj) {
     object = obj;
     return *this;
 }
@@ -81,7 +81,7 @@ void Zune::Menuitem::setToggle(BOOL value) {
     setAttr(MUIA_Menuitem_Toggle, (IPTR) value);
 }
 
-struct MenuItem * Zune::Menuitem::trigger() const {
+struct MenuItem *Zune::Menuitem::trigger() const {
     return (struct MenuItem *) mGetAttr(MUIA_Menuitem_Trigger);
 }
 

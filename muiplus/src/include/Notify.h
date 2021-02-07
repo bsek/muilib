@@ -1,5 +1,5 @@
 #ifndef NOTIFY_H
-#define	NOTIFY_H
+#define    NOTIFY_H
 
 #include "ZuneObject.h"
 #include <initializer_list>
@@ -8,40 +8,71 @@ namespace Zune {
     class Notify : public ZuneObject {
     public:
         Object *mApplicationObject() const;
+
         IPTR appMessage() const;
+
         LONG helpLine() const;
+
         void setHelpLine(LONG value);
+
         STRPTR helpNode() const;
+
         void setHelpNode(STRPTR value);
+
         void setNoNotify(BOOL value);
+
         IPTR objectID() const;
+
         void setObjectID(IPTR value);
-        Object * parent() const;
+
+        Object *parent() const;
+
         LONG revision() const;
+
         IPTR userData() const;
+
         void setUserData(IPTR value);
+
         LONG version() const;
+
         template<typename... Args>
         IPTR mCallHook(struct Hook *Hook, Args... params);
+
         IPTR exportDataspace(Object *dataspace);
+
         IPTR findUData(IPTR udata);
+
         IPTR getConfigItem(IPTR id, IPTR *storage);
+
         IPTR getUData(IPTR udata, IPTR attr, IPTR *storage);
+
         IPTR importDataspace(Object *dataspace);
+
         IPTR killNotify(IPTR TrigAttr);
+
         IPTR killNotifyObj(IPTR TrigAttr, Object *dest);
+
         IPTR multiSet(std::vector<IPTR> obj);
+
         template<typename... Args>
         IPTR noNotifySet(IPTR attr, char *format, Args... val);
+
         template<typename... Args>
         IPTR notify(Args... params);
+
         IPTR set(IPTR attr, IPTR val);
+
         template<typename... Args>
         IPTR setAsString(IPTR attr, char *format, Args... val);
+
         IPTR setUData(IPTR udata, IPTR attr, IPTR val);
+
         IPTR setUDataOnce(IPTR udata, IPTR attr, IPTR val);
+
         IPTR writeLong(IPTR val, IPTR *memory);
+
         IPTR writeString(char *str, char *memory);
+
     protected:
         Notify();
     };
@@ -51,7 +82,7 @@ template<typename... Args>
 IPTR Zune::Notify::mCallHook(struct Hook *Hook, Args... params) {
     auto p = createTagListFromVector<IPTR>({params...}, 2);
     p.get()[0] = MUIM_CallHook;
-    p.get()[1] = (IPTR)Hook;
+    p.get()[1] = (IPTR) Hook;
 
     return DoMethodA(object, (Msg) p.get());
 }
@@ -61,7 +92,7 @@ IPTR Zune::Notify::noNotifySet(IPTR attr, char *format, Args... val) {
     auto p = createTagListFromVector<IPTR>({val...}, 3);
     p.get()[0] = MUIM_NoNotifySet;
     p.get()[1] = attr;
-    p.get()[2] = (IPTR)format;
+    p.get()[2] = (IPTR) format;
 
     return DoMethodA(object, (Msg) p.get());
 }
@@ -71,7 +102,7 @@ IPTR Zune::Notify::setAsString(IPTR attr, char *format, Args... val) {
     auto p = createTagListFromVector<IPTR>({val...}, 3);
     p.get()[0] = MUIM_SetAsString;
     p.get()[1] = attr;
-    p.get()[2] = (IPTR)format;
+    p.get()[2] = (IPTR) format;
 
     return DoMethodA(object, (Msg) p.get());
 }
@@ -85,7 +116,7 @@ IPTR Zune::Notify::notify(Args... params) {
 
     int size = list.size();
 
-    IPTR * args = new IPTR[size + 1];
+    IPTR *args = new IPTR[size + 1];
 
     int i = 1;
     for (auto val : list) {
@@ -94,7 +125,7 @@ IPTR Zune::Notify::notify(Args... params) {
 
     args[0] = MUIM_Notify;
 
-    auto retVal = DoMethodA(object, (Msg)(args));
+    auto retVal = DoMethodA(object, (Msg) (args));
 
     delete args;
     return retVal;
@@ -124,5 +155,5 @@ IPTR Zune::Notify::notify(Args... params) {
 }
 
 
-#endif	/* NOTIFY_H */
+#endif    /* NOTIFY_H */
 

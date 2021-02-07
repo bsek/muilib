@@ -8,9 +8,12 @@
 namespace Zune {
     class Button : public Text {
     public:
-        Button(Object * obj);
+        Button(Object *obj);
+
         Button(std::string label);
-        Button & operator=(Object * obj);
+
+        Button &operator=(Object *obj);
+
     protected:
         Button();
     };

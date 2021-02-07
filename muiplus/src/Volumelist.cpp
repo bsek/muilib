@@ -2,7 +2,7 @@
 #include "include/ZuneList.h"
 #include "include/ZuneObject.h"
 
-Zune::Volumelist& Zune::Volumelist::operator=(Object* obj) {
+Zune::Volumelist &Zune::Volumelist::operator=(Object *obj) {
     object = obj;
     return *this;
 }

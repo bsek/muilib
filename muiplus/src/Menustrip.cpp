@@ -2,17 +2,17 @@
 #include "include/Family.h"
 #include "include/ZuneObject.h"
 
-Zune::Menustrip::Menustrip(Object* obj)
-: Zune::Family() {
+Zune::Menustrip::Menustrip(Object *obj)
+        : Zune::Family() {
     object = obj;
 }
 
-Zune::Menustrip::Menustrip(NewMenu* nm, IPTR flags)
-: Zune::Family() {
-    object = MUI_MakeObject(MUIO_MenustripNM, (IPTR)nm, flags);
+Zune::Menustrip::Menustrip(NewMenu *nm, IPTR flags)
+        : Zune::Family() {
+    object = MUI_MakeObject(MUIO_MenustripNM, (IPTR) nm, flags);
 }
 
-Zune::Menustrip& Zune::Menustrip::operator=(Object* obj) {
+Zune::Menustrip &Zune::Menustrip::operator=(Object *obj) {
     object = obj;
     return *this;
 }

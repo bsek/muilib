@@ -22,7 +22,7 @@ IPTR generalDispatcher(struct IClass *cl, Object *obj, Msg msg) {
     if (msg->MethodID == OM_NEW) {
         struct TagItem *tags = ((struct opSet *) msg)->ops_AttrList;
         Zune::Area *clazz = (Zune::Area *) GetTagData(Zune::CUSTOM_MUI_CLASS, (IPTR) " ", tags);
-        Object* instance = (Object*) std::invoke(&Zune::Area::handleDispatch, clazz, cl, obj, msg);
+        Object *instance = (Object *) std::invoke(&Zune::Area::handleDispatch, clazz, cl, obj, msg);
 
         // Save a reference to the class instance in the object´s instance data
         InstanceData *instanceData = (InstanceData *) INST_DATA(cl, instance);
@@ -64,15 +64,15 @@ LONG Zune::Area::bottomEdge() const {
     return (LONG) mGetAttr(MUIA_BottomEdge);
 }
 
-Object * Zune::Area::contextMenu() const {
+Object *Zune::Area::contextMenu() const {
     return (Object *) mGetAttr(MUIA_ContextMenu);
 }
 
-void Zune::Area::setContextMenu(Object * value) {
+void Zune::Area::setContextMenu(Object *value) {
     setAttr(MUIA_ContextMenu, (IPTR) value);
 }
 
-Object * Zune::Area::contextMenuTrigger() const {
+Object *Zune::Area::contextMenuTrigger() const {
     return (Object *) mGetAttr(MUIA_ContextMenuTrigger);
 }
 
@@ -120,7 +120,7 @@ void Zune::Area::setFillArea(BOOL value) {
     setAttr(MUIA_FillArea, (IPTR) value);
 }
 
-struct TextFont * Zune::Area::font() const {
+struct TextFont *Zune::Area::font() const {
     return (struct TextFont *) mGetAttr(MUIA_Font);
 }
 
@@ -224,15 +224,15 @@ LONG Zune::Area::width() const {
     return (LONG) mGetAttr(MUIA_Width);
 }
 
-struct Zune::Window * Zune::Area::window() const {
+struct Zune::Window *Zune::Area::window() const {
     return (struct Zune::Window *) mGetAttr(MUIA_Window);
 }
 
-Object * Zune::Area::windowObject() const {
+Object *Zune::Area::windowObject() const {
     return (Object *) mGetAttr(MUIA_WindowObject);
 }
 
-IPTR Zune::Area::handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax* msg) {
+IPTR Zune::Area::handleAskMinMax(struct IClass *cl, Object *obj, struct MUIP_AskMinMax *msg) {
     return DoSuperMethodA(cl, obj, msg);
 }
 
@@ -241,38 +241,38 @@ IPTR Zune::Area::handleCleanup(Class *cl, Object *obj, Msg msg) {
 }
 
 IPTR Zune::Area::handleContextMenuBuild(LONG mx, LONG my) {
-    return DoMethod(object,MUIM_ContextMenuBuild, mx, my);
+    return DoMethod(object, MUIM_ContextMenuBuild, mx, my);
 }
 
-IPTR Zune::Area::handleContextMenuChoice(Object * item) {
-    return DoMethod(object,MUIM_ContextMenuChoice, (IPTR)item);
+IPTR Zune::Area::handleContextMenuChoice(Object *item) {
+    return DoMethod(object, MUIM_ContextMenuChoice, (IPTR) item);
 }
 
-IPTR Zune::Area::handleCreateBubble(LONG x, LONG y, char * txt, IPTR flags) {
-    return DoMethod(object,MUIM_CreateBubble, x, y, txt, flags);
+IPTR Zune::Area::handleCreateBubble(LONG x, LONG y, char *txt, IPTR flags) {
+    return DoMethod(object, MUIM_CreateBubble, x, y, txt, flags);
 }
 
 IPTR Zune::Area::handleCreateShortHelp(LONG mx, LONG my) {
-    return DoMethod(object,MUIM_CreateShortHelp, mx, my);
+    return DoMethod(object, MUIM_CreateShortHelp, mx, my);
 }
 
 IPTR Zune::Area::handleDeleteBubble(IPTR bubble) {
-    return DoMethod(object,MUIM_DeleteBubble, bubble);
+    return DoMethod(object, MUIM_DeleteBubble, bubble);
 }
 
 IPTR Zune::Area::handleDeleteShortHelp(STRPTR help) {
-    return DoMethod(object,MUIM_DeleteShortHelp,  (IPTR)help);
+    return DoMethod(object, MUIM_DeleteShortHelp, (IPTR) help);
 }
 
 IPTR Zune::Area::hide() {
-    return DoMethod(object,MUIM_Hide);
+    return DoMethod(object, MUIM_Hide);
 }
 
 IPTR Zune::Area::show() {
-    return DoMethod(object,MUIM_Show);
+    return DoMethod(object, MUIM_Show);
 }
 
-Class * Zune::Area::registerClass() {
+Class *Zune::Area::registerClass() {
     return registerClassWithId((ClassID) MUIC_Area);
 }
 
@@ -353,22 +353,22 @@ IPTR Zune::Area::handleGet(struct IClass *cl, Object *obj, struct opGet *msg) {
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Zune::Area::handleEvent(Class *cl, Object *obj, struct MUIP_HandleEvent* msg) {
+IPTR Zune::Area::handleEvent(Class *cl, Object *obj, struct MUIP_HandleEvent *msg) {
     std::cout << "HandleEvent2" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Zune::Area::handleInput(Class *cl, Object *obj, struct MUIP_HandleInput* msg) {
+IPTR Zune::Area::handleInput(Class *cl, Object *obj, struct MUIP_HandleInput *msg) {
     std::cout << "HandleInput2" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Zune::Area::handleSetup(Class *cl, Object *obj, struct MUI_RenderInfo* msg) {
+IPTR Zune::Area::handleSetup(Class *cl, Object *obj, struct MUI_RenderInfo *msg) {
     std::cout << "HandleSetup" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }
 
-IPTR Zune::Area::handleDrawBackground(Class* cl, Object *obj, struct MUIP_DrawBackground* msg) {
+IPTR Zune::Area::handleDrawBackground(Class *cl, Object *obj, struct MUIP_DrawBackground *msg) {
     std::cout << "HandleDrawBackground" << std::endl;
     return DoSuperMethodA(cl, obj, msg);
 }

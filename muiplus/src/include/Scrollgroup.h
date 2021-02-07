@@ -10,13 +10,17 @@ namespace Zune {
         Scrollgroup();
 
     public:
-        Scrollgroup(Object* contents, bool showVert, bool showHoriz);
-        Scrollgroup(Object * obj);
-        Scrollgroup & operator=(Object * obj);
+        Scrollgroup(Object *contents, bool showVert, bool showHoriz);
 
-        void setContents(Object* object);
-        Object * horizBar(void) const;
-        Object * vertBar(void) const;
+        Scrollgroup(Object *obj);
+
+        Scrollgroup &operator=(Object *obj);
+
+        void setContents(Object *object);
+
+        Object *horizBar(void) const;
+
+        Object *vertBar(void) const;
     };
 }
 

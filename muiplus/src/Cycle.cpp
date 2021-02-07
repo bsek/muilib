@@ -2,17 +2,17 @@
 #include "include/Group.h"
 #include "include/ZuneObject.h"
 
-Zune::Cycle::Cycle(Object* obj)
-: Group() {
+Zune::Cycle::Cycle(Object *obj)
+        : Group() {
     object = obj;
 }
 
 Zune::Cycle::Cycle(std::string label, CONST_STRPTR entries[])
-: Group() {
+        : Group() {
     object = MUI_MakeObject(MUIO_Cycle, (IPTR) label.c_str(), (IPTR) entries);
 }
 
-Zune::Cycle& Zune::Cycle::operator=(Object* obj) {
+Zune::Cycle &Zune::Cycle::operator=(Object *obj) {
     object = obj;
     return *this;
 }

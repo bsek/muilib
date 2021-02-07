@@ -2,15 +2,15 @@
 #include "include/ZuneObject.h"
 
 Zune::Scale::Scale()
-: Area() {
+        : Area() {
 }
 
-Zune::Scale::Scale(Object* obj)
-: Area() {
+Zune::Scale::Scale(Object *obj)
+        : Area() {
     object = obj;
 }
 
-Zune::Scale& Zune::Scale::operator=(Object* obj) {
+Zune::Scale &Zune::Scale::operator=(Object *obj) {
     object = obj;
     return *this;
 }

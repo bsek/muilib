@@ -29,7 +29,7 @@ MainWindow::MainWindow(Zune::Window &win) : window(std::move(win)) {
 void MainWindow::init() {
     std::cout << "MainWindow init" << std::endl;
 
-    mainGroup = Zune::Group{};
+    mainGroup = Zune::Group{Zune::GroupDirection::Vertical};
 
     imageArea = new ImageArea{};
     //sourceEditor = new SourceEditor{};
@@ -39,7 +39,7 @@ void MainWindow::init() {
     Zune::Rectangle hBar(Zune::HORIZONTAL, 5, "Title");
 
     mainGroup.addMember(scrollgroup->operator*());
-    auto hGroup = new Zune::Group{};
+    auto hGroup = new Zune::Group{Zune::GroupDirection::Horizontal};
     //hGroup->addMember(*(*imageArea));
     //hGroup->addMember(*(*sourceEditor));
 

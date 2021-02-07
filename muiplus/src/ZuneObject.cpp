@@ -44,12 +44,12 @@ Tag Zune::ZuneObject::operator()() const {
 void Zune::ZuneObject::addMember(Object *child) {
 //    std::cout << "Adding member " << child << " to object " << object <<  std::endl;
 
-    DoMethod(object, OM_ADDMEMBER, (IPTR)child);
+    DoMethod(object, OM_ADDMEMBER, (IPTR) child);
 }
 
 void Zune::ZuneObject::remMember(Object *child) {
 //    std::cout << "Removing member " << child << " from object " << object << std::endl;
 
-    DoMethod(object, OM_REMMEMBER, (IPTR)child);
+    DoMethod(object, OM_REMMEMBER, (IPTR) child);
 }
 

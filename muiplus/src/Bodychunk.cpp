@@ -2,28 +2,28 @@
 #include "include/Bitmap.h"
 #include "include/ZuneObject.h"
 
-Zune::Bodychunk::Bodychunk(LONG width, LONG height, LONG depth, UBYTE masking, UBYTE * body, UBYTE compression)
-: Bitmap() {
-    object = MUI_NewObject(MUIC_Bodychunk, MUIA_Bodychunk_Body, (IPTR)body, MUIA_Width, (IPTR) width, MUIA_Height,
-            (IPTR) height, MUIA_Bodychunk_Depth, (IPTR) depth, MUIA_Bodychunk_Masking, (IPTR) masking,
-            MUIA_Bodychunk_Compression, (IPTR) compression, TAG_END);
+Zune::Bodychunk::Bodychunk(LONG width, LONG height, LONG depth, UBYTE masking, UBYTE *body, UBYTE compression)
+        : Bitmap() {
+    object = MUI_NewObject(MUIC_Bodychunk, MUIA_Bodychunk_Body, (IPTR) body, MUIA_Width, (IPTR) width, MUIA_Height,
+                           (IPTR) height, MUIA_Bodychunk_Depth, (IPTR) depth, MUIA_Bodychunk_Masking, (IPTR) masking,
+                           MUIA_Bodychunk_Compression, (IPTR) compression, TAG_END);
 }
 
-Zune::Bodychunk::Bodychunk(Object* obj)
-: Bitmap() {
+Zune::Bodychunk::Bodychunk(Object *obj)
+        : Bitmap() {
     object = obj;
 }
 
-Zune::Bodychunk & Zune::Bodychunk::operator=(Object * obj) {
+Zune::Bodychunk &Zune::Bodychunk::operator=(Object *obj) {
     object = obj;
     return *this;
 }
 
-UBYTE * Zune::Bodychunk::body(void) const {
+UBYTE *Zune::Bodychunk::body(void) const {
     return (UBYTE *) mGetAttr(MUIA_Bodychunk_Body);
 }
 
-void Zune::Bodychunk::setBody(UBYTE * value) {
+void Zune::Bodychunk::setBody(UBYTE *value) {
     setAttr(MUIA_Bodychunk_Body, (IPTR) value);
 }
 

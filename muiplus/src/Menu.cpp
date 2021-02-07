@@ -3,19 +3,20 @@
 #include "include/ZuneObject.h"
 
 Zune::Menu::Menu()
-: Zune::Family() {
+        : Zune::Family() {
 }
 
 Zune::Menu::Menu(std::string title, BOOL copyStrings, BOOL menuEnable) {
-    object = MUI_NewObject(MUIC_Menu, MUIA_Menu_Title, (IPTR) title.c_str(), MUIA_Menu_Enabled, (IPTR) menuEnable, TAG_END);
+    object = MUI_NewObject(MUIC_Menu, MUIA_Menu_Title, (IPTR) title.c_str(), MUIA_Menu_Enabled, (IPTR) menuEnable,
+                           TAG_END);
 }
 
-Zune::Menu::Menu(Object* obj)
-: Zune::Family() {
+Zune::Menu::Menu(Object *obj)
+        : Zune::Family() {
     object = obj;
 }
 
-Zune::Menu& Zune::Menu::operator=(Object* obj) {
+Zune::Menu &Zune::Menu::operator=(Object *obj) {
     object = obj;
     return *this;
 }

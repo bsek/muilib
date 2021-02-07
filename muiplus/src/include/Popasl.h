@@ -1,5 +1,5 @@
 #ifndef POPASL_H
-#define	POPASL_H
+#define    POPASL_H
 
 #include "Popstring.h"
 #include "ZuneObject.h"
@@ -7,15 +7,22 @@
 namespace Zune {
     class Popasl : public Popstring {
     public:
-        Popasl(struct Hook * startHook, struct Hook * stopHook, IPTR type);
-        Popasl(Object * obj);
-        Popasl & operator=(Object * obj);
+        Popasl(struct Hook *startHook, struct Hook *stopHook, IPTR type);
+
+        Popasl(Object *obj);
+
+        Popasl &operator=(Object *obj);
 
         BOOL active() const;
-        struct Hook * startHook() const;
+
+        struct Hook *startHook() const;
+
         void setStartHook(struct Hook *value);
-        struct Hook * stopHook() const;
+
+        struct Hook *stopHook() const;
+
         void setStopHook(struct Hook *value);
+
         IPTR getType() const;
 
     protected:
@@ -24,5 +31,5 @@ namespace Zune {
 }
 
 
-#endif	/* POPASL_H */
+#endif    /* POPASL_H */
 

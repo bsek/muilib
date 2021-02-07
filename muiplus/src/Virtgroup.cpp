@@ -2,15 +2,11 @@
 #include "include/Group.h"
 #include "include/ZuneObject.h"
 
-Zune::Virtgroup::Virtgroup()
-: Zune::Group() {
+Zune::Virtgroup::Virtgroup(Object *obj)
+        : Zune::Group(obj) {
 }
 
-Zune::Virtgroup::Virtgroup(Object* obj)
-: Zune::Group(obj) {
-}
-
-Zune::Virtgroup& Zune::Virtgroup::operator=(Object* obj) {
+Zune::Virtgroup &Zune::Virtgroup::operator=(Object *obj) {
     object = obj;
     return *this;
 }
@@ -42,3 +38,5 @@ LONG Zune::Virtgroup::width() const {
 Class *Zune::Virtgroup::registerClass() {
     return Area::registerClassWithId((ClassID) MUIC_Virtgroup);
 }
+
+Zune::Virtgroup::Virtgroup() {}

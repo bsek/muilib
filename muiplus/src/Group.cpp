@@ -3,26 +3,22 @@
 #include "include/ZuneObject.h"
 
 
-Zune::Group::Group()
-: Area() {
-}
-
 Zune::Group::Group(Zune::GroupDirection direction) : Area() {
     object = MUI_NewObject(MUIC_Group, MUIA_Group_Horiz, direction == Zune::GroupDirection::Horizontal, TAG_END);
 }
 
-Zune::Group::Group(Object* obj)
-: Area() {
+Zune::Group::Group(Object *obj)
+        : Area() {
     object = obj;
 }
 
-Zune::Group& Zune::Group::operator=(Object* obj) {
+Zune::Group &Zune::Group::operator=(Object *obj) {
     object = obj;
     return *this;
 }
 
 void Zune::Group::addObject(Object *obj) {
-    if (obj == NULL){
+    if (obj == NULL) {
         std::cout << "ZuneObject is null, will not add to group!" << std::endl;
     } else {
         DoMethod(object, MUIM_Group_AddTail, (IPTR) obj);
@@ -30,7 +26,7 @@ void Zune::Group::addObject(Object *obj) {
 }
 
 void Zune::Group::remObject(Object *obj) {
-    std::cout << "Removing object: " << obj << " from group" <<  std::endl;
+    std::cout << "Removing object: " << obj << " from group" << std::endl;
 
     DoMethod(object, MUIM_Group_Remove, (IPTR) obj);
 }
@@ -76,11 +72,11 @@ void Zune::Group::setVertSpacing(LONG value) {
 }
 
 IPTR Zune::Group::exitChange(void) {
-    return DoMethod(object,MUIM_Group_ExitChange);
+    return DoMethod(object, MUIM_Group_ExitChange);
 }
 
 IPTR Zune::Group::initChange(void) {
-    return DoMethod(object,MUIM_Group_InitChange);
+    return DoMethod(object, MUIM_Group_InitChange);
 }
 
 IPTR Zune::Group::sort(std::vector<Object *> objects) {
@@ -93,3 +89,5 @@ IPTR Zune::Group::sort(std::vector<Object *> objects) {
 Class *Zune::Group::registerClass() {
     return Area::registerClassWithId((ClassID) MUIC_Group);
 }
+
+Zune::Group::Group() {}

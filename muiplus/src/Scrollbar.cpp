@@ -3,15 +3,15 @@
 #include "include/ZuneObject.h"
 
 Zune::Scrollbar::Scrollbar()
-: Zune::Group() {
+        : Zune::Group() {
 }
 
-Zune::Scrollbar::Scrollbar(Object* obj)
-: Zune::Group() {
+Zune::Scrollbar::Scrollbar(Object *obj)
+        : Zune::Group() {
     object = obj;
 }
 
-Zune::Scrollbar& Zune::Scrollbar::operator=(Object* obj) {
+Zune::Scrollbar &Zune::Scrollbar::operator=(Object *obj) {
     object = obj;
     return *this;
 }

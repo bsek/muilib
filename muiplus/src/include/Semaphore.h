@@ -9,13 +9,18 @@ namespace Zune {
         Semaphore();
 
     public:
-        Semaphore(Object * obj);
-        Semaphore & operator=(Object * obj);
+        Semaphore(Object *obj);
+
+        Semaphore &operator=(Object *obj);
 
         IPTR Attempt();
+
         IPTR AttemptShared();
+
         IPTR Obtain();
+
         IPTR ObtainShared();
+
         IPTR Release();
     };
 }

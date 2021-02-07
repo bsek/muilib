@@ -2,20 +2,20 @@
 #include "include/ZuneObject.h"
 
 Zune::Text::Text()
-: Area() {
+        : Area() {
 }
 
-Zune::Text::Text(Object* obj)
-: Area() {
+Zune::Text::Text(Object *obj)
+        : Area() {
     object = obj;
 }
 
-Zune::Text& Zune::Text::operator=(Object* obj) {
+Zune::Text &Zune::Text::operator=(Object *obj) {
     object = obj;
     return *this;
 }
 
-Zune::Text::operator const char * () {
+Zune::Text::operator const char *() {
     return (const char *) contents();
 }
 

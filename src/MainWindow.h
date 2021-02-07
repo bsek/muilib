@@ -17,7 +17,7 @@ private:
     SourceEditor *sourceEditor;
     Zune::Window window;
     Zune::Scrollgroup *scrollgroup;
-    Zune::Group mainGroup;
+    Zune::Group mainGroup{Zune::GroupDirection::Vertical};
     Zune::Application *application;
 public:
     MainWindow(Zune::Window &win);

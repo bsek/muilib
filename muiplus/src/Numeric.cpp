@@ -73,34 +73,34 @@ void Zune::Numeric::setValue(LONG value) {
 }
 
 IPTR Zune::Numeric::decrease(LONG amount) {
-    return DoMethod(object,MUIM_Numeric_Decrease, amount);
+    return DoMethod(object, MUIM_Numeric_Decrease, amount);
 }
 
 IPTR Zune::Numeric::increase(LONG amount) {
-    return DoMethod(object,MUIM_Numeric_Increase, amount);
+    return DoMethod(object, MUIM_Numeric_Increase, amount);
 }
 
 IPTR Zune::Numeric::scaleToValue(LONG scalemin, LONG scalemax, LONG scale) {
-    return DoMethod(object,MUIM_Numeric_ScaleToValue, scalemin, scalemax, scale);
+    return DoMethod(object, MUIM_Numeric_ScaleToValue, scalemin, scalemax, scale);
 }
 
 IPTR Zune::Numeric::setDefault() {
-    return DoMethod(object,MUIM_Numeric_SetDefault);
+    return DoMethod(object, MUIM_Numeric_SetDefault);
 }
 
 IPTR Zune::Numeric::stringify(LONG value) {
-    return DoMethod(object,MUIM_Numeric_Stringify, value);
+    return DoMethod(object, MUIM_Numeric_Stringify, value);
 }
 
 IPTR Zune::Numeric::valueToScale(LONG scalemin, LONG scalemax) {
-    return DoMethod(object,MUIM_Numeric_ValueToScale, scalemin, scalemax);
+    return DoMethod(object, MUIM_Numeric_ValueToScale, scalemin, scalemax);
 }
 
 //Numeric::operator LONG() {
 //    return Value();
 //}
 
-Zune::Numeric::operator int () {
+Zune::Numeric::operator int() {
     return (int) value();
 }
 //
@@ -109,7 +109,7 @@ Zune::Numeric::operator int () {
 //    return *this;
 //}
 
-Zune::Numeric & Zune::Numeric::operator=(int value) {
+Zune::Numeric &Zune::Numeric::operator=(int value) {
     setValue((LONG) value);
     return *this;
 }
@@ -126,7 +126,7 @@ Zune::Numeric Zune::Numeric::operator++(int dummy) // postfix
     return *this;
 }
 
-Zune::Numeric & Zune::Numeric::operator+=(LONG value) {
+Zune::Numeric &Zune::Numeric::operator+=(LONG value) {
     increase(value);
     return *this;
 }
@@ -143,11 +143,11 @@ Zune::Numeric Zune::Numeric::operator--(int dummy) // postfix
     return *this;
 }
 
-Zune::Numeric & Zune::Numeric::operator-=(LONG value) {
+Zune::Numeric &Zune::Numeric::operator-=(LONG value) {
     decrease(value);
     return *this;
 }
 
 Zune::Numeric::Numeric()
-: Area() {
+        : Area() {
 }

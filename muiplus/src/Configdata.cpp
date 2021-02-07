@@ -2,6 +2,6 @@
 #include "include/Dataspace.h"
 
 Zune::Configdata::Configdata()
-: Dataspace() {
+        : Dataspace() {
     object = MUI_NewObject(MUIC_Configdata, TAG_END);
 }

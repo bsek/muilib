@@ -3,20 +3,20 @@
 #include "include/Rectangle.h"
 
 Zune::BarTitle::BarTitle()
-: Rectangle() {
+        : Rectangle() {
 }
 
-Zune::BarTitle::BarTitle(Object* obj)
-: Rectangle() {
+Zune::BarTitle::BarTitle(Object *obj)
+        : Rectangle() {
     object = obj;
 }
 
 Zune::BarTitle::BarTitle(LONG space)
-: Rectangle() {
+        : Rectangle() {
     object = MUI_MakeObject(MUIO_BarTitle, (IPTR) space);
 }
 
-Zune::BarTitle & Zune::BarTitle::operator=(Object * obj) {
+Zune::BarTitle &Zune::BarTitle::operator=(Object *obj) {
     object = obj;
     return *this;
 }

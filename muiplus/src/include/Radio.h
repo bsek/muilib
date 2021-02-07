@@ -7,11 +7,14 @@
 namespace Zune {
     class Radio : public Zune::Group {
     public:
-        Radio(Object * obj);
-        Radio(std::string& label, CONST_STRPTR entries[]);
-        Radio & operator=(Object * obj);
+        Radio(Object *obj);
+
+        Radio(std::string &label, CONST_STRPTR entries[]);
+
+        Radio &operator=(Object *obj);
 
         LONG active() const;
+
         void setActive(LONG value);
 
     protected:

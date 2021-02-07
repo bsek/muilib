@@ -10,8 +10,9 @@ namespace Zune {
         Popscreen();
 
     public:
-        Popscreen(Object * obj);
-        Popscreen & operator=(Object * obj);
+        Popscreen(Object *obj);
+
+        Popscreen &operator=(Object *obj);
     };
 }
 

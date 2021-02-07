@@ -1,5 +1,5 @@
 #ifndef PENADJUST_H
-#define	PENADJUST_H
+#define    PENADJUST_H
 
 #include "Register.h"
 
@@ -11,5 +11,5 @@ namespace Zune {
     };
 }
 
-#endif	/* PENADJUST_H */
+#endif    /* PENADJUST_H */
 

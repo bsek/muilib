@@ -10,11 +10,14 @@ namespace Zune {
         Slider();
 
     public:
-        Slider(Object * obj);
+        Slider(Object *obj);
+
         Slider(std::string label, LONG min, LONG max);
-        Slider & operator=(Object * obj);
+
+        Slider &operator=(Object *obj);
 
         BOOL horiz() const;
+
         void setHoriz(BOOL value);
     };
 }

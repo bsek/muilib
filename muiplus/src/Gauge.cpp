@@ -2,17 +2,17 @@
 #include "include/ZuneObject.h"
 
 Zune::Gauge::Gauge(LONG current, ULONG divide, BOOL horiz, std::string infoText, LONG max)
-: Area() {
+        : Area() {
     object = MUI_NewObject(MUIC_Gauge, MUIA_Gauge_Current, current, MUIA_Gauge_Divide, divide, MUIA_Gauge_Horiz, horiz,
-            MUIA_Gauge_InfoText, infoText.c_str(), MUIA_Gauge_Max, max);
+                           MUIA_Gauge_InfoText, infoText.c_str(), MUIA_Gauge_Max, max);
 }
 
-Zune::Gauge::Gauge(Object* obj)
-: Area() {
+Zune::Gauge::Gauge(Object *obj)
+        : Area() {
     object = obj;
 }
 
-Zune::Gauge& Zune::Gauge::operator=(Object* obj) {
+Zune::Gauge &Zune::Gauge::operator=(Object *obj) {
     object = obj;
     return *this;
 }

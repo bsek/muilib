@@ -8,8 +8,10 @@ namespace Zune {
     class Poplist : public Popobject {
     public:
         Poplist(STRPTR list[]);
-        Poplist(Object * obj);
-        Poplist & operator=(Object * obj);
+
+        Poplist(Object *obj);
+
+        Poplist &operator=(Object *obj);
 
     protected:
         Poplist();

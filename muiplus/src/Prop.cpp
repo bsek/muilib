@@ -2,15 +2,15 @@
 #include "include/ZuneObject.h"
 
 Zune::Prop::Prop()
-: Zune::Area() {
+        : Zune::Area() {
 }
 
-Zune::Prop::Prop(Object* obj)
-: Zune::Area() {
+Zune::Prop::Prop(Object *obj)
+        : Zune::Area() {
     object = obj;
 }
 
-Zune::Prop& Zune::Prop::operator=(Object* obj) {
+Zune::Prop &Zune::Prop::operator=(Object *obj) {
     object = obj;
     return *this;
 }
@@ -52,9 +52,9 @@ void Zune::Prop::setVisible(LONG value) {
 }
 
 IPTR Zune::Prop::decrease(LONG amount) {
-    return DoMethod(object,MUIM_Prop_Decrease, amount);
+    return DoMethod(object, MUIM_Prop_Decrease, amount);
 }
 
 IPTR Zune::Prop::increase(LONG amount) {
-    return DoMethod(object,MUIM_Prop_Increase, amount);
+    return DoMethod(object, MUIM_Prop_Increase, amount);
 }

@@ -12,7 +12,7 @@ IPTR Zune::NListview<Type>::ChildList() const {
 
 template<typename Type>
 IPTR Zune::NListview<Type>::exitChange() {
-    return DoMethod(this->object,MUIM_Group_ExitChange);
+    return DoMethod(this->object, MUIM_Group_ExitChange);
 }
 
 template<typename Type>
@@ -21,17 +21,17 @@ LONG Zune::NListview<Type>::horizSpacing() const {
 }
 
 template<typename Type>
-Object* Zune::NListview<Type>::horizScrollBar() const {
+Object *Zune::NListview<Type>::horizScrollBar() const {
     return (Object *) ZuneObject::mGetAttr(MUIA_NListview_Horiz_ScrollBar);
 }
 
 template<typename Type>
 IPTR Zune::NListview<Type>::initChange() {
-    return DoMethod(this->object,MUIM_Group_InitChange);
+    return DoMethod(this->object, MUIM_Group_InitChange);
 }
 
 template<typename Type>
-Object* Zune::NListview<Type>::nList() const {
+Object *Zune::NListview<Type>::nList() const {
     return (Object *) ZuneObject::mGetAttr(MUIA_NListview_NList);
 }
 
@@ -77,7 +77,7 @@ void Zune::NListview<Type>::setVertScrollBar(Object *value) {
 
 template<typename Type>
 IPTR Zune::NListview<Type>::sort(std::vector<Object *> param1) {
-    auto p = createTagListFromVector<Object*>(param1, 1);
+    auto p = createTagListFromVector<Object *>(param1, 1);
     p.get()[0] = MUIM_Group_Sort;
 
     return DoMethodA(this->object, (Msg) p.get());
@@ -89,12 +89,12 @@ LONG Zune::NListview<Type>::vertSpacing() const {
 }
 
 template<typename Type>
-Object* Zune::NListview<Type>::vertScrollBar() const {
+Object *Zune::NListview<Type>::vertScrollBar() const {
     return (Object *) ZuneObject::mGetAttr(MUIA_NListview_Vert_ScrollBar);
 }
 
 template<typename Type>
-Zune::NListview<Type>& Zune::NListview<Type>::operator=(Object* obj) {
+Zune::NListview<Type> &Zune::NListview<Type>::operator=(Object *obj) {
     this->object = obj;
     return *this;
 }

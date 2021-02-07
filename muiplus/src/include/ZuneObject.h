@@ -7,18 +7,26 @@ namespace Zune {
     class ZuneObject {
     public:
         BOOL isValid() const;
+
         IPTR mGetAttr(Tag attr, IPTR *value) const;
+
         IPTR mGetAttr(Tag attr) const;
+
         void setAttr(Tag attr, IPTR value);
+
         void dispose();
 
-        Object* operator*() const;
+        Object *operator*() const;
+
         Tag operator()() const;
+
         void addMember(Object *child);
+
         void remMember(Object *child);
 
     protected:
-        Object* object;
+        Object *object;
+
         ZuneObject();
     };
 }

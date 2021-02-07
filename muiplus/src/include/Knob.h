@@ -10,8 +10,9 @@ namespace Zune {
         Knob();
 
     public:
-        Knob(Object * obj);
-        Knob & operator=(Object * obj);
+        Knob(Object *obj);
+
+        Knob &operator=(Object *obj);
     };
 }
 

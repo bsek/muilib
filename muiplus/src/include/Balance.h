@@ -8,9 +8,11 @@ namespace Zune {
     class Balance : public Area {
     protected:
         Balance();
+
     public:
-        Balance(Object * obj);
-        Balance & operator=(Object * obj);
+        Balance(Object *obj);
+
+        Balance &operator=(Object *obj);
     };
 }
 

@@ -2,6 +2,6 @@
 #include "include/Register.h"
 
 Zune::Penadjust::Penadjust()
-: Register() {
+        : Register() {
 }
 

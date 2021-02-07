@@ -5,7 +5,7 @@
 Zune::String::String() : Area() {
 }
 
-Zune::String::String(Object* obj) : Area() {
+Zune::String::String(Object *obj) : Area() {
     object = obj;
 }
 
@@ -13,7 +13,7 @@ Zune::String::String(std::string label, LONG maxlen) : Area() {
     object = MUI_MakeObject(MUIO_String, (IPTR) label.c_str(), (IPTR) maxlen);
 }
 
-Zune::String& Zune::String::operator=(Object* obj) {
+Zune::String &Zune::String::operator=(Object *obj) {
     object = obj;
     return *this;
 }
@@ -22,7 +22,7 @@ Zune::String::operator IPTR() {
     return integer();
 }
 
-Zune::String::operator const char * () {
+Zune::String::operator const char *() {
     return contents().c_str();
 }
 
@@ -46,11 +46,11 @@ void Zune::String::setAdvanceOnCR(BOOL value) {
     setAttr(MUIA_String_AdvanceOnCR, (IPTR) value);
 }
 
-Object * Zune::String::attachedList() const {
+Object *Zune::String::attachedList() const {
     return (Object *) mGetAttr(MUIA_String_AttachedList);
 }
 
-void Zune::String::setAttachedList(Object * value) {
+void Zune::String::setAttachedList(Object *value) {
     setAttr(MUIA_String_AttachedList, (IPTR) value);
 }
 
@@ -78,11 +78,11 @@ void Zune::String::setDisplayPos(LONG value) {
     setAttr(MUIA_String_DisplayPos, (IPTR) value);
 }
 
-struct Hook * Zune::String::editHook() const {
+struct Hook *Zune::String::editHook() const {
     return (struct Hook *) mGetAttr(MUIA_String_EditHook);
 }
 
-void Zune::String::mSetEditHook(struct Hook * value) {
+void Zune::String::mSetEditHook(struct Hook *value) {
     setAttr(MUIA_String_EditHook, (IPTR) value);
 }
 

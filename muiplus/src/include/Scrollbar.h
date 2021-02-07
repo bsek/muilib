@@ -7,8 +7,9 @@
 namespace Zune {
     class Scrollbar : public Zune::Group {
     public:
-        Scrollbar(Object * obj);
-        Scrollbar & operator=(Object * obj);
+        Scrollbar(Object *obj);
+
+        Scrollbar &operator=(Object *obj);
 
     protected:
         Scrollbar();

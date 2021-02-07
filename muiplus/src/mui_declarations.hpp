@@ -1,10 +1,12 @@
 #ifndef MUI_DECLARATIONS_HPP
-#define	MUI_DECLARATIONS_HPP
+#define    MUI_DECLARATIONS_HPP
 
 #include <exec/types.h>
 
 #ifndef LIBRARIES_MUI_H
+
 #include <libraries/mui.h>
+
 #endif
 
 #include <proto/intuition.h>
@@ -46,5 +48,5 @@ std::unique_ptr<IPTR> createTagListFromVector(std::vector<T> list, int offset) {
 }
 
 
-#endif	/* MUI_DECLARATIONS_HPP */
+#endif    /* MUI_DECLARATIONS_HPP */
 

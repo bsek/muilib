@@ -6,9 +6,10 @@
 Zune::Notify::Notify() : ZuneObject() {
 }
 
-Object * Zune::Notify::mApplicationObject() const {
+Object *Zune::Notify::mApplicationObject() const {
     return (Object *) mGetAttr(MUIA_ApplicationObject);
 }
+
 IPTR Zune::Notify::appMessage() const {
     return mGetAttr(MUIA_AppMessage);
 }
@@ -41,7 +42,7 @@ void Zune::Notify::setObjectID(IPTR value) {
     setAttr(MUIA_ObjectID, (IPTR) value);
 }
 
-Object* Zune::Notify::parent() const {
+Object *Zune::Notify::parent() const {
     return (Object *) mGetAttr(MUIA_Parent);
 }
 
@@ -62,31 +63,31 @@ LONG Zune::Notify::version() const {
 }
 
 IPTR Zune::Notify::exportDataspace(Object *dataspace) {
-    return DoMethod(object,MUIM_Export, (IPTR)dataspace);
+    return DoMethod(object, MUIM_Export, (IPTR) dataspace);
 }
 
 IPTR Zune::Notify::findUData(IPTR udata) {
-    return DoMethod(object,MUIM_FindUData, udata);
+    return DoMethod(object, MUIM_FindUData, udata);
 }
 
 IPTR Zune::Notify::getConfigItem(IPTR id, IPTR *storage) {
-    return DoMethod(object,MUIM_GetConfigItem, id, storage);
+    return DoMethod(object, MUIM_GetConfigItem, id, storage);
 }
 
 IPTR Zune::Notify::getUData(IPTR udata, IPTR attr, IPTR *storage) {
-    return DoMethod(object,MUIM_GetUData, udata, attr, storage);
+    return DoMethod(object, MUIM_GetUData, udata, attr, storage);
 }
 
 IPTR Zune::Notify::importDataspace(Object *dataspace) {
-    return DoMethod(object,MUIM_Import, (IPTR)dataspace);
+    return DoMethod(object, MUIM_Import, (IPTR) dataspace);
 }
 
 IPTR Zune::Notify::killNotify(IPTR TrigAttr) {
-    return DoMethod(object,MUIM_KillNotify, TrigAttr);
+    return DoMethod(object, MUIM_KillNotify, TrigAttr);
 }
 
 IPTR Zune::Notify::killNotifyObj(IPTR TrigAttr, Object *dest) {
-    return DoMethod(object,MUIM_KillNotifyObj, TrigAttr, dest);
+    return DoMethod(object, MUIM_KillNotifyObj, TrigAttr, dest);
 }
 
 IPTR Zune::Notify::multiSet(std::vector<IPTR> obj) {
@@ -97,22 +98,22 @@ IPTR Zune::Notify::multiSet(std::vector<IPTR> obj) {
 }
 
 IPTR Zune::Notify::set(IPTR attr, IPTR val) {
-    return DoMethod(object,MUIM_Set, attr, val);
+    return DoMethod(object, MUIM_Set, attr, val);
 }
 
 IPTR Zune::Notify::setUData(IPTR udata, IPTR attr, IPTR val) {
-    return DoMethod(object,MUIM_SetUData, udata, attr, val);
+    return DoMethod(object, MUIM_SetUData, udata, attr, val);
 }
 
 IPTR Zune::Notify::setUDataOnce(IPTR udata, IPTR attr, IPTR val) {
-    return DoMethod(object,MUIM_SetUDataOnce, udata, attr, val);
+    return DoMethod(object, MUIM_SetUDataOnce, udata, attr, val);
 }
 
 IPTR Zune::Notify::writeLong(IPTR val, IPTR *memory) {
-    return DoMethod(object,MUIM_WriteLong, val, memory);
+    return DoMethod(object, MUIM_WriteLong, val, memory);
 }
 
 IPTR Zune::Notify::writeString(char *str, char *memory) {
-    return DoMethod(object,MUIM_WriteString, (IPTR)str, memory);
+    return DoMethod(object, MUIM_WriteString, (IPTR) str, memory);
 }
 

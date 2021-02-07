@@ -2,5 +2,5 @@
 #include "include/Group.h"
 
 Zune::Settings::Settings()
-: Zune::Group() {
+        : Zune::Group() {
 }

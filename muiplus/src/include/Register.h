@@ -11,10 +11,12 @@ namespace Zune {
 
     public:
         Register(CONST_STRPTR titles[]);
-        Register(Object * obj);
-        Register & operator=(Object * obj);
 
-        STRPTR * titles() const;
+        Register(Object *obj);
+
+        Register &operator=(Object *obj);
+
+        STRPTR *titles() const;
     };
 }
 

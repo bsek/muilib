@@ -8,8 +8,10 @@ namespace Zune {
     class Poppen : public Zune::Pendisplay {
     public:
         Poppen(std::string title, uint8_t cycleChain);
-        Poppen(Object * obj);
-        Poppen & operator=(Object * obj);
+
+        Poppen(Object *obj);
+
+        Poppen &operator=(Object *obj);
 
     protected:
         Poppen();

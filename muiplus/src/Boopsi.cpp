@@ -1,28 +1,28 @@
 #include "include/Boopsi.h"
 #include "include/ZuneObject.h"
 
-Zune::Boopsi::Boopsi(Object* obj) : Area() {
+Zune::Boopsi::Boopsi(Object *obj) : Area() {
     object = obj;
 }
 
-Zune::Boopsi& Zune::Boopsi::operator=(Object* obj) {
+Zune::Boopsi &Zune::Boopsi::operator=(Object *obj) {
     object = obj;
     return *this;
 }
 
-struct IClass * Zune::Boopsi::iClass() const {
+struct IClass *Zune::Boopsi::iClass() const {
     return (struct IClass *) mGetAttr(MUIA_Boopsi_Class);
 }
 
-void Zune::Boopsi::setClass(struct IClass * value) {
+void Zune::Boopsi::setClass(struct IClass *value) {
     setAttr(MUIA_Boopsi_Class, (IPTR) value);
 }
 
-char * Zune::Boopsi::classID() const {
+char *Zune::Boopsi::classID() const {
     return (char *) mGetAttr(MUIA_Boopsi_ClassID);
 }
 
-void Zune::Boopsi::setClassID(char * value) {
+void Zune::Boopsi::setClassID(char *value) {
     setAttr(MUIA_Boopsi_ClassID, (IPTR) value);
 }
 
@@ -58,7 +58,7 @@ void Zune::Boopsi::setMinWidth(IPTR value) {
     setAttr(MUIA_Boopsi_MinWidth, (IPTR) value);
 }
 
-Object * Zune::Boopsi::mBoopsiObject() const {
+Object *Zune::Boopsi::mBoopsiObject() const {
     return (Object *) mGetAttr(MUIA_Boopsi_Object);
 }
 

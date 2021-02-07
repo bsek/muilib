@@ -13,8 +13,8 @@ Zune::Scrollgroup::Scrollgroup()
         : Group() {
 }
 
-Zune::Scrollgroup::Scrollgroup(Object* contents, bool showVert, bool showHoriz)
-: Group() {
+Zune::Scrollgroup::Scrollgroup(Object *contents, bool showVert, bool showHoriz)
+        : Group() {
     object = MUI_NewObject(MUIC_Scrollgroup,
                            MUIA_Scrollgroup_FreeVert, showVert,
                            MUIA_Scrollgroup_FreeHoriz, showHoriz,
@@ -22,21 +22,21 @@ Zune::Scrollgroup::Scrollgroup(Object* contents, bool showVert, bool showHoriz)
                            TAG_END);
 }
 
-Zune::Scrollgroup::Scrollgroup(Object* obj)
-: Group() {
+Zune::Scrollgroup::Scrollgroup(Object *obj)
+        : Group() {
     object = obj;
 }
 
-Zune::Scrollgroup& Zune::Scrollgroup::operator=(Object* obj) {
+Zune::Scrollgroup &Zune::Scrollgroup::operator=(Object *obj) {
     object = obj;
     return *this;
 }
 
-Object * Zune::Scrollgroup::horizBar() const {
+Object *Zune::Scrollgroup::horizBar() const {
     return (Object *) mGetAttr(MUIA_Scrollgroup_HorizBar);
 }
 
-Object * Zune::Scrollgroup::vertBar() const {
+Object *Zune::Scrollgroup::vertBar() const {
     return (Object *) mGetAttr(MUIA_Scrollgroup_VertBar);
 }
 

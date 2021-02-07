@@ -7,8 +7,10 @@
 namespace Zune {
     class Settingsgroup : public Zune::Group {
     public:
-        IPTR ConfigToGadgets(Object * configdata);
-        IPTR GadgetsToConfig(Object * configdata);
+        IPTR ConfigToGadgets(Object *configdata);
+
+        IPTR GadgetsToConfig(Object *configdata);
+
     protected:
         Settingsgroup();
     };

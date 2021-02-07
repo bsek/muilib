@@ -1,5 +1,5 @@
 #ifndef CONFIGDATA_H
-#define	CONFIGDATA_H
+#define    CONFIGDATA_H
 
 #include "Dataspace.h"
 

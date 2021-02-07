@@ -7,14 +7,20 @@
 namespace Zune {
     class Palette : public Zune::Group {
     public:
-        Palette(Object * obj);
-        Palette(BOOL groupable, struct MUI_Palette_Entry * entries, STRPTR * names);
-        Palette & operator=(Object * obj);
+        Palette(Object *obj);
 
-        struct MUI_Palette_Entry * entries() const;
+        Palette(BOOL groupable, struct MUI_Palette_Entry *entries, STRPTR *names);
+
+        Palette &operator=(Object *obj);
+
+        struct MUI_Palette_Entry *entries() const;
+
         BOOL groupable() const;
+
         void setGroupable(BOOL value);
-        STRPTR * names() const;
+
+        STRPTR *names() const;
+
         void setNames(STRPTR value[]);
 
     protected:

@@ -5,7 +5,7 @@
 
 Zune::Window::Window() : group(nullptr) {}
 
-Zune::Window::Window(LONG id) : group(nullptr) {
+Zune::Window::Window(LONG id) : group(MUI_NewObject(MUIC_Group, MUIA_Group_Horiz, TRUE, TAG_END)) {
     Object *mui_win = MUI_NewObject(MUIC_Window,
                                     MUIA_Window_ID, id,
                                     MUIA_Window_AppWindow, TRUE,
@@ -17,7 +17,7 @@ Zune::Window::Window(LONG id) : group(nullptr) {
     object = mui_win;
 }
 
-Zune::Window & Zune::Window::operator=(Object *obj) {
+Zune::Window &Zune::Window::operator=(Object *obj) {
     object = obj;
     return *this;
 }
@@ -30,7 +30,7 @@ void Zune::Window::setActivate(BOOL value) {
     setAttr(MUIA_Window_Activate, (IPTR) value);
 }
 
-Object * Zune::Window::activeObject() const {
+Object *Zune::Window::activeObject() const {
     return (Object *) mGetAttr(MUIA_Window_ActiveObject);
 }
 
@@ -58,7 +58,7 @@ BOOL Zune::Window::closeRequest() const {
     return (BOOL) mGetAttr(MUIA_Window_CloseRequest);
 }
 
-Object * Zune::Window::defaultObject() const {
+Object *Zune::Window::defaultObject() const {
     return (Object *) mGetAttr(MUIA_Window_DefaultObject);
 }
 
@@ -86,7 +86,7 @@ void Zune::Window::setID(IPTR value) {
     setAttr(MUIA_Window_ID, (IPTR) value);
 }
 
-struct InputEvent * Zune::Window::inputEvent() const {
+struct InputEvent *Zune::Window::inputEvent() const {
     return (struct InputEvent *) mGetAttr(MUIA_Window_InputEvent);
 }
 
@@ -110,11 +110,11 @@ void Zune::Window::setMenuAction(IPTR value) {
     setAttr(MUIA_Window_MenuAction, (IPTR) value);
 }
 
-Object * Zune::Window::menustrip() const {
+Object *Zune::Window::menustrip() const {
     return (Object *) mGetAttr(MUIA_Window_Menustrip);
 }
 
-Object * Zune::Window::mouseObject() const {
+Object *Zune::Window::mouseObject() const {
     return (Object *) mGetAttr(MUIA_Window_MouseObject);
 }
 
@@ -142,15 +142,15 @@ void Zune::Window::setRefWindow(Object *value) {
     setAttr(MUIA_Window_RefWindow, (IPTR) value);
 }
 
-Object * Zune::Window::rootObject() const {
+Object *Zune::Window::rootObject() const {
     return (Object *) mGetAttr(MUIA_Window_RootObject);
 }
 
-void Zune::Window::setRootObject(Object * value) {
+void Zune::Window::setRootObject(Object *value) {
     setAttr(MUIA_Window_RootObject, (IPTR) value);
 }
 
-struct Screen * Zune::Window::screen() const {
+struct Screen *Zune::Window::screen() const {
     return (struct Screen *) mGetAttr(MUIA_Window_Screen);
 }
 
@@ -214,36 +214,36 @@ LONG Zune::Window::width() const {
     return (LONG) mGetAttr(MUIA_Window_Width);
 }
 
-struct Zune::Window * Zune::Window::window() const {
+struct Zune::Window *Zune::Window::window() const {
     return (struct Zune::Window *) mGetAttr(MUIA_Window_Window);
 }
 
 IPTR Zune::Window::addEventHandler(struct MUI_EventHandlerNode *ehnode) {
-    return DoMethod(object,MUIM_Window_AddEventHandler, (IPTR)ehnode);
+    return DoMethod(object, MUIM_Window_AddEventHandler, (IPTR) ehnode);
 }
 
 IPTR Zune::Window::remEventHandler(struct MUI_EventHandlerNode *ehnode) {
-    return DoMethod(object,MUIM_Window_RemEventHandler, (IPTR)ehnode);
+    return DoMethod(object, MUIM_Window_RemEventHandler, (IPTR) ehnode);
 }
 
 IPTR Zune::Window::mScreenToBack() {
-    return DoMethod(object,MUIM_Window_ScreenToBack);
+    return DoMethod(object, MUIM_Window_ScreenToBack);
 }
 
 IPTR Zune::Window::mScreenToFront() {
-    return DoMethod(object,MUIM_Window_ScreenToFront);
+    return DoMethod(object, MUIM_Window_ScreenToFront);
 }
 
 IPTR Zune::Window::snapshot(LONG flags) {
-    return DoMethod(object,MUIM_Window_Snapshot, (IPTR)flags);
+    return DoMethod(object, MUIM_Window_Snapshot, (IPTR) flags);
 }
 
 IPTR Zune::Window::toBack() {
-    return DoMethod(object,MUIM_Window_ToBack);
+    return DoMethod(object, MUIM_Window_ToBack);
 }
 
 IPTR Zune::Window::toFront() {
-    return DoMethod(object,MUIM_Window_ToFront);
+    return DoMethod(object, MUIM_Window_ToFront);
 }
 
 void Zune::Window::addChildToGroup(Object *obj) {

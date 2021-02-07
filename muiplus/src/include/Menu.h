@@ -1,5 +1,5 @@
 #ifndef MENU_H
-#define	MENU_H
+#define    MENU_H
 
 #include "Family.h"
 #include "ZuneObject.h"
@@ -8,12 +8,17 @@ namespace Zune {
     class Menu : public Zune::Family {
     public:
         Menu(std::string title, BOOL copyStrings, BOOL menuEnable);
-        Menu(Object * obj);
-        Menu & operator=(Object * obj);
+
+        Menu(Object *obj);
+
+        Menu &operator=(Object *obj);
 
         BOOL enabled() const;
+
         void setEnabled(BOOL value);
+
         STRPTR title() const;
+
         void setTitle(STRPTR value);
 
     protected:
@@ -22,5 +27,5 @@ namespace Zune {
 }
 
 
-#endif	/* MENU_H */
+#endif    /* MENU_H */
 

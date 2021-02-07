@@ -10,10 +10,12 @@ namespace Zune {
         Scale();
 
     public:
-        Scale(Object * obj);
-        Scale & operator=(Object * obj);
+        Scale(Object *obj);
+
+        Scale &operator=(Object *obj);
 
         BOOL Horiz() const;
+
         void SetHoriz(BOOL value);
     };
 }

@@ -219,29 +219,29 @@ namespace Zune {
     };
 }
 
-    template <typename T>
-    void Zune::Area::addEvent(Notify *object, EventType eventType, T *t, void (T::*method)())
-    {
-        ULONG id = generateId();
+template<typename T>
+void Zune::Area::addEvent(Notify *object, EventType eventType, T *t, void (T::*method)()) {
+    ULONG id = generateId();
 
-        auto eventCommand = new EventCommand<T>{};
-        eventCommand->receiver = t;
-        eventCommand->m_method = method;
+    auto eventCommand = new EventCommand<T>{};
+    eventCommand->receiver = t;
+    eventCommand->m_method = method;
 
-        this->eventIds[id] = static_cast<Event *>(eventCommand);
+    this->eventIds[id] = static_cast<Event *>(eventCommand);
 
-        if (eventType == EventType::PRESSED)
-        {
-            std::cerr << "Setting up pressed event:" << id << std::endl; // << ": COMMAND: " << CUSTOM_ACTION_COMMAND << " : " << method << " on " << object << '\n';
+    if (eventType == EventType::PRESSED) {
+        std::cerr << "Setting up pressed event:" << id
+                  << std::endl; // << ": COMMAND: " << CUSTOM_ACTION_COMMAND << " : " << method << " on " << object << '\n';
 
-            object->notify((IPTR)MUIA_Pressed, (IPTR)FALSE, (IPTR)this->object, (IPTR)2, (IPTR)CUSTOM_EVENT, (IPTR)id);
-        }
-        /*
-    if (eventType == EventType::ACTIVE) {
-        std::cerr << "Setting up active event:" << CUSTOM_EVENT << ":" << id << " on " << object << '\n';
-        DoMethod(obj, MUIM_Notify, MUIA_Cycle_Active, MUIV_EveryTime, object, 3, CUSTOM_EVENT, id, MUIV_TriggerValue);
+        object->notify((IPTR) MUIA_Pressed, (IPTR) FALSE, (IPTR) this->object, (IPTR) 2, (IPTR) CUSTOM_EVENT,
+                       (IPTR) id);
     }
+    /*
+if (eventType == EventType::ACTIVE) {
+    std::cerr << "Setting up active event:" << CUSTOM_EVENT << ":" << id << " on " << object << '\n';
+    DoMethod(obj, MUIM_Notify, MUIA_Cycle_Active, MUIV_EveryTime, object, 3, CUSTOM_EVENT, id, MUIV_TriggerValue);
+}
 */
-    }
+}
 
 #endif /* AREA_H */

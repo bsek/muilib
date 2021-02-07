@@ -3,11 +3,11 @@
 #include "include/Numeric.h"
 
 Zune::Levelmeter::Levelmeter()
-: Numeric() {
+        : Numeric() {
 }
 
-Zune::Levelmeter::Levelmeter(Object* obj)
-: Numeric() {
+Zune::Levelmeter::Levelmeter(Object *obj)
+        : Numeric() {
     object = obj;
 }
 
@@ -15,7 +15,7 @@ Zune::Levelmeter::Levelmeter(std::string label) {
     object = MUI_NewObject(MUIC_Levelmeter, MUIA_Levelmeter_Label, (IPTR) label.c_str(), TAG_END);
 }
 
-Zune::Levelmeter& Zune::Levelmeter::operator=(Object* obj) {
+Zune::Levelmeter &Zune::Levelmeter::operator=(Object *obj) {
     object = obj;
     return *this;
 }

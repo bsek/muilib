@@ -5,7 +5,7 @@
 #include <Rectangle.h>
 #include <Checkmark.h>
 
-Buttons::Buttons() : Zune::Group() {
+Buttons::Buttons() : Zune::Group(Zune::GroupDirection::Horizontal) {
     registerClass();
 
     Zune::Rectangle rect{Zune::MUI_Rectangle_Direction::HORIZONTAL, 20, "Some test"};
