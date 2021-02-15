@@ -3,7 +3,10 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "${workspacefolder}/muiplus/**",
+                "${workspacefolder}/zunegui/**",
+                "/usr/include/axrt"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

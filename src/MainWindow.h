@@ -4,21 +4,30 @@
 
 #include <Window.h>
 #include <Application.h>
-#include "Buttons.h"
-#include "ImageArea.h"
 #include "SourceEditor.h"
 #include <Scrollgroup.h>
-#include <Group.h>
+#include <HorizontalGroup.h>
+#include <VerticalGroup.h>
+#include "../zuneobject/Button.h"
+#include "../zuneobject/Checkmark.h"
+#include "../zuneobject/Cycle.h"
+#include "../zuneobject/Window.h"
 
 class MainWindow {
 private:
+/*
     Buttons buttons;
     ImageArea *imageArea;
     SourceEditor *sourceEditor;
-    Zune::Window window;
     Zune::Scrollgroup *scrollgroup;
-    Zune::Group mainGroup{Zune::GroupDirection::Vertical};
+*/
+    ZuneObject::Window window;
+    ZuneObject::Cycle cycle;
+    ZuneObject::HorizontalGroup topGroup{};
+    ZuneObject::VerticalGroup mainGroup{};
+/* 
     Zune::Application *application;
+*/
 public:
     MainWindow(Zune::Window &win);
     MainWindow(LONG id);

@@ -2,12 +2,10 @@
 #include <String.h>
 #include <Radio.h>
 #include <Rectangle.h>
-#include <Cycle.h>
 #include <Register.h>
 #include <Button.h>
 #include "ImageArea.h"
 #include <Group.h>
-#include <ZuneObject.h>
 #include <proto/graphics.h>
 
 ImageArea::ImageArea() : Zune::Virtgroup() {
@@ -31,10 +29,10 @@ ImageArea::ImageArea() : Zune::Virtgroup() {
     Object *obj_aux1 = MUI_MakeObject(MUIO_Label, "        Name :", MUIO_Label_DoubleFrame);
 
     Object *obj = MUI_NewObject(MUIC_Group, TAG_END);
-    Zune::Group obj_aux0{obj};
+    Zune::Group obj_aux0{};
     obj_aux0.setColumns(2);
     obj_aux0.addMember(obj_aux1);
-    obj_aux0.addMember(*StrName);
+    obj_aux0.addMember(&StrName);
 
     Zune::String StrPhoneNumber("", 50);
     StrPhoneNumber.set(MUIA_Frame, MUIV_Frame_String);
@@ -43,7 +41,7 @@ ImageArea::ImageArea() : Zune::Virtgroup() {
     Object * obj_aux3 = MUI_MakeObject(MUIO_Label,"Phone Number :", MUIO_Label_DoubleFrame);
 
     obj_aux0.addMember(obj_aux3);
-    obj_aux0.addMember(*StrPhoneNumber);
+    obj_aux0.addMember(&StrPhoneNumber);
 
     Zune::Radio rGender(label, rGenderContent);
     rGender.set(MUIA_Frame, MUIV_Frame_Group);
@@ -52,11 +50,9 @@ ImageArea::ImageArea() : Zune::Virtgroup() {
     set(MUIA_InputMode, MUIV_InputMode_RelVerify);
 
     Zune::Rectangle rectangle(Zune::MUI_Rectangle_Direction::VERTICAL, 100, "");
-    cycle = new Zune::Cycle("Cycle", rGenderContent);
 
-    cmuiRegister = new Zune::Register(rGenderContent);
-    cmuiRegister->addMember(*rGender);
-    cmuiRegister->addMember(cycle->operator*());
+    cmuiRegister = new Zune::Register();
+    cmuiRegister->addMember(&rGender);
 
 //    addEvent(*rGender, SELECT, [&](struct InstanceEvent*) -> void {
 //        std::cout << " test " << std::endl;
@@ -132,7 +128,7 @@ IPTR ImageArea::handleSetup(Class *cl, Object *obj, struct MUI_RenderInfo* msg) 
     ehnode.ehn_Events = IDCMP_ACTIVEWINDOW | IDCMP_INACTIVEWINDOW;// | IDCMP_MOUSEMOVE;
 
     addEventHandler(ehnode);
-   // MUI_RequestIDCMP( obj, IDCMP_MOUSEBUTTONS | IDCMP_MOUSEMOVE | IDCMP_RAWKEY );
+   // MUI_RequestIDCMP( object, IDCMP_MOUSEBUTTONS | IDCMP_MOUSEMOVE | IDCMP_RAWKEY );
     return DoSuperMethodA(cl, obj, msg);
 }
 

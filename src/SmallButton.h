@@ -2,7 +2,6 @@
 #define SMALL_BUTTON_H
 
 #include <Area.h>
-#include "ZuneObject.h"
 
 class SmallButton : public Zune::Area {
 private:

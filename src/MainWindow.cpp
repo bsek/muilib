@@ -1,60 +1,77 @@
 #include <iostream>
-#include <Checkmark.h>
-#include <Button.h>
 #include <Text.h>
 #include <Rectangle.h>
 #include <Group.h>
+#include "../zuneobject/Button.h"
+#include "../zuneobject/Checkmark.h"
+#include "../zuneobject/Cycle.h"
+#include "../zuneclass/include/Balance.h"
 
 #include "MainWindow.h"
-#include "Buttons.h"
 #include "Scrollgroup.h"
 #include "Window.h"
 
 MainWindow::MainWindow(LONG id,
-                       Zune::Application *app) : window(id) {
+                       Zune::Application *app) : window(id), cycle() {
     std::cout << "MainWindow base const" << std::endl;
-    init();
-    this->application = app;
-}
-
-MainWindow::MainWindow(LONG id) : window(id) {
-    std::cout << "MainWindow base const" << std::endl;
+    window.create();
+    mainGroup.create();
+    topGroup.create();
     init();
 }
 
-MainWindow::MainWindow(Zune::Window &win) : window(std::move(win)) {
+MainWindow::MainWindow(LONG id) : window(id), cycle() {
+    std::cout << "MainWindow base const" << std::endl;
+    window.create();
+    mainGroup.create();
+    topGroup.create();
+    init();
+}
+
+MainWindow::MainWindow(Zune::Window &win) : window(win.id()), cycle() {
+    window.getClass().setObject(win.getObject());
     std::cout << "MainWindow cmui win const" << std::endl;
 }
 
 void MainWindow::init() {
     std::cout << "MainWindow init" << std::endl;
 
-    mainGroup = Zune::Group{Zune::GroupDirection::Vertical};
+    std::string label{"This is a button"};
 
-    imageArea = new ImageArea{};
-    //sourceEditor = new SourceEditor{};
 
-    scrollgroup = new Zune::Scrollgroup(imageArea->operator*(), true, true);
+    ZuneObject::Button button{label};
+    button.create();
+  /*  Zune::Balance balance{};
+    balance.setQuiet(TRUE);
+    balance.setMaxWidth(200);
+    balance.build();
+    ZuneObject::Button button2{label};
+    button2.create();
 
-    Zune::Rectangle hBar(Zune::HORIZONTAL, 5, "Title");
+    topGroup.getClass().addMember(&button);
+    topGroup.getClass().addMember(&balance); */
+    topGroup.addMember(button);
+    mainGroup.addMember(topGroup);
 
-    mainGroup.addMember(scrollgroup->operator*());
-    auto hGroup = new Zune::Group{Zune::GroupDirection::Horizontal};
-    //hGroup->addMember(*(*imageArea));
-    //hGroup->addMember(*(*sourceEditor));
+    std::string clabel{"This is a checkmark"};
+    ZuneObject::Checkmark checkmark{clabel};
+    checkmark.create();
+    mainGroup.addMember(checkmark);
 
-    mainGroup.addMember(*(*hGroup));
-    mainGroup.addMember(*hBar);
+    std::string value1{"Option 1"};
+    std::string value2{"Option 2"};
+    std::string cycleLabel{""};
+    std::initializer_list<char*> values = {"Valg1", "Valg2"};
+    cycle.setEntries(values);
+    cycle.create();
+   // cycle.getClass().addEvent(&cycle.getClass(), Zune::EventType::SELECT, &cycle, &ZuneObject::Cycle::onEvent);
+    mainGroup.addMember(cycle);
 
-    Zune::Button button("test button");
-    mainGroup.addMember(*button);
-
-    mainGroup.addMember(*buttons);
-    window.addChildToGroup(*mainGroup);
+    window.addMember(mainGroup);
 }
 
 Zune::Window& MainWindow::getWindow() {
-    return window;
+    return window.getClass();
 }
 
 

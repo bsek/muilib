@@ -10,9 +10,9 @@
 #include <string>
 #include <iostream>
 #include "Window.h"
-#include "Application.h"
+#include "ZuneApplication.h"
+#include <Aboutmui.h>
 #include "Button.h"
-#include "Checkmark.h"
 #include "Group.h"
 
 #include "MainWindow.h"
@@ -50,23 +50,23 @@ static struct NewMenu MenuStr[]=
                 {NM_END,   NULL,                           0 , 0, 0,  (APTR)0           },
         };
 
-IPTR getradioindex(Object *obj)
+IPTR getradioindex(Object *object)
 {
     IPTR index = 0;
-    GetAttr(MUIA_Radio_Active, obj, &index);
+    GetAttr(MUIA_Radio_Active, object, &index);
     return (index);
 }
 
-LONG xget(Object *obj,ULONG attribute)
+LONG xget(Object *object,ULONG attribute)
 {
     IPTR x;
-    GetAttr(attribute, obj, &x);
+    GetAttr(attribute, object, &x);
     return(x);
 }
 
-char *getstr(Object *obj)
+char *getstr(Object *object)
 {
-    return((char *)xget(obj,MUIA_String_Contents));
+    return((char *)xget(object,MUIA_String_Contents));
 }
 
 LONG ShowAddedRecord(void)
@@ -236,7 +236,7 @@ int main(int argc, char **argv) {
 
     if (!App)
     {
-        printf("Cannot create Application.\n");
+        printf("Cannot create ZuneApplication.\n");
         return(0);
     }
 
@@ -262,7 +262,7 @@ int main(int argc, char **argv) {
                 break;
 
             case MENU_ABOUT:
-                MUI_RequestA(App,winForm,0,"About","*OK","MUI Virtual Group ZuneObject Example on Amiga OS 3.X\n\nLink\nhttps://github.com/emartisoft/AmigaOS3.X-MUI-Examples",NULL);
+                MUI_RequestA(App,winForm,0,"About","*OK","MUI Virtual Group RootClass Example on Amiga OS 3.X\n\nLink\nhttps://github.com/emartisoft/AmigaOS3.X-MUI-Examples",NULL);
                 break;
 
             case MENU_EXIT:
@@ -288,7 +288,7 @@ int main(int argc, char **argv) {
 */
 
     MainWindow mainWindow((LONG)2);
-    Application application(mainWindow.getWindow(), "Test application");
+    ZuneApplication application(mainWindow.getWindow(), "Test application");
     application.exec();
 
     CloseLibrary(MUIMasterBase);

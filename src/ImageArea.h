@@ -4,15 +4,13 @@
 #include <Virtgroup.h>
 #include <Button.h>
 #include <Register.h>
-#include <Cycle.h>
-#include "ZuneObject.h"
+#include <RootObject.h>
 
 class ImageArea : public Zune::Virtgroup {
 private:
     std::string label{"this is a label"};
     CONST_STRPTR *rGenderContent;
     Zune::Register *cmuiRegister;
-    Zune::Cycle *cycle;
     struct MUI_EventHandlerNode ehnode;
 
     int mouse_x;

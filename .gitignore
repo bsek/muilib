@@ -4,7 +4,7 @@
 /CopyOfCMakeCache.txt
 /cmake_install.cmake
 *.exe
-*.obj
+*.object
 /cmake-build-*/
 .idea
 /build/

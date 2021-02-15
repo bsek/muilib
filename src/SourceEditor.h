@@ -2,7 +2,6 @@
 #define MIU_PLUS_AROS_SOURCEEDITOR_H
 
 #include <Area.h>
-#include "ZuneObject.h"
 
 class SourceEditor : public Zune::Area {
 public:
