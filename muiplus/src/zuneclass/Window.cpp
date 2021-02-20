@@ -229,4 +229,52 @@ IPTR Zune::Window::toFront() {
     return DoMethod(object, MUIM_Window_ToFront);
 }
 
+void Zune::Window::setBackdrop(BOOL backdrop) {
+
+}
+
+void Zune::Window::setBorderless(BOOL borderless) {
+
+}
+
+void Zune::Window::setAppWindow(BOOL appWindow) {
+
+}
+
+void Zune::Window::setCloseGadget(BOOL closeGadget) {
+
+}
+
+void Zune::Window::setDepthGadget(BOOL depthGadget) {
+
+}
+
+void Zune::Window::setSizeGadget(BOOL sizeGadget) {
+
+}
+
+void Zune::Window::setSizeRight(BOOL sizeRight) {
+
+}
+
+void Zune::Window::setDragBar(BOOL dragBar) {
+
+}
+
+void Zune::Window::setAltHeight(LONG altHeight) {
+
+}
+
+void Zune::Window::setAltLeftEdge(LONG altLeftEdge) {
+
+}
+
+void Zune::Window::setAltTopEdge(LONG altTopEdge) {
+
+}
+
+void Zune::Window::setAltWidth(LONG altWidth) {
+
+}
+
 

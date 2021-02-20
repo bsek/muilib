@@ -58,119 +58,128 @@ namespace Zune {
     public:
         Window();
 
+        void setBackdrop(BOOL backdrop);
+        void setBorderless(BOOL borderless);
+        void setAppWindow(BOOL appWindow);
+        void setCloseGadget(BOOL closeGadget);
+        void setDepthGadget(BOOL depthGadget);
+        void setSizeGadget(BOOL sizeGadget);
+        void setSizeRight(BOOL sizeRight);
+        void setDragBar(BOOL dragBar);
 
 
-        BOOL activate(void) const;
+        BOOL activate() const;
 
         void setActivate(BOOL value);
 
-        Object *activeObject(void) const;
+        Object *activeObject() const;
 
         void setActiveObject(Object *value);
 
-        LONG altHeight(void) const;
+        void setAltHeight(LONG altHeight);
+        LONG altHeight() const;
+        void setAltLeftEdge(LONG altLeftEdge);
+        LONG altLeftEdge() const;
+        void setAltTopEdge(LONG altTopEdge);
+        LONG altTopEdge() const;
+        void setAltWidth(LONG altWidth);
+        LONG altWidth() const;
 
-        LONG altLeftEdge(void) const;
+        BOOL closeRequest() const;
 
-        LONG altTopEdge(void) const;
-
-        LONG altWidth(void) const;
-
-        BOOL closeRequest(void) const;
-
-        Object *defaultObject(void) const;
+        Object *defaultObject() const;
 
         void setDefaultObject(Object *value);
 
-        BOOL fancyDrawing(void) const;
+        BOOL fancyDrawing() const;
 
         void setFancyDrawing(BOOL value);
 
-        LONG height(void) const;
+        LONG height() const;
 
-        IPTR id(void) const;
+        IPTR id() const;
 
         void setID(IPTR value);
 
-        struct InputEvent *inputEvent(void) const;
+        struct InputEvent *inputEvent() const;
 
-        BOOL isSubWindow(void) const;
+        BOOL isSubWindow() const;
 
         void setIsSubWindow(BOOL value);
 
-        LONG leftEdge(void) const;
+        LONG leftEdge() const;
 
-        IPTR menuAction(void) const;
+        IPTR menuAction() const;
 
         void setMenuAction(IPTR value);
 
-        Object *menustrip(void) const;
+        Object *menustrip() const;
 
-        Object *mouseObject(void) const;
+        Object *mouseObject() const;
 
         void setNoMenus(BOOL value);
 
-        BOOL open(void) const;
+        BOOL open() const;
 
         void setOpen(BOOL value);
 
-        STRPTR publicScreen(void) const;
+        STRPTR publicScreen() const;
 
         void setPublicScreen(STRPTR value);
 
         void setRefWindow(Object *value);
 
-        Object *rootObject(void) const;
+        Object *rootObject() const;
 
         void setRootObject(Object *value);
 
-        struct Screen *screen(void) const;
+        struct Screen *screen() const;
 
         void setScreen(struct Screen *value);
 
-        STRPTR screenTitle(void) const;
+        STRPTR screenTitle() const;
 
         void setScreenTitle(STRPTR value);
 
-        BOOL sleep(void) const;
+        BOOL sleep() const;
 
         void setSleep(BOOL value);
 
-        STRPTR title(void) const;
+        STRPTR title() const;
 
         void setTitle(std::string value);
 
-        LONG topEdge(void) const;
+        LONG topEdge() const;
 
-        BOOL useBottomBorderScroller(void) const;
+        BOOL useBottomBorderScroller() const;
 
         void setUseBottomBorderScroller(BOOL value);
 
-        BOOL useLeftBorderScroller(void) const;
+        BOOL useLeftBorderScroller() const;
 
         void setUseLeftBorderScroller(BOOL value);
 
-        BOOL useRightBorderScroller(void) const;
+        BOOL useRightBorderScroller() const;
 
         void setUseRightBorderScroller(BOOL value);
 
-        LONG width(void) const;
+        LONG width() const;
 
-        struct Window *window(void) const;
+        struct Window *window() const;
 
         IPTR addEventHandler(struct MUI_EventHandlerNode *ehnode);
 
         IPTR remEventHandler(struct MUI_EventHandlerNode *ehnode);
 
-        IPTR mScreenToBack(void);
+        IPTR mScreenToBack();
 
-        IPTR mScreenToFront(void);
+        IPTR mScreenToFront();
 
         IPTR snapshot(LONG flags);
 
-        IPTR toBack(void);
+        IPTR toBack();
 
-        IPTR toFront(void);
+        IPTR toFront();
     };
 }
 
