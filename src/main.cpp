@@ -3,27 +3,57 @@
 
 #include <proto/exec.h>
 #include <proto/intuition.h>
-#include <proto/muimaster.h>
 #include <clib/alib_protos.h>
 
 #include <cstdlib>
 #include <string>
-#include <iostream>
-#include "Window.h"
 #include "ZuneApplication.h"
-#include <Aboutmui.h>
-#include "Button.h"
-#include "Group.h"
+#include "ZuneFactory.h"
 
-#include "MainWindow.h"
+#include "MainArea.h"
 
 struct Library *MUIMasterBase;
 struct IntuitionBase *IntuitionBase;
 
+template<typename L>
+inline bool openLib(L *&library, const char *name, uint32_t version) {
+    if ((library = (L *) OpenLibrary(name, version))) {
+        return true;
+    } else {
+        std::fprintf(stderr, "Failed to open: %s\n", name);
+        exit(RETURN_ERROR);
+    }
+}
 
-#define		BUTTONADD		0x00ff
+template<typename L>
+inline void closeLib(L *&library) {
+    if (library) {
+        CloseLibrary((Library *) library);
+        library = nullptr;
+    }
+}
+
+int main(int argc, char **argv) {
+    openLib(MUIMasterBase, "muimaster.library", 0);
+    openLib(IntuitionBase, "intuition.library", 39);
+
+    Zune::Window mainWindow = Zune::ZuneFactory::createWindow(1);
+    MainArea mainArea((LONG)2);
+    mainWindow.setRootObject(mainArea.getMainGroup().getObject());
+
+    ZuneApplication application(mainWindow, "Test application");
+    application.exec();
+
+    closeLib(MUIMasterBase);
+    closeLib(IntuitionBase);
+
+    exit(RETURN_OK);
+ }
+
 /*
-Object *App;
+#define		BUTTONADD		0x00ff
+
+ Object *App;
 Object *winForm;
 Object *StrName;
 Object *StrPhoneNumber;
@@ -89,39 +119,7 @@ BOOL AreYouSure(void)
         sure = FALSE;
     return sure;
 }
-*/
 
-template<typename L>
-inline bool openLib(L *&library, const char *name, uint32_t version) {
-    if ((library = (L *) OpenLibrary(name, version))) {
-        return true;
-    } else {
-        std::fprintf(stderr, "Failed to open: %s\n", name);
-    }
-    return false;
-}
-
-template<typename L>
-inline void closeLib(L *&library) {
-    if (library) {
-        CloseLibrary((Library *) library);
-        library = 0;
-    }
-}
-
-struct Args {
-
-};
-
-int main(int argc, char **argv) {
-
-    if (!(MUIMasterBase = OpenLibrary("muimaster.library",0))) {
-         printf("Could not open muimaster library");
-         exit(1);
-    }
-
-    IntuitionBase = (struct IntuitionBase *)OpenLibrary("intuition.library", 39);
-/*
     CONST_STRPTR cycleOS[] = {"Amiga OS 3.x", "Amiga OS 4.x", "Aros", "MorphOS", NULL};
     CONST_STRPTR radioOS[] = {"Amiga OS 3.x", "Amiga OS 4.x", "Aros", "MorphOS", NULL};
     CONST_STRPTR amigasList[] = {"Amiga 1000", "Amiga 500", "Amiga 2000", "Amiga 3000", "Amiga 500+",
@@ -286,14 +284,3 @@ int main(int argc, char **argv) {
 
     exit(RETURN_OK);
 */
-
-    MainWindow mainWindow((LONG)2);
-    ZuneApplication application(mainWindow.getWindow(), "Test application");
-    application.exec();
-
-    CloseLibrary(MUIMasterBase);
-    closeLib(IntuitionBase);
-
-    exit(RETURN_OK);
-    return 0;
- }

@@ -16,8 +16,8 @@ protected:
     std::vector<Zune::Window> windowList;
     const std::string& name;
 public:
-    ZuneApplication(Zune::Application& app, const std::string title);
-    ZuneApplication(Zune::Window& window, const std::string title);
+    ZuneApplication(Zune::Application& app, std::string title);
+    ZuneApplication(Zune::Window& window, std::string title);
 
     BOOL areYouSure();
     void addWindow(Zune::Window &win);
