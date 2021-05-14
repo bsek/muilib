@@ -52,7 +52,8 @@ namespace Zune {
 
         IPTR killNotifyObj(IPTR TrigAttr, Object *dest);
 
-        IPTR multiSet(std::vector<IPTR> obj);
+        template<typename... Args>
+        IPTR multiSet(Args... obj);
 
         template<typename... Args>
         IPTR noNotifySet(IPTR attr, char *format, Args... val);
@@ -73,87 +74,93 @@ namespace Zune {
 
         IPTR writeString(char *str, char *memory);
 
-    protected:
         Notify();
+
+        Notify(Object* obj);
     };
+}
+
+template <typename... Args>
+IPTR Zune::Notify::multiSet(Args... obj) {
+    std::initializer_list<IPTR> list = {obj...};
+    auto size = list.size();
+
+    IPTR args[size + 1];
+    int i = 1;
+    for (auto val : list) {
+        args[i++] = val;
+    }
+    args[0] = MUIM_MultiSet;
+
+    return DoMethodA(object, (Msg) args);
 }
 
 template<typename... Args>
 IPTR Zune::Notify::mCallHook(struct Hook *Hook, Args... params) {
-    auto p = createTagListFromVector<IPTR>({params...}, 2);
-    p.get()[0] = MUIM_CallHook;
-    p.get()[1] = (IPTR) Hook;
+    std::initializer_list<IPTR> list = {params...};
+    auto size = list.size();
 
-    return DoMethodA(object, (Msg) p.get());
+    IPTR args[size + 1];
+    int i = 1;
+    for (auto val : list) {
+        args[i++] = val;
+    }
+    args[0] = MUIM_CallHook;
+
+    return DoMethodA(object, (Msg) args);
 }
 
 template<typename... Args>
 IPTR Zune::Notify::noNotifySet(IPTR attr, char *format, Args... val) {
-    auto p = createTagListFromVector<IPTR>({val...}, 3);
-    p.get()[0] = MUIM_NoNotifySet;
-    p.get()[1] = attr;
-    p.get()[2] = (IPTR) format;
+    std::initializer_list<IPTR> list = {val...};
 
-    return DoMethodA(object, (Msg) p.get());
+    IPTR size = list.size();
+    IPTR args[size + 3];
+
+    int i = 3;
+    for (auto val : list) {
+        args[i++] = val;
+    }
+    args[0] = MUIM_NoNotifySet;
+    args[1] = attr;
+    args[2] = reinterpret_cast<IPTR>(format);
+
+    return DoMethodA(object, (Msg) (args));
 }
 
 template<typename... Args>
 IPTR Zune::Notify::setAsString(IPTR attr, char *format, Args... val) {
-    auto p = createTagListFromVector<IPTR>({val...}, 3);
-    p.get()[0] = MUIM_SetAsString;
-    p.get()[1] = attr;
-    p.get()[2] = (IPTR) format;
+    std::initializer_list<IPTR> list = {val...};
 
-    return DoMethodA(object, (Msg) p.get());
+    IPTR size = list.size();
+    IPTR args[size + 3];
+
+    int i = 3;
+    for (auto val : list) {
+        args[i++] = val;
+    }
+    args[0] = MUIM_SetAsString;
+    args[1] = attr;
+    args[2] = reinterpret_cast<IPTR>(format);
+
+    return DoMethodA(object, (Msg) (args));
 }
 
 template<typename... Args>
 IPTR Zune::Notify::notify(Args... params) {
-//    auto args = createTagListFromVector<IPTR>({params...}, 0);
+    std::initializer_list<IPTR> list = {params...};
 
-    std::vector<IPTR> list = {params...};
-//    list.back(TAG_DONE);
-
-    int size = list.size();
-
-    IPTR *args = new IPTR[size + 1];
+    IPTR size = list.size();
+    IPTR args[size + 1];
 
     int i = 1;
     for (auto val : list) {
         args[i++] = val;
     }
-
     args[0] = MUIM_Notify;
 
-    auto retVal = DoMethodA(object, (Msg) (args));
-
-    delete args;
-    return retVal;
-
-/*
-
-    AROS_SLOWSTACKTAGS_PRE_AS(args.get(), IPTR)
-    retval = (IPTR)DoMethod(object, MUIM_Notify, (IPTR)AROS_SLOWSTACKTAGS_ARG(params), TAG_DONE);
-    AROS_SLOWSTACKTAGS_POST
-
-    return retval;
-*/
-//    const IPTR args[] = { AROS_PP_VARIADIC_CAST2IPTR(__VA_ARGS__) };
-/*    struct opUpdate msg;
-    msg.MethodID = MUIM_Notify;
-    msg.opu_AttrList = (struct TagItem *) &args;
-    msg.opu_Flags = 0;
-    msg.opu_GInfo = nullptr;
-
-    
-
-//    auto p = createTagListFromVector<IPTR>({params...}, 1);
-//    p.get()[0] = MUIM_Notify;
-
-    return DoMethodA(object, (Msg)(&msg));*/
-//    return 0;
+    return DoMethodA(object, (Msg) (args));
 }
-
 
 #endif    /* NOTIFY_H */
 

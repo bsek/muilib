@@ -41,7 +41,8 @@ void MainArea::init() {
     m_scale = Zune::ZuneFactory::createScale(TRUE);
     m_knob = Zune::ZuneFactory::createKnob();
     m_radio = Zune::ZuneFactory::createRadio(values, FALSE);
-    m_register = Zune::ZuneFactory::createRegister(values, false);
+ //   m_register = Zune::ZuneFactory::createRegister(values, false);
+    m_register = Zune::ZuneFactory::createTitle();
     m_scrollbar = Zune::ZuneFactory::createScrollbar(MUIV_Scrollbar_Type_Top);
     m_prop = Zune::ZuneFactory::createProp(10, true, false);
     m_settingsgroup = Zune::ZuneFactory::createSettingGroup();

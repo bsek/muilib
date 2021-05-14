@@ -26,9 +26,16 @@
 #include "Window.h"
 #include "Popstring.h"
 #include "Dtpic.h"
+#include "Title.h"
 
 namespace Zune {
     struct ZuneFactory {
+
+        static Title createTitle() {
+            Title title{};
+            title.build();
+            return title;
+        }
 
         static Dtpic createDtpic(STRPTR filename) {
             Dtpic dtpic{};

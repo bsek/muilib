@@ -59,7 +59,7 @@ void Zune::Notify::setUserData(IPTR value) {
 }
 
 LONG Zune::Notify::version() const {
-    return (LONG) mGetAttr(MUIA_Version);
+    return static_cast<LONG>(mGetAttr(MUIA_Version));
 }
 
 IPTR Zune::Notify::exportDataspace(Object *dataspace) {
@@ -90,13 +90,6 @@ IPTR Zune::Notify::killNotifyObj(IPTR TrigAttr, Object *dest) {
     return DoMethod(object, MUIM_KillNotifyObj, TrigAttr, dest);
 }
 
-IPTR Zune::Notify::multiSet(std::vector<IPTR> obj) {
-    auto p = createTagListFromVector<IPTR>(obj, 1);
-    p.get()[0] = MUIM_MultiSet;
-
-    return DoMethodA(object, (Msg) p.get());
-}
-
 IPTR Zune::Notify::set(IPTR attr, IPTR val) {
     return DoMethod(object, MUIM_Set, attr, val);
 }
@@ -115,5 +108,9 @@ IPTR Zune::Notify::writeLong(IPTR val, IPTR *memory) {
 
 IPTR Zune::Notify::writeString(char *str, char *memory) {
     return DoMethod(object, MUIM_WriteString, (IPTR) str, memory);
+}
+
+Zune::Notify::Notify(Object *obj) {
+    object = obj;
 }
 

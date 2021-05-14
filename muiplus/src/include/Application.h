@@ -37,7 +37,7 @@ namespace Zune {
 
         IPTR inputBuffered();
 
-        IPTR load(STRPTR name);
+        IPTR load(std::string &name);
 
         IPTR menuAction() const;
 
@@ -57,7 +57,7 @@ namespace Zune {
 
         IPTR rexxMsg() const;
 
-        IPTR save(STRPTR name);
+        IPTR save(std::string &name);
 
         IPTR setConfigItem(IPTR item, IPTR data);
 
@@ -65,19 +65,19 @@ namespace Zune {
 
         LONG brokerPri() const;
 
-        STRPTR author() const;
+        std::string author() const;
 
-        STRPTR base() const;
+        std::string base() const;
 
-        STRPTR copyright() const;
+        std::string copyright() const;
 
-        STRPTR description() const;
+        std::string description() const;
 
-        STRPTR helpFile() const;
+        std::string helpFile() const;
 
-        STRPTR title() const;
+        std::string title() const;
 
-        STRPTR version() const;
+        std::string version() const;
 
         struct Hook *brokerHook() const;
 
@@ -99,7 +99,7 @@ namespace Zune {
 
         void setBrokerHook(struct Hook *value);
 
-        void setBrokerPri(long brokerPri);
+        void setBrokerPri(LONG brokerPri);
 
         void setCommands(struct MUI_Command *value);
 
@@ -123,15 +123,15 @@ namespace Zune {
 
         void setRexxString(STRPTR value);
 
-        void setSingleTask(bool singleTask);
+        void setSingleTask(BOOL singleTask);
 
         void setSleep(BOOL value);
 
         void setTitle(const std::string &title);
 
-        void setUseCommodities(bool useCommodities);
+        void setUseCommodities(BOOL useCommodities);
 
-        void setUseRexx(bool useRexx);
+        void setUseRexx(BOOL useRexx);
 
         void setVersion(const std::string &version);
 

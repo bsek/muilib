@@ -133,7 +133,7 @@ set(HEADER_MUIPLUS
         "src/include/NListview.h"
         "src/include/ZuneFactory.h"
         "src/include/Dtpic.h"
-        )
+        src/Graph.cpp src/include/Graph.h src/Crawling.cpp src/include/Crawling.h src/Chunkyimage.cpp src/include/Chunkyimage.h src/Frameadjust.cpp src/include/Frameadjust.h src/Framedisplay.cpp src/include/Framedisplay.h src/Imageadjust.cpp src/include/Imageadjust.h src/Imagedisplay.cpp src/include/Imagedisplay.h src/Pixmap.cpp src/include/Pixmap.h src/Process.cpp src/include/Process.h src/Scrollbutton.cpp src/include/Scrollbutton.h src/Title.cpp src/include/Title.h)
 
 add_library(zune STATIC ${SOURCES_MUIPLUS} ${HEADER_MUIPLUS})
 

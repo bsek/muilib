@@ -21,6 +21,7 @@
 #include <Settings.h>
 #include <Settingsgroup.h>
 #include <Slider.h>
+#include <Title.h>
 #include <Numericbutton.h>
 #include <Dtpic.h>
 #include <exec/types.h>
@@ -35,7 +36,7 @@ private:
     Zune::Scale m_scale;
     Zune::Knob m_knob;
     Zune::Radio m_radio;
-    Zune::Register m_register;
+    Zune::Title m_register;
     Zune::Scrollbar m_scrollbar;
     Zune::Prop m_prop;
     Zune::Slider m_slider;

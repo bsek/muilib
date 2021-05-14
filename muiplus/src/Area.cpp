@@ -19,17 +19,17 @@ struct Data {
 IPTR generalDispatcher(struct IClass *cl, Object *obj, Msg msg) {
     if (msg->MethodID == OM_NEW) {
         struct TagItem *tags = ((struct opSet *) msg)->ops_AttrList;
-        Zune::Area *clazz = (Zune::Area *) GetTagData(Zune::CUSTOM_MUI_CLASS, (IPTR) " ", tags);
-        Object *instance = (Object *) std::invoke(&Zune::Area::handleDispatch, clazz, cl, obj, msg);
+        auto *clazz = reinterpret_cast<Zune::Area*>(GetTagData(Zune::CUSTOM_MUI_CLASS, reinterpret_cast<IPTR>(" "), tags));
+        auto *instance = reinterpret_cast<Object*>(std::invoke(&Zune::Area::handleDispatch, clazz, cl, obj, msg));
 
         // Save a reference to the class instance in the object´s instance data
-        InstanceData *instanceData = (InstanceData *) INST_DATA(cl, instance);
+        auto *instanceData = reinterpret_cast<InstanceData*>(INST_DATA(cl, instance));
         instanceData->classObj = clazz;
 
         return (IPTR) instance;
     }
 
-    InstanceData *instanceData = (InstanceData *) INST_DATA(cl, obj);
+    auto *instanceData = reinterpret_cast<InstanceData *>(INST_DATA(cl, obj));
 
     if (instanceData->classObj != nullptr) {
         return std::invoke(&Zune::Area::handleDispatch, instanceData->classObj, cl, obj, msg);
@@ -39,7 +39,7 @@ IPTR generalDispatcher(struct IClass *cl, Object *obj, Msg msg) {
 }
 
 void Zune::Area::setBackground(LONG value) {
-    setOrStore(MUIA_Background, (IPTR) value);
+    setOrStore(MUIA_Background, static_cast<IPTR>(value));
 }
 
 LONG Zune::Area::bottomEdge() const {
@@ -51,7 +51,7 @@ Object *Zune::Area::contextMenu() const {
 }
 
 void Zune::Area::setContextMenu(Object *value) {
-    setOrStore(MUIA_ContextMenu, (IPTR) value);
+    setOrStore(MUIA_ContextMenu, reinterpret_cast<IPTR>(value));
 }
 
 Object * Zune::Area::contextMenuTrigger() const {
@@ -59,7 +59,7 @@ Object * Zune::Area::contextMenuTrigger() const {
 }
 
 void Zune::Area::setContextMenuTrigger(Object* value) {
-    setOrStore(MUIA_ContextMenuTrigger, (IPTR) value);
+    setOrStore(MUIA_ContextMenuTrigger, reinterpret_cast<IPTR>(value));
 }
 
 char Zune::Area::controlChar() const {
@@ -67,7 +67,7 @@ char Zune::Area::controlChar() const {
 }
 
 void Zune::Area::setControlChar(char value) {
-    setOrStore(MUIA_ControlChar, (IPTR) value);
+    setOrStore(MUIA_ControlChar, static_cast<IPTR>(value));
 }
 
 LONG Zune::Area::cycleChain() const {
@@ -75,7 +75,7 @@ LONG Zune::Area::cycleChain() const {
 }
 
 void Zune::Area::setCycleChain(LONG value) {
-    setOrStore(MUIA_CycleChain, (IPTR) value);
+    setOrStore(MUIA_CycleChain, static_cast<IPTR>(value));
 }
 
 BOOL Zune::Area::disabled() const {
@@ -83,7 +83,7 @@ BOOL Zune::Area::disabled() const {
 }
 
 void Zune::Area::setDisabled(BOOL value) {
-    setOrStore(MUIA_Disabled, (IPTR) value);
+    setOrStore(MUIA_Disabled, static_cast<IPTR>(value));
 }
 
 BOOL Zune::Area::draggable() const {
@@ -91,7 +91,7 @@ BOOL Zune::Area::draggable() const {
 }
 
 void Zune::Area::setDraggable(BOOL value) {
-    setOrStore(MUIA_Draggable, (IPTR) value);
+    setOrStore(MUIA_Draggable, static_cast<IPTR>(value));
 }
 
 BOOL Zune::Area::dropable() const {
@@ -99,11 +99,11 @@ BOOL Zune::Area::dropable() const {
 }
 
 void Zune::Area::setDropable(BOOL value) {
-    setOrStore(MUIA_Dropable, (IPTR) value);
+    setOrStore(MUIA_Dropable, static_cast<IPTR>(value));
 }
 
 void Zune::Area::setFillArea(BOOL value) {
-    setOrStore(MUIA_FillArea, (IPTR) value);
+    setOrStore(MUIA_FillArea, static_cast<IPTR>(value));
 }
 
 struct TextFont *Zune::Area::font() const {
@@ -119,7 +119,7 @@ LONG Zune::Area::horizDisappear() const {
 }
 
 void Zune::Area::setHorizDisappear(LONG value) {
-    setOrStore(MUIA_HorizDisappear, (IPTR) value);
+    setOrStore(MUIA_HorizDisappear, static_cast<IPTR>(value));
 }
 
 WORD Zune::Area::horizWeight() const {
@@ -127,7 +127,7 @@ WORD Zune::Area::horizWeight() const {
 }
 
 void Zune::Area::setHorizWeight(WORD value) {
-    setOrStore(MUIA_HorizWeight, (IPTR) value);
+    setOrStore(MUIA_HorizWeight, static_cast<IPTR>(value));
 }
 
 LONG Zune::Area::innerBottom() const {
@@ -163,7 +163,7 @@ BOOL Zune::Area::selected() const {
 }
 
 void Zune::Area::setSelected(BOOL value) {
-    setOrStore(MUIA_Selected, (IPTR) value);
+    setOrStore(MUIA_Selected, static_cast<IPTR>(value));
 }
 
 STRPTR Zune::Area::shortHelp() const {
@@ -171,7 +171,7 @@ STRPTR Zune::Area::shortHelp() const {
 }
 
 void Zune::Area::setShortHelp(STRPTR value) {
-    setOrStore(MUIA_ShortHelp, (IPTR) value);
+    setOrStore(MUIA_ShortHelp, reinterpret_cast<IPTR>(value));
 }
 
 BOOL Zune::Area::showMe() const {
@@ -179,7 +179,7 @@ BOOL Zune::Area::showMe() const {
 }
 
 void Zune::Area::setShowMe(BOOL value) {
-    setOrStore(MUIA_ShowMe, (IPTR) value);
+    setOrStore(MUIA_ShowMe, static_cast<IPTR>(value));
 }
 
 LONG Zune::Area::timer() const {
@@ -195,7 +195,7 @@ LONG Zune::Area::vertDisappear() const {
 }
 
 void Zune::Area::setVertDisappear(LONG value) {
-    setOrStore(MUIA_VertDisappear, (IPTR) value);
+    setOrStore(MUIA_VertDisappear, static_cast<IPTR>(value));
 }
 
 WORD Zune::Area::vertWeight() const {
@@ -203,7 +203,7 @@ WORD Zune::Area::vertWeight() const {
 }
 
 void Zune::Area::setVertWeight(WORD value) {
-    setOrStore(MUIA_VertWeight, (IPTR) value);
+    setOrStore(MUIA_VertWeight, static_cast<IPTR>(value));
 }
 
 LONG Zune::Area::width() const {
@@ -231,7 +231,7 @@ IPTR Zune::Area::handleContextMenuBuild(LONG mx, LONG my) {
 }
 
 IPTR Zune::Area::handleContextMenuChoice(Object *item) {
-    return DoMethod(object, MUIM_ContextMenuChoice, (IPTR) item);
+    return DoMethod(object, MUIM_ContextMenuChoice, reinterpret_cast<IPTR>(item));
 }
 
 IPTR Zune::Area::handleCreateBubble(LONG x, LONG y, char *txt, IPTR flags) {
@@ -247,7 +247,7 @@ IPTR Zune::Area::handleDeleteBubble(IPTR bubble) {
 }
 
 IPTR Zune::Area::handleDeleteShortHelp(STRPTR help) {
-    return DoMethod(object, MUIM_DeleteShortHelp, (IPTR) help);
+    return DoMethod(object, MUIM_DeleteShortHelp, reinterpret_cast<IPTR>(help));
 }
 
 IPTR Zune::Area::hide() {
@@ -429,19 +429,19 @@ void Zune::Area::setFixHeight(long value) {
 }
 
 void Zune::Area::setFixHeightText(std::string text) {
-    setOrStore(MUIA_FixHeightTxt, (IPTR) text.c_str());
+    setOrStore(MUIA_FixHeightTxt, reinterpret_cast<IPTR>(text.c_str()));
 }
 
 void Zune::Area::setFixWidth(long value) {
-    setOrStore(MUIA_FixWidth, (IPTR) value);
+    setOrStore(MUIA_FixWidth, static_cast<IPTR>(value));
 }
 
 void Zune::Area::setFixWidthText(std::string text) {
-    setOrStore(MUIA_FixWidthTxt, (IPTR) text.c_str());
+    setOrStore(MUIA_FixWidthTxt, reinterpret_cast<IPTR>(text.c_str()));
 }
 
 void Zune::Area::setFont(struct TextFont *font) {
-    setOrStore(MUIA_Font, (IPTR) font);
+    setOrStore(MUIA_Font, reinterpret_cast<IPTR>(font));
 }
 
 void Zune::Area::setFrame(long frame) {
@@ -453,7 +453,7 @@ void Zune::Area::setFramePhantomHoriz(bool value) {
 }
 
 void Zune::Area::setFrameTitle(std::string title) {
-    setOrStore(MUIA_FrameTitle, (IPTR) title.c_str());
+    setOrStore(MUIA_FrameTitle, reinterpret_cast<IPTR>(title.c_str()));
 }
 
 void Zune::Area::setInnerBottom(long value) {
