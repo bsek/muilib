@@ -33,7 +33,8 @@ namespace Zune {
 
         void setRgb(IPTR *value);
 
-    protected:
+        void build() override;
+
         Coloradjust();
     };
 }

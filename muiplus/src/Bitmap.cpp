@@ -1,14 +1,10 @@
 #include "include/Bitmap.h"
 #include "include/RootClass.h"
 
-Zune::Bitmap::Bitmap()
-        : Area() {
+Zune::Bitmap::Bitmap() = default;
 
-}
-
-Zune::Bitmap::Bitmap(struct BitMap *value)
-        : Area() {
-    object = MUI_NewObject(MUIC_Bitmap, MUIA_Bitmap_Bitmap, (IPTR) value, TAG_END);
+Zune::Bitmap::Bitmap(struct BitMap *value) {
+    object = MUI_NewObject(MUIC_Bitmap, MUIA_Bitmap_Bitmap, reinterpret_cast<IPTR>(value), TAG_END);
 }
 
 Zune::Bitmap::Bitmap(Object *obj)
@@ -16,68 +12,79 @@ Zune::Bitmap::Bitmap(Object *obj)
     object = obj;
 }
 
-Zune::Bitmap &Zune::Bitmap::operator=(Object *obj) {
-    object = obj;
-    return *this;
-}
-
 struct BitMap *Zune::Bitmap::bitmap(void) const {
-    return (struct BitMap *) mGetAttr(MUIA_Bitmap_Bitmap);
+    return reinterpret_cast<struct BitMap*>(mGetAttr(MUIA_Bitmap_Bitmap));
 }
 
 void Zune::Bitmap::setBitmap(struct BitMap *value) {
-    setAttr(MUIA_Bitmap_Bitmap, (IPTR) value);
+    setOrStore(MUIA_Bitmap_Bitmap, reinterpret_cast<IPTR>(value));
 }
 
 LONG Zune::Bitmap::height(void) const {
-    return (LONG) mGetAttr(MUIA_Bitmap_Height);
+    return static_cast<LONG>(mGetAttr(MUIA_Bitmap_Height));
 }
 
 void Zune::Bitmap::setHeight(LONG value) {
-    setAttr(MUIA_Bitmap_Height, (IPTR) value);
+    setOrStore(MUIA_Bitmap_Height, static_cast<IPTR>(value));
 }
 
 UBYTE *Zune::Bitmap::mappingTable(void) const {
-    return (UBYTE *) mGetAttr(MUIA_Bitmap_MappingTable);
+    return reinterpret_cast<UBYTE*>(mGetAttr(MUIA_Bitmap_MappingTable));
 }
 
 void Zune::Bitmap::setMappingTable(UBYTE *value) {
-    setAttr(MUIA_Bitmap_MappingTable, (IPTR) value);
+    setOrStore(MUIA_Bitmap_MappingTable, reinterpret_cast<IPTR>(value));
 }
 
 LONG Zune::Bitmap::precision(void) const {
-    return (LONG) mGetAttr(MUIA_Bitmap_Precision);
+    return static_cast<LONG>(mGetAttr(MUIA_Bitmap_Precision));
 }
 
 void Zune::Bitmap::setPrecision(LONG value) {
-    setAttr(MUIA_Bitmap_Precision, (IPTR) value);
+    setOrStore(MUIA_Bitmap_Precision, static_cast<IPTR>(value));
 }
 
 struct BitMap *Zune::Bitmap::remappedBitmap(void) const {
-    return (struct BitMap *) mGetAttr(MUIA_Bitmap_RemappedBitmap);
+    return reinterpret_cast<struct BitMap*>(mGetAttr(MUIA_Bitmap_RemappedBitmap));
 }
 
-IPTR *Zune::Bitmap::sourceColors(void) const {
-    return (IPTR *) mGetAttr(MUIA_Bitmap_SourceColors);
+ULONG *Zune::Bitmap::sourceColors(void) const {
+    return reinterpret_cast<ULONG*>(mGetAttr(MUIA_Bitmap_SourceColors));
 }
 
-void Zune::Bitmap::setSourceColors(IPTR *value) {
-    setAttr(MUIA_Bitmap_SourceColors, (IPTR) value);
+void Zune::Bitmap::setSourceColors(ULONG *value) {
+    setOrStore(MUIA_Bitmap_SourceColors, reinterpret_cast<IPTR>(value));
 }
 
 LONG Zune::Bitmap::transparent(void) const {
-    return (LONG) mGetAttr(MUIA_Bitmap_Transparent);
+    return static_cast<LONG>(mGetAttr(MUIA_Bitmap_Transparent));
 }
 
 void Zune::Bitmap::setTransparent(LONG value) {
-    setAttr(MUIA_Bitmap_Transparent, (IPTR) value);
+    setOrStore(MUIA_Bitmap_Transparent, static_cast<IPTR>(value));
 }
 
 LONG Zune::Bitmap::width(void) const {
-    return (LONG) mGetAttr(MUIA_Bitmap_Width);
+    return static_cast<LONG>(mGetAttr(MUIA_Bitmap_Width));
 }
 
 void Zune::Bitmap::setWidth(LONG value) {
-    setAttr(MUIA_Bitmap_Width, (IPTR) value);
+    setOrStore(MUIA_Bitmap_Width, static_cast<IPTR>(value));
+}
+
+void Zune::Bitmap::build() {
+    RootClass::createObject(MUIC_Bitmap);
+}
+
+void Zune::Bitmap::useFriend(BOOL useFriend) {
+    configmap[MUIA_Bitmap_UseFriend] = static_cast<IPTR>(useFriend);
+}
+
+ULONG Zune::Bitmap::alpha() const {
+    return static_cast<ULONG>(mGetAttr(MUIA_Bitmap_Alpha));
+}
+
+void Zune::Bitmap::setAlpha(ULONG alpha) {
+    setOrStore(MUIA_Bitmap_Alpha, static_cast<IPTR>(alpha));
 }
 

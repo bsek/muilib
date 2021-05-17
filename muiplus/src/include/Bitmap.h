@@ -6,15 +6,12 @@
 
 namespace Zune {
     class Bitmap : public Area {
-    protected:
+    public:
         Bitmap();
 
-    public:
         Bitmap(struct BitMap *value);
 
         Bitmap(Object *obj);
-
-        Bitmap &operator=(Object *obj);
 
         struct BitMap *bitmap() const;
 
@@ -34,9 +31,9 @@ namespace Zune {
 
         struct BitMap *remappedBitmap() const;
 
-        IPTR *sourceColors() const;
+        ULONG *sourceColors() const;
 
-        void setSourceColors(IPTR *value);
+        void setSourceColors(ULONG *value);
 
         LONG transparent() const;
 
@@ -45,6 +42,14 @@ namespace Zune {
         LONG width() const;
 
         void setWidth(LONG value);
+
+        void useFriend(BOOL useFriend);
+
+        ULONG alpha() const;
+
+        void setAlpha(ULONG alpha);
+
+        void build() override;
     };
 }
 

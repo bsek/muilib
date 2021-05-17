@@ -1,54 +1,44 @@
 #include "include/Bodychunk.h"
-#include "include/Bitmap.h"
 #include "include/RootClass.h"
 
-Zune::Bodychunk::Bodychunk(LONG width, LONG height, LONG depth, UBYTE masking, UBYTE *body, UBYTE compression)
-        : Bitmap() {
-    object = MUI_NewObject(MUIC_Bodychunk, MUIA_Bodychunk_Body, (IPTR) body, MUIA_Width, (IPTR) width, MUIA_Height,
-                           (IPTR) height, MUIA_Bodychunk_Depth, (IPTR) depth, MUIA_Bodychunk_Masking, (IPTR) masking,
-                           MUIA_Bodychunk_Compression, (IPTR) compression, TAG_END);
-}
-
-Zune::Bodychunk::Bodychunk(Object *obj)
-        : Bitmap() {
+Zune::Bodychunk::Bodychunk(Object *obj) {
     object = obj;
-}
-
-Zune::Bodychunk &Zune::Bodychunk::operator=(Object *obj) {
-    object = obj;
-    return *this;
 }
 
 UBYTE *Zune::Bodychunk::body(void) const {
-    return (UBYTE *) mGetAttr(MUIA_Bodychunk_Body);
+    return reinterpret_cast<UBYTE *>(mGetAttr(MUIA_Bodychunk_Body));
 }
 
 void Zune::Bodychunk::setBody(UBYTE *value) {
-    setAttr(MUIA_Bodychunk_Body, (IPTR) value);
+    setOrStore(MUIA_Bodychunk_Body, reinterpret_cast<IPTR>(value));
 }
 
 UBYTE Zune::Bodychunk::compression(void) const {
-    return (UBYTE) mGetAttr(MUIA_Bodychunk_Compression);
+    return static_cast<UBYTE>(mGetAttr(MUIA_Bodychunk_Compression));
 }
 
 void Zune::Bodychunk::setCompression(UBYTE value) {
-    setAttr(MUIA_Bodychunk_Compression, (IPTR) value);
+    setOrStore(MUIA_Bodychunk_Compression, static_cast<IPTR>(value));
 }
 
 LONG Zune::Bodychunk::depth(void) const {
-    return (LONG) mGetAttr(MUIA_Bodychunk_Depth);
+    return static_cast<LONG>(mGetAttr(MUIA_Bodychunk_Depth));
 }
 
 void Zune::Bodychunk::setDepth(LONG value) {
-    setAttr(MUIA_Bodychunk_Depth, (IPTR) value);
+    setOrStore(MUIA_Bodychunk_Depth, static_cast<IPTR>(value));
 }
 
 UBYTE Zune::Bodychunk::masking(void) const {
-    return (UBYTE) mGetAttr(MUIA_Bodychunk_Masking);
+    return static_cast<UBYTE>(mGetAttr(MUIA_Bodychunk_Masking));
 }
 
 void Zune::Bodychunk::setMasking(UBYTE value) {
-    setAttr(MUIA_Bodychunk_Masking, (IPTR) value);
+    setOrStore(MUIA_Bodychunk_Masking, static_cast<IPTR>(value));
 }
 
-Zune::Bodychunk::Bodychunk() {}
+void Zune::Bodychunk::build() {
+    RootClass::createObject(MUIC_Bodychunk);
+}
+
+Zune::Bodychunk::Bodychunk() = default;

@@ -47,7 +47,8 @@ namespace Zune {
 
         IPTR openConfigWindow(IPTR flags);
 
-        IPTR pushMethod(Object *dest, std::vector<IPTR> count);
+        template <typename... Args>
+        IPTR pushMethod(Object *dest, Args... count);
 
         IPTR remInputHandler(struct MUI_InputHandlerNode *ihnode);
 
@@ -121,7 +122,7 @@ namespace Zune {
 
         void setRexxHook(struct Hook *value);
 
-        void setRexxString(STRPTR value);
+        void setRexxString(std::string &value);
 
         void setSingleTask(BOOL singleTask);
 
@@ -137,5 +138,23 @@ namespace Zune {
 
         void build() override;
     };
+
+}
+
+template<typename... Args>
+IPTR Zune::Application::pushMethod(Object *dest, Args... count) {
+    std::initializer_list<IPTR> values = {count...};
+    auto len = values.size();
+
+    IPTR args[len + 2];
+    args[0] = MUIM_Application_PushMethod;
+    args[1] = reinterpret_cast<IPTR>(dest);
+
+    WORD i = 2;
+    for (auto &arg : values) {
+        args[i++] = arg;
+    }
+
+    return DoMethodA(object, reinterpret_cast<Msg>(args));
 }
 #endif

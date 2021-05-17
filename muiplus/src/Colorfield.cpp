@@ -1,56 +1,49 @@
 #include "include/Colorfield.h"
 #include "include/RootClass.h"
 
-Zune::Colorfield::Colorfield(ULONG red, ULONG green, ULONG blue)
-        : Area() {
-    object = MUI_NewObject(MUIC_Colorfield, MUIA_Colorfield_Red, red, MUIA_Colorfield_Green, green,
-                           MUIA_Colorfield_Blue, blue);
-}
-
 Zune::Colorfield::Colorfield(Object *obj)
         : Area() {
     object = obj;
 }
 
-Zune::Colorfield &Zune::Colorfield::operator=(Object *obj) {
-    object = obj;
-    return *this;
-}
-
 IPTR Zune::Colorfield::blue() const {
-    return (IPTR) mGetAttr(MUIA_Colorfield_Blue);
+    return static_cast<IPTR>(mGetAttr(MUIA_Colorfield_Blue));
 }
 
 void Zune::Colorfield::setBlue(IPTR value) {
-    setAttr(MUIA_Colorfield_Blue, (IPTR) value);
+    setOrStore(MUIA_Colorfield_Blue, static_cast<IPTR>(value));
 }
 
 IPTR Zune::Colorfield::green() const {
-    return (IPTR) mGetAttr(MUIA_Colorfield_Green);
+    return static_cast<IPTR>(mGetAttr(MUIA_Colorfield_Green));
 }
 
 void Zune::Colorfield::setGreen(IPTR value) {
-    setAttr(MUIA_Colorfield_Green, (IPTR) value);
+    setOrStore(MUIA_Colorfield_Green, static_cast<IPTR>(value));
 }
 
 IPTR Zune::Colorfield::pen() const {
-    return (IPTR) mGetAttr(MUIA_Colorfield_Pen);
+    return static_cast<IPTR>(mGetAttr(MUIA_Colorfield_Pen));
 }
 
 IPTR Zune::Colorfield::red() const {
-    return (IPTR) mGetAttr(MUIA_Colorfield_Red);
+    return static_cast<IPTR>(mGetAttr(MUIA_Colorfield_Red));
 }
 
 void Zune::Colorfield::setRed(IPTR value) {
-    setAttr(MUIA_Colorfield_Red, (IPTR) value);
+    setOrStore(MUIA_Colorfield_Red, static_cast<IPTR>(value));
 }
 
 IPTR *Zune::Colorfield::rgb() const {
-    return (IPTR *) mGetAttr(MUIA_Colorfield_RGB);
+    return reinterpret_cast<IPTR *>(mGetAttr(MUIA_Colorfield_RGB));
 }
 
 void Zune::Colorfield::setRgb(IPTR *value) {
-    setAttr(MUIA_Colorfield_RGB, (IPTR) value);
+    setOrStore(MUIA_Colorfield_RGB, reinterpret_cast<IPTR>(value));
 }
 
-Zune::Colorfield::Colorfield() {}
+void Zune::Colorfield::build() {
+    RootClass::createObject(MUIC_Colorfield);
+}
+
+Zune::Colorfield::Colorfield() = default;

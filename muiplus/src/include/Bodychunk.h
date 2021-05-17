@@ -7,11 +7,7 @@
 namespace Zune {
     class Bodychunk : public Zune::Bitmap {
     public:
-        Bodychunk(LONG width, LONG height, LONG depth, UBYTE masking, UBYTE *body, UBYTE compression);
-
         Bodychunk(Object *obj);
-
-        Bodychunk &operator=(Object *obj);
 
         UBYTE *body() const;
 
@@ -29,8 +25,9 @@ namespace Zune {
 
         void setMasking(UBYTE value);
 
-    protected:
         Bodychunk();
+
+        void build() override;
     };
 }
 

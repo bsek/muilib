@@ -6,21 +6,18 @@
 
 namespace Zune {
     class Boopsi : public Area {
-    protected:
+    public:
         Boopsi();
 
-    public:
         Boopsi(Object *obj);
 
-        Boopsi &operator=(Object *obj);
-
-        struct IClass *iClass() const;
+        struct IClass * getClass() const;
 
         void setClass(struct IClass *value);
 
         char *classID() const;
 
-        void setClassID(char *value);
+        void setClassID(std::string& value);
 
         IPTR maxHeight() const;
 
@@ -38,7 +35,7 @@ namespace Zune {
 
         void setMinWidth(IPTR value);
 
-        Object *mBoopsiObject() const;
+        Object *boopsiObject() const;
 
         IPTR tagDrawInfo() const;
 
@@ -51,6 +48,12 @@ namespace Zune {
         IPTR tagWindow() const;
 
         void setTagWindow(IPTR value);
+
+        void setSmart(BOOL smart);
+
+        void setRemember(ULONG value);
+
+        void build() override;
     };
 }
 

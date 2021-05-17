@@ -31,7 +31,7 @@ void MainArea::init() {
     m_horizontalGroup = Zune::ZuneFactory::createHorizontalGroup();
 
     std::string cycleLabel{"CycleLabel"};
-    std::initializer_list<std::string> values = {"Cycle", "Button", "Checkmark", "Scale", "Knob", "Radio", "Scrollbar", "Prop", "Scrollgroup", "Settingsgroup", "Slider", "Numeric button", "String", "Text", "Popstring", "Dtpic"};
+    std::initializer_list<std::string> values = {"Cycle", "Button", "Checkmark", "Scale", "Knob", "Radio", "Scrollbar", "Prop", "Scrollgroup", "Settingsgroup", "Slider", "Numeric button", "String", "Text", "Popstring", "Dtpic", "Coloradjust", "Colorfield", "Levelmeter"};
 
     m_button = Zune::ZuneFactory::createButton("TEST");
     m_button2 = Zune::ZuneFactory::createButton("TEST2");
@@ -41,8 +41,8 @@ void MainArea::init() {
     m_scale = Zune::ZuneFactory::createScale(TRUE);
     m_knob = Zune::ZuneFactory::createKnob();
     m_radio = Zune::ZuneFactory::createRadio(values, FALSE);
- //   m_register = Zune::ZuneFactory::createRegister(values, false);
-    m_register = Zune::ZuneFactory::createTitle();
+    m_register = Zune::ZuneFactory::createRegister(values, false);
+ //   m_register = Zune::ZuneFactory::createTitle();
     m_scrollbar = Zune::ZuneFactory::createScrollbar(MUIV_Scrollbar_Type_Top);
     m_prop = Zune::ZuneFactory::createProp(10, true, false);
     m_settingsgroup = Zune::ZuneFactory::createSettingGroup();
@@ -68,6 +68,10 @@ void MainArea::init() {
     auto m_popstring = Zune::ZuneFactory::createPopstring(popButton.getObject(), popstringText.getObject(),
                                                           openHook,
                                                           closeHook, FALSE);
+    auto m_coloradjust = Zune::ZuneFactory::createColoradjust();
+    auto m_colorfield = Zune::ZuneFactory::createColorfield(50, 255, 100);
+    std::string levelmeterLabel{"Levelmeter"};
+    auto m_levelmeter = Zune::ZuneFactory::createLevelmeter(levelmeterLabel);
    // m_popstring.setOpenHook(openHook);
     m_virtualgroup = Zune::ZuneFactory::createVirtgroup();
     m_virtualgroup.addObject(m_button3);
@@ -91,6 +95,9 @@ void MainArea::init() {
     m_register.addObject(m_text);
     m_register.addObject(m_popstring);
     m_register.addObject(m_dtpic);
+    m_register.addObject(m_coloradjust);
+    m_register.addObject(m_colorfield);
+    m_register.addObject(m_levelmeter);
 
     m_horizontalGroup.addObject(m_register);
 

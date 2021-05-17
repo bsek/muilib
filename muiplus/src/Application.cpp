@@ -13,7 +13,7 @@ void Zune::Application::removeWindow(Zune::Window &window){
 }
 
 BOOL Zune::Application::active() const {
-    return (BOOL) mGetAttr(MUIA_Application_Active);
+    return static_cast<BOOL>(mGetAttr(MUIA_Application_Active));
 }
 
 void Zune::Application::setActive(BOOL value) {
@@ -45,11 +45,11 @@ struct MsgPort *Zune::Application::brokerPort() const {
 }
 
 LONG Zune::Application::brokerPri() const {
-    return (LONG) mGetAttr(MUIA_Application_BrokerPri);
+    return static_cast<LONG>(mGetAttr(MUIA_Application_BrokerPri));
 }
 
 struct MUI_Command *Zune::Application::commands() const {
-    return (struct MUI_Command *) mGetAttr(MUIA_Application_Commands);
+    return reinterpret_cast<struct MUI_Command*>(mGetAttr(MUIA_Application_Commands));
 }
 
 void Zune::Application::setCommands(struct MUI_Command *value) {
@@ -73,7 +73,7 @@ void Zune::Application::setDiskObject(struct DiskObject *value) {
 }
 
 BOOL Zune::Application::doubleStart() const {
-    return (BOOL) mGetAttr(MUIA_Application_DoubleStart);
+    return static_cast<BOOL>(mGetAttr(MUIA_Application_DoubleStart));
 }
 
 void Zune::Application::setDropObject(Object *value) {
@@ -81,7 +81,7 @@ void Zune::Application::setDropObject(Object *value) {
 }
 
 BOOL Zune::Application::forceQuit() const {
-    return (BOOL) mGetAttr(MUIA_Application_ForceQuit);
+    return static_cast<BOOL>(mGetAttr(MUIA_Application_ForceQuit));
 }
 
 std::string Zune::Application::helpFile() const {
@@ -93,7 +93,7 @@ void Zune::Application::setHelpFile(STRPTR value) {
 }
 
 BOOL Zune::Application::iconified() const {
-    return (BOOL) mGetAttr(MUIA_Application_Iconified);
+    return static_cast<BOOL>(mGetAttr(MUIA_Application_Iconified));
 }
 
 void Zune::Application::setIconified(BOOL value) {
@@ -120,8 +120,8 @@ IPTR Zune::Application::rexxMsg() const {
     return mGetAttr(MUIA_Application_RexxMsg);
 }
 
-void Zune::Application::setRexxString(STRPTR value) {
-    setAttr(MUIA_Application_RexxString, reinterpret_cast<IPTR>(value));
+void Zune::Application::setRexxString(std::string &value) {
+    setAttr(MUIA_Application_RexxString, reinterpret_cast<IPTR>(value.c_str()));
 }
 
 void Zune::Application::setSleep(BOOL value) {
@@ -161,19 +161,11 @@ IPTR Zune::Application::load(std::string &name) {
 }
 
 IPTR Zune::Application::newInput(ULONG *signal) {
-    return DoMethod(object, MUIM_Application_NewInput, signal);
+    return DoMethod(object, MUIM_Application_NewInput, reinterpret_cast<IPTR>(signal));
 }
 
 IPTR Zune::Application::openConfigWindow(IPTR flags) {
     return DoMethod(object, MUIM_Application_OpenConfigWindow, flags);
-}
-
-IPTR Zune::Application::pushMethod(Object *dest, std::vector<IPTR> count) {
-    auto p = createTagListFromVector<IPTR>(count, 2);
-    p.get()[0] = MUIM_Application_PushMethod;
-    p.get()[1] = reinterpret_cast<IPTR>(dest);
-
-    return DoMethodA(object, (Msg) p.get());
 }
 
 IPTR Zune::Application::remInputHandler(struct MUI_InputHandlerNode *ihnode) {

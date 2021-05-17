@@ -7,11 +7,7 @@
 namespace Zune {
     class Colorfield : public Area {
     public:
-        Colorfield(ULONG red, ULONG green, ULONG blue);
-
         Colorfield(Object *obj);
-
-        Colorfield &operator=(Object *obj);
 
         IPTR blue() const;
 
@@ -31,8 +27,9 @@ namespace Zune {
 
         void setRgb(IPTR *value);
 
-    protected:
         Colorfield();
+
+        void build() override;
     };
 }
 

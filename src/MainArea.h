@@ -36,7 +36,7 @@ private:
     Zune::Scale m_scale;
     Zune::Knob m_knob;
     Zune::Radio m_radio;
-    Zune::Title m_register;
+    Zune::Register m_register;
     Zune::Scrollbar m_scrollbar;
     Zune::Prop m_prop;
     Zune::Slider m_slider;

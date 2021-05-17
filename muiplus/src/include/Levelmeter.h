@@ -6,19 +6,16 @@
 
 namespace Zune {
     class Levelmeter : public Numeric {
-    protected:
-        Levelmeter();
-
     public:
-        Levelmeter(std::string label);
+        Levelmeter();
 
         Levelmeter(Object *obj);
 
-        Levelmeter &operator=(Object *obj);
-
         std::string mLabel() const;
 
-        void setLabel(std::string value);
+        void setLabel(std::string& value);
+
+        void build() override;
     };
 }
 

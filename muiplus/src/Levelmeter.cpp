@@ -2,30 +2,22 @@
 #include "include/RootClass.h"
 #include "include/Numeric.h"
 
-Zune::Levelmeter::Levelmeter()
-        : Numeric() {
-}
+Zune::Levelmeter::Levelmeter() = default;
 
-Zune::Levelmeter::Levelmeter(Object *obj)
-        : Numeric() {
+Zune::Levelmeter::Levelmeter(Object *obj) {
     object = obj;
-}
-
-Zune::Levelmeter::Levelmeter(std::string label) {
-    object = MUI_NewObject(MUIC_Levelmeter, MUIA_Levelmeter_Label, (IPTR) label.c_str(), TAG_END);
-}
-
-Zune::Levelmeter &Zune::Levelmeter::operator=(Object *obj) {
-    object = obj;
-    return *this;
 }
 
 std::string Zune::Levelmeter::mLabel() const {
-    return (STRPTR) mGetAttr(MUIA_Levelmeter_Label);
+    return reinterpret_cast<STRPTR>(mGetAttr(MUIA_Levelmeter_Label));
 }
 
-void Zune::Levelmeter::setLabel(std::string value) {
-    setAttr(MUIA_Levelmeter_Label, (IPTR) value.c_str());
+void Zune::Levelmeter::setLabel(std::string& value) {
+    setOrStore(MUIA_Levelmeter_Label, reinterpret_cast<IPTR>(value.c_str()));
+}
+
+void Zune::Levelmeter::build() {
+    RootClass::createObject(MUIC_Levelmeter);
 }
 
 

@@ -27,9 +27,42 @@
 #include "Popstring.h"
 #include "Dtpic.h"
 #include "Title.h"
+#include "Bitmap.h"
+#include "Coloradjust.h"
+#include "Colorfield.h"
+#include "Levelmeter.h"
 
 namespace Zune {
     struct ZuneFactory {
+
+        static Levelmeter createLevelmeter(std::string& label) {
+            Levelmeter levelmeter{};
+            levelmeter.setLabel(label);
+            levelmeter.build();
+            return levelmeter;
+        }
+
+        static Colorfield createColorfield(ULONG red, ULONG green, ULONG blue) {
+            Colorfield colorfield{};
+            colorfield.setBlue(blue);
+            colorfield.setRed(red);
+            colorfield.setGreen(green);
+            colorfield.build();
+            return colorfield;
+        }
+
+        static Coloradjust createColoradjust() {
+            Coloradjust coloradjust{};
+            coloradjust.build();
+            return coloradjust;
+        }
+
+        static Bitmap createBitmap(struct BitMap *bitMap) {
+            Bitmap bitmap{};
+            bitmap.setBitmap(bitMap);
+            bitmap.build();
+            return bitmap;
+        }
 
         static Title createTitle() {
             Title title{};

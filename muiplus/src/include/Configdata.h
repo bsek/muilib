@@ -6,8 +6,11 @@
 namespace Zune {
     class Configdata : public Dataspace {
     public:
-    protected:
         Configdata();
+
+        Configdata(Object *obj);
+
+        void build() override;
     };
 }
 

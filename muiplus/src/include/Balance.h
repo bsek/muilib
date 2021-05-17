@@ -11,7 +11,7 @@ namespace Zune {
 
         explicit Balance(Object* obj);
 
-        void setQuiet(bool quiet);
+        void setQuiet(BOOL quiet);
 
         void build() override;
 

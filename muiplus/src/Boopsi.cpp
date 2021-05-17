@@ -1,91 +1,96 @@
 #include "include/Boopsi.h"
 #include "include/RootClass.h"
 
-Zune::Boopsi::Boopsi(Object *obj) : Area() {
+Zune::Boopsi::Boopsi(Object *obj) {
     object = obj;
 }
 
-Zune::Boopsi &Zune::Boopsi::operator=(Object *obj) {
-    object = obj;
-    return *this;
-}
-
-struct IClass *Zune::Boopsi::iClass() const {
-    return (struct IClass *) mGetAttr(MUIA_Boopsi_Class);
+struct IClass *Zune::Boopsi::getClass() const {
+    return reinterpret_cast<struct IClass *>(mGetAttr(MUIA_Boopsi_Class));
 }
 
 void Zune::Boopsi::setClass(struct IClass *value) {
-    setAttr(MUIA_Boopsi_Class, (IPTR) value);
+    setOrStore(MUIA_Boopsi_Class, reinterpret_cast<IPTR>(value));
 }
 
 char *Zune::Boopsi::classID() const {
-    return (char *) mGetAttr(MUIA_Boopsi_ClassID);
+    return reinterpret_cast<char *>(mGetAttr(MUIA_Boopsi_ClassID));
 }
 
-void Zune::Boopsi::setClassID(char *value) {
-    setAttr(MUIA_Boopsi_ClassID, (IPTR) value);
+void Zune::Boopsi::setClassID(std::string& value) {
+    setOrStore(MUIA_Boopsi_ClassID, reinterpret_cast<IPTR>(value.c_str()));
 }
 
 IPTR Zune::Boopsi::maxHeight() const {
-    return (IPTR) mGetAttr(MUIA_Boopsi_MaxHeight);
+    return static_cast<IPTR>(mGetAttr(MUIA_Boopsi_MaxHeight));
 }
 
 void Zune::Boopsi::setMaxHeight(IPTR value) {
-    setAttr(MUIA_Boopsi_MaxHeight, (IPTR) value);
+    setOrStore(MUIA_Boopsi_MaxHeight, static_cast<IPTR>(value));
 }
 
 IPTR Zune::Boopsi::maxWidth() const {
-    return (IPTR) mGetAttr(MUIA_Boopsi_MaxWidth);
+    return static_cast<IPTR>(mGetAttr(MUIA_Boopsi_MaxWidth));
 }
 
 void Zune::Boopsi::setMaxWidth(IPTR value) {
-    setAttr(MUIA_Boopsi_MaxWidth, (IPTR) value);
+    setOrStore(MUIA_Boopsi_MaxWidth, static_cast<IPTR>(value));
 }
 
 IPTR Zune::Boopsi::minHeight() const {
-    return (IPTR) mGetAttr(MUIA_Boopsi_MinHeight);
+    return static_cast<IPTR>(mGetAttr(MUIA_Boopsi_MinHeight));
 }
 
 void Zune::Boopsi::setMinHeight(IPTR value) {
-    setAttr(MUIA_Boopsi_MinHeight, (IPTR) value);
+    setOrStore(MUIA_Boopsi_MinHeight, static_cast<IPTR>(value));
 }
 
 IPTR Zune::Boopsi::minWidth() const {
-    return (IPTR) mGetAttr(MUIA_Boopsi_MinWidth);
+    return static_cast<IPTR>(mGetAttr(MUIA_Boopsi_MinWidth));
 }
 
 void Zune::Boopsi::setMinWidth(IPTR value) {
-    setAttr(MUIA_Boopsi_MinWidth, (IPTR) value);
+    setOrStore(MUIA_Boopsi_MinWidth, static_cast<IPTR>(value));
 }
 
-Object *Zune::Boopsi::mBoopsiObject() const {
-    return (Object *) mGetAttr(MUIA_Boopsi_Object);
+Object *Zune::Boopsi::boopsiObject() const {
+    return reinterpret_cast<Object *>(mGetAttr(MUIA_Boopsi_Object));
 }
 
 IPTR Zune::Boopsi::tagDrawInfo() const {
-    return (IPTR) mGetAttr(MUIA_Boopsi_TagDrawInfo);
+    return static_cast<IPTR>(mGetAttr(MUIA_Boopsi_TagDrawInfo));
 }
 
 void Zune::Boopsi::setTagDrawInfo(IPTR value) {
-    setAttr(MUIA_Boopsi_TagDrawInfo, (IPTR) value);
+    setOrStore(MUIA_Boopsi_TagDrawInfo, static_cast<IPTR>(value));
 }
 
 IPTR Zune::Boopsi::tagScreen() const {
-    return (IPTR) mGetAttr(MUIA_Boopsi_TagScreen);
+    return static_cast<IPTR>(mGetAttr(MUIA_Boopsi_TagScreen));
 }
 
 void Zune::Boopsi::setTagScreen(IPTR value) {
-    setAttr(MUIA_Boopsi_TagScreen, (IPTR) value);
+    setOrStore(MUIA_Boopsi_TagScreen, static_cast<IPTR>(value));
 }
 
 IPTR Zune::Boopsi::tagWindow() const {
-    return (IPTR) mGetAttr(MUIA_Boopsi_TagWindow);
+    return static_cast<IPTR>(mGetAttr(MUIA_Boopsi_TagWindow));
 }
 
 void Zune::Boopsi::setTagWindow(IPTR value) {
-    setAttr(MUIA_Boopsi_TagWindow, (IPTR) value);
+    setOrStore(MUIA_Boopsi_TagWindow, static_cast<IPTR>(value));
 }
 
-Zune::Boopsi::Boopsi() {
-
+void Zune::Boopsi::setSmart(BOOL smart) {
+    configmap[MUIA_Boopsi_Smart] = static_cast<IPTR>(smart);
 }
+
+void Zune::Boopsi::setRemember(ULONG value) {
+    configmap[MUIA_Boopsi_Remember] = static_cast<IPTR>(value);
+}
+
+void Zune::Boopsi::build() {
+    RootClass::createObject(MUIC_Boopsi);
+}
+
+Zune::Boopsi::Boopsi() = default;

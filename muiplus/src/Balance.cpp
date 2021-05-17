@@ -7,7 +7,7 @@ Zune::Balance::Balance(Object *obj) {
     object = obj;
 }
 
-void Zune::Balance::setQuiet(bool quiet) {
+void Zune::Balance::setQuiet(BOOL quiet) {
     configmap[MUIA_Balance_Quiet] = static_cast<IPTR>(quiet);
 }
 

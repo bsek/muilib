@@ -80,23 +80,23 @@ namespace Zune {
 
         void setFillArea(BOOL value);
 
-        void setFixHeight(long value);
+        void setFixHeight(LONG value);
 
-        void setFixHeightText(std::string text);
+        void setFixHeightText(std::string& text);
 
-        void setFixWidth(long value);
+        void setFixWidth(LONG value);
 
-        void setFixWidthText(std::string text);
+        void setFixWidthText(std::string& text);
 
         void setFont(struct TextFont* font);
 
         struct TextFont *font() const;
 
-        void setFrame(long frame);
+        void setFrame(LONG frame);
 
-        void setFramePhantomHoriz(bool value);
+        void setFramePhantomHoriz(BOOL value);
 
-        void setFrameTitle(std::string title);
+        void setFrameTitle(std::string& title);
 
         LONG height() const;
 
@@ -110,25 +110,25 @@ namespace Zune {
 
         LONG innerBottom() const;
 
-        void setInnerBottom(long value);
+        void setInnerBottom(LONG value);
 
         LONG innerLeft() const;
 
-        void setInnerLeft(long value);
+        void setInnerLeft(LONG value);
 
         LONG innerRight() const;
 
-        void setInnerRight(long value);
+        void setInnerRight(LONG value);
 
         LONG innerTop() const;
 
-        void setInnerTop(long value);
+        void setInnerTop(LONG value);
 
-        void setInputMode(long inputMode);
+        void setInputMode(LONG inputMode);
 
-        void setMaxHeight(long height);
+        void setMaxHeight(LONG height);
 
-        void setMaxWidth(long width);
+        void setMaxWidth(LONG width);
 
         LONG leftEdge() const;
 
@@ -142,13 +142,13 @@ namespace Zune {
 
         STRPTR shortHelp() const;
 
-        void setShortHelp(STRPTR value);
+        void setShortHelp(std::string &value);
 
         BOOL showMe() const;
 
         void setShowMe(BOOL value);
 
-        void setShowSelState(bool value);
+        void setShowSelState(BOOL value);
 
         LONG timer() const;
 
@@ -164,7 +164,7 @@ namespace Zune {
 
         LONG width() const;
 
-        void setWeight(long value);
+        void setWeight(LONG value);
 
         struct Window *window() const;
 
@@ -233,7 +233,7 @@ namespace Zune {
         template<typename T>
         void addEvent(Notify *obj, EventType eventType, T *, void (T::*)());
 
-        bool hasEvent(ULONG eventId);
+        BOOL hasEvent(ULONG eventId);
 
         Class *registerClassWithId(ClassID classId);
 
