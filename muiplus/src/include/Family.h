@@ -7,6 +7,10 @@
 namespace Zune {
     class Family : public Notify {
     public:
+        Family();
+
+        Family(Object* obj);
+
         struct MinList *list() const;
 
         IPTR addHead(Object *obj);
@@ -21,8 +25,11 @@ namespace Zune {
 
         IPTR transfer(Object *family);
 
-    protected:
-        Family();
+        void setChild(Object *obj);
+
+        LONG childCount() const;
+
+        void build() override;
     };
 }
 

@@ -6,13 +6,12 @@
 
 namespace Zune {
     class Popscreen : public Zune::Popobject {
-    protected:
+    public:
         Popscreen();
 
-    public:
         Popscreen(Object *obj);
 
-        Popscreen &operator=(Object *obj);
+        void build() override;
     };
 }
 

@@ -1,116 +1,63 @@
 #include "include/Listview.h"
-#include "include/List.h"
 
+Zune::Listview::Listview() = default;
 
-template<class Type>
-Zune::Listview<Type> &Zune::Listview<Type>::operator=(Object *obj) {
-    this->object = obj;
-    return *this;
+Zune::Listview::Listview(Object *obj) {
+    object = obj;
 }
 
-template<typename Type>
-LONG Zune::Listview<Type>::activePage(void) const {
-    return (LONG) this->mGetAttr(MUIA_Group_ActivePage);
+LONG Zune::Listview::clickColumn() const {
+    return static_cast<LONG>( mGetAttr(MUIA_Listview_ClickColumn));
 }
 
-template<typename Type>
-void Zune::Listview<Type>::setActivePage(LONG value) {
-    this->setAttr(MUIA_Group_ActivePage, (IPTR) value);
-}
-/*
-template<typename Type>
-struct List *Zune::Listview<Type>::childList(void) const {
-    return (struct List *) this->mGetAttr(MUIA_Group_ChildList);
-}
-*/
-template<typename Type>
-void Zune::Listview<Type>::setColumns(LONG value) {
-    this->setAttr(MUIA_Group_Columns, (IPTR) value);
+LONG Zune::Listview::defClickColumn() const {
+    return static_cast<LONG>( mGetAttr(MUIA_Listview_DefClickColumn));
 }
 
-template<typename Type>
-LONG Zune::Listview<Type>::horizSpacing(void) const {
-    return (LONG) this->mGetAttr(MUIA_Group_HorizSpacing);
+void Zune::Listview::setDefClickColumn(LONG value) {
+    setAttr(MUIA_Listview_DefClickColumn, static_cast<IPTR>(value));
 }
 
-template<typename Type>
-void Zune::Listview<Type>::setHorizSpacing(LONG value) {
-    this->setAttr(MUIA_Group_HorizSpacing, (IPTR) value);
+LONG Zune::Listview::dragType() const {
+    return static_cast<LONG>( mGetAttr(MUIA_Listview_DragType));
 }
 
-template<typename Type>
-void Zune::Listview<Type>::setRows(LONG value) {
-    this->setAttr(MUIA_Group_Rows, (IPTR) value);
+void Zune::Listview::setDragType(LONG value) {
+    setAttr(MUIA_Listview_DragType, static_cast<IPTR>(value));
 }
 
-template<typename Type>
-void Zune::Listview<Type>::setSpacing(LONG value) {
-    this->setAttr(MUIA_Group_Spacing, (IPTR) value);
+BOOL Zune::Listview::selectChange() const {
+    return static_cast<BOOL>( mGetAttr(MUIA_Listview_SelectChange));
 }
 
-template<typename Type>
-LONG Zune::Listview<Type>::vertSpacing(void) const {
-    return (LONG) this->mGetAttr(MUIA_Group_VertSpacing);
+void Zune::Listview::setDoubleClick(BOOL doubleClick) {
+    configmap[MUIA_Listview_DoubleClick] = static_cast<IPTR>(doubleClick);
 }
 
-template<typename Type>
-void Zune::Listview<Type>::setVertSpacing(LONG value) {
-    this->setAttr(MUIA_Group_VertSpacing, (IPTR) value);
+BOOL Zune::Listview::doubleClick() const {
+    return static_cast<BOOL>(mGetAttr(MUIA_Listview_DoubleClick));
 }
 
-template<typename Type>
-IPTR Zune::Listview<Type>::exitChange(void) {
-    return DoMethod(this->object, MUIM_Group_ExitChange);
+void Zune::Listview::setInput(BOOL input) {
+    configmap[MUIA_Listview_Input] = static_cast<IPTR>(input);
 }
 
-template<typename Type>
-IPTR Zune::Listview<Type>::initChange(void) {
-    return DoMethod(this->object, MUIM_Group_InitChange);
+void Zune::Listview::setMultiSelect(LONG multiselect) {
+    configmap[MUIA_Listview_MultiSelect] = static_cast<IPTR>(multiselect);
 }
 
-template<typename Type>
-IPTR Zune::Listview<Type>::sort(std::vector<Object *> objects) {
-    auto p = createTagListFromVector<Object *>(objects, 1);
-    p.get()[0] = MUIM_Group_Sort;
-    return DoMethodA(this->object, p.get());
+void Zune::Listview::setScrollerPos(BOOL scrollerPos) {
+    configmap[MUIA_Listview_ScrollerPos] = static_cast<IPTR>(scrollerPos);
 }
 
-template<typename Type>
-LONG Zune::Listview<Type>::clickColumn(void) const {
-    return (LONG) this->mGetAttr(MUIA_Listview_ClickColumn);
+Object *Zune::Listview::list() const {
+    return reinterpret_cast<Object*>(mGetAttr(MUIA_Listview_List));
 }
 
-template<typename Type>
-LONG Zune::Listview<Type>::defClickColumn(void) const {
-    return (LONG) this->mGetAttr(MUIA_Listview_DefClickColumn);
+void Zune::Listview::setList(Object *obj) {
+    configmap[MUIA_Listview_List] = reinterpret_cast<IPTR>(obj);
 }
 
-template<typename Type>
-void Zune::Listview<Type>::setDefClickColumn(LONG value) {
-    this->setAttr(MUIA_Listview_DefClickColumn, (IPTR) value);
-}
-
-template<typename Type>
-BOOL Zune::Listview<Type>::mDoubleClick(void) const {
-    return (BOOL) this->mGetAttr(MUIA_Listview_DoubleClick);
-}
-
-template<typename Type>
-LONG Zune::Listview<Type>::dragType(void) const {
-    return (LONG) this->mGetAttr(MUIA_Listview_DragType);
-}
-
-template<typename Type>
-void Zune::Listview<Type>::setDragType(LONG value) {
-    this->setAttr(MUIA_Listview_DragType, (IPTR) value);
-}
-/*
-template<typename Type>
-Object *Zune::Listview<Type>::list(void) const {
-    return this->mGetAttr(MUIA_Listview_List);
-}
-*/
-template<typename Type>
-BOOL Zune::Listview<Type>::selectChange(void) const {
-    return (BOOL) this->mGetAttr(MUIA_Listview_SelectChange);
+void Zune::Listview::build() {
+    RootClass::createObject(MUIC_Listview);
 }

@@ -7,11 +7,9 @@
 namespace Zune {
     class Menuitem : public Zune::Family {
     public:
+        Menuitem();
+
         Menuitem(Object *obj);
-
-        Menuitem(std::string label, std::string shortcut);
-
-        Menuitem &operator=(Object *obj);
 
         BOOL checked() const;
 
@@ -35,11 +33,11 @@ namespace Zune {
 
         std::string shortcut() const;
 
-        void setShortcut(std::string value);
+        void setShortcut(std::string &value);
 
         std::string title() const;
 
-        void setTitle(std::string value);
+        void setTitle(std::string &value);
 
         BOOL toggle() const;
 
@@ -47,8 +45,9 @@ namespace Zune {
 
         struct MenuItem *trigger() const;
 
-    protected:
-        Menuitem();
+        struct NewMenu *newMenu() const;
+
+        void build() override;
     };
 }
 

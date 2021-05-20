@@ -2,36 +2,37 @@
 #define    NOTIFY_H
 
 #include "RootClass.h"
+#include <workbench/workbench.h>
 #include <initializer_list>
 
 namespace Zune {
     class Notify : public RootClass {
     public:
-        Object *mApplicationObject() const;
+        Object *applicationObject() const;
 
-        IPTR appMessage() const;
+        struct AppMessage * appMessage() const;
 
         LONG helpLine() const;
 
         void setHelpLine(LONG value);
 
-        STRPTR helpNode() const;
+        std::string helpNode() const;
 
-        void setHelpNode(STRPTR value);
+        void setHelpNode(std::string &value);
 
         void setNoNotify(BOOL value);
 
-        IPTR objectID() const;
+        ULONG objectID() const;
 
-        void setObjectID(IPTR value);
+        void setObjectID(ULONG value);
 
         Object *parent() const;
 
         LONG revision() const;
 
-        IPTR userData() const;
+        ULONG userData() const;
 
-        void setUserData(IPTR value);
+        void setUserData(ULONG value);
 
         LONG version() const;
 
@@ -42,41 +43,41 @@ namespace Zune {
 
         IPTR findUData(IPTR udata);
 
-        IPTR getConfigItem(IPTR id, IPTR *storage);
+        IPTR getConfigItem(ULONG id, IPTR *storage);
 
-        IPTR getUData(IPTR udata, IPTR attr, IPTR *storage);
+        IPTR getUData(ULONG udata, ULONG attr, IPTR *storage);
 
         IPTR importDataspace(Object *dataspace);
 
-        IPTR killNotify(IPTR TrigAttr);
+        IPTR killNotify(ULONG TrigAttr);
 
-        IPTR killNotifyObj(IPTR TrigAttr, Object *dest);
+        IPTR killNotifyObj(ULONG TrigAttr, Object *dest);
 
         template<typename... Args>
         IPTR multiSet(Args... obj);
 
         template<typename... Args>
-        IPTR noNotifySet(IPTR attr, char *format, Args... val);
+        IPTR noNotifySet(ULONG attr, Args... val);
 
         template<typename... Args>
         IPTR notify(Args... params);
 
-        IPTR set(IPTR attr, IPTR val);
+        IPTR set(ULONG attr, IPTR val);
 
         template<typename... Args>
-        IPTR setAsString(IPTR attr, char *format, Args... val);
+        IPTR setAsString(ULONG attr, char *format, Args... val);
 
-        IPTR setUData(IPTR udata, IPTR attr, IPTR val);
+        IPTR setUData(IPTR udata, ULONG attr, IPTR val);
 
-        IPTR setUDataOnce(IPTR udata, IPTR attr, IPTR val);
+        IPTR setUDataOnce(IPTR udata, ULONG attr, IPTR val);
 
-        IPTR writeLong(IPTR val, IPTR *memory);
+        IPTR writeLong(ULONG val, ULONG *memory);
 
         IPTR writeString(char *str, char *memory);
 
         Notify();
 
-        Notify(Object* obj);
+        explicit Notify(Object* obj);
     };
 }
 
@@ -111,25 +112,24 @@ IPTR Zune::Notify::mCallHook(struct Hook *Hook, Args... params) {
 }
 
 template<typename... Args>
-IPTR Zune::Notify::noNotifySet(IPTR attr, char *format, Args... val) {
+IPTR Zune::Notify::noNotifySet(ULONG attr, Args... val) {
     std::initializer_list<IPTR> list = {val...};
 
     IPTR size = list.size();
     IPTR args[size + 3];
 
-    int i = 3;
+    int i = 2;
     for (auto val : list) {
         args[i++] = val;
     }
     args[0] = MUIM_NoNotifySet;
-    args[1] = attr;
-    args[2] = reinterpret_cast<IPTR>(format);
+    args[1] = static_cast<IPTR>(attr);
 
     return DoMethodA(object, (Msg) (args));
 }
 
 template<typename... Args>
-IPTR Zune::Notify::setAsString(IPTR attr, char *format, Args... val) {
+IPTR Zune::Notify::setAsString(ULONG attr, char *format, Args... val) {
     std::initializer_list<IPTR> list = {val...};
 
     IPTR size = list.size();
@@ -140,7 +140,7 @@ IPTR Zune::Notify::setAsString(IPTR attr, char *format, Args... val) {
         args[i++] = val;
     }
     args[0] = MUIM_SetAsString;
-    args[1] = attr;
+    args[1] = static_cast<IPTR>(attr);
     args[2] = reinterpret_cast<IPTR>(format);
 
     return DoMethodA(object, (Msg) (args));

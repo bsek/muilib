@@ -11,13 +11,9 @@ namespace Zune {
 
         Scale(Object *obj);
 
-
         BOOL horiz() const;
 
         void setHoriz(BOOL value);
-
-        struct Factory {
-        };
 
         void build() override;
     };

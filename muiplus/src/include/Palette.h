@@ -9,11 +9,9 @@ namespace Zune {
     public:
         Palette(Object *obj);
 
-        Palette(BOOL groupable, struct MUI_Palette_Entry *entries, STRPTR *names);
-
-        Palette &operator=(Object *obj);
-
         struct MUI_Palette_Entry *entries() const;
+
+        void setEntries(struct MUI_Palette_Entry* entries);
 
         BOOL groupable() const;
 
@@ -21,7 +19,7 @@ namespace Zune {
 
         STRPTR *names() const;
 
-        void setNames(STRPTR value[]);
+        void setNames(std::vector<std::string> names);
 
     protected:
         Palette();

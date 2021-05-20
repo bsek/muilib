@@ -1,48 +1,41 @@
 #include "include/Popasl.h"
 #include "include/RootClass.h"
-#include "include/Popstring.h"
 
-Zune::Popasl::Popasl() {
+Zune::Popasl::Popasl() = default;
 
-}
-
-Zune::Popasl::Popasl(struct Hook *startHook, struct Hook *stopHook, IPTR type)
-        : Popstring() {
-    object = MUI_NewObject(MUIC_Popasl, MUIA_Popasl_StartHook, (IPTR) startHook, MUIA_Popasl_StopHook, (IPTR) stopHook,
-                           MUIA_Popasl_Type, type, TAG_END);
-}
-
-Zune::Popasl::Popasl(Object *obj)
-        : Popstring() {
+Zune::Popasl::Popasl(Object *obj) {
     object = obj;
-}
-
-Zune::Popasl &Zune::Popasl::operator=(Object *obj) {
-    object = obj;
-    return *this;
 }
 
 BOOL Zune::Popasl::active() const {
-    return (BOOL) mGetAttr(MUIA_Popasl_Active);
+    return static_cast<BOOL>(mGetAttr(MUIA_Popasl_Active));
 }
 
 struct Hook *Zune::Popasl::startHook() const {
-    return (struct Hook *) mGetAttr(MUIA_Popasl_StartHook);
+    return reinterpret_cast<struct Hook *>(mGetAttr(MUIA_Popasl_StartHook));
 }
 
 void Zune::Popasl::setStartHook(struct Hook *value) {
-    setAttr(MUIA_Popasl_StartHook, (IPTR) value);
+    setAttr(MUIA_Popasl_StartHook, reinterpret_cast<IPTR>(value));
 }
 
 struct Hook *Zune::Popasl::stopHook() const {
-    return (struct Hook *) mGetAttr(MUIA_Popasl_StopHook);
+    return reinterpret_cast<struct Hook *>(mGetAttr(MUIA_Popasl_StopHook));
 }
 
 void Zune::Popasl::setStopHook(struct Hook *value) {
-    setAttr(MUIA_Popasl_StopHook, (IPTR) value);
+    setAttr(MUIA_Popasl_StopHook, reinterpret_cast<IPTR>(value));
 }
 
-IPTR Zune::Popasl::getType() const {
-    return (IPTR) mGetAttr(MUIA_Popasl_Type);
+ULONG Zune::Popasl::getType() const {
+    return static_cast<IPTR>(mGetAttr(MUIA_Popasl_Type));
+}
+
+void Zune::Popasl::setType(ULONG type) {
+    configmap[MUIA_Popasl_Type] = static_cast<IPTR>(type);
+}
+
+void Zune::Popasl::build() {
+    RootClass::createObject(MUIC_Popasl);
 }
 

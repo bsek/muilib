@@ -1,27 +1,17 @@
 #include "include/Dataspace.h"
 #include "include/RootClass.h"
-#include "include/Semaphore.h"
 
-Zune::Dataspace::Dataspace()
-        : Semaphore() {
-    setObject(MUI_NewObject(MUIC_Dataspace, TAG_END));
+Zune::Dataspace::Dataspace() = default;
+
+Zune::Dataspace::Dataspace(Object *obj) {
+    object = obj;
 }
 
-Zune::Dataspace::Dataspace(Object *obj)
-        : Semaphore() {
-    setObject(obj);
-}
-
-Zune::Dataspace &Zune::Dataspace::operator=(Object *obj) {
-    setObject(obj);
-    return *this;
-}
-
-IPTR Zune::Dataspace::add(IPTR data, LONG len, IPTR id) {
+IPTR Zune::Dataspace::add(IPTR data, IPTR len, IPTR id) {
     return DoMethod(object, MUIM_Dataspace_Add, data, len, id);
 }
 
-IPTR Zune::Dataspace::clear(void) {
+IPTR Zune::Dataspace::clear() {
     return DoMethod(object, MUIM_Dataspace_Clear);
 }
 
@@ -30,11 +20,11 @@ IPTR Zune::Dataspace::find(IPTR id) {
 }
 
 IPTR Zune::Dataspace::merge(Object *dataspace) {
-    return DoMethod(object, MUIM_Dataspace_Merge, (IPTR) dataspace);
+    return DoMethod(object, MUIM_Dataspace_Merge, reinterpret_cast<IPTR>(dataspace));
 }
 
 IPTR Zune::Dataspace::readIFF(struct IFFHandle *handle) {
-    return DoMethod(object, MUIM_Dataspace_ReadIFF, (IPTR) handle);
+    return DoMethod(object, MUIM_Dataspace_ReadIFF, reinterpret_cast<IPTR>(handle));
 }
 
 IPTR Zune::Dataspace::remove(IPTR id) {
@@ -42,5 +32,9 @@ IPTR Zune::Dataspace::remove(IPTR id) {
 }
 
 IPTR Zune::Dataspace::writeIFF(struct IFFHandle *handle, IPTR type, IPTR id) {
-    return DoMethod(object, MUIM_Dataspace_WriteIFF, (IPTR) handle, type, id);
+    return DoMethod(object, MUIM_Dataspace_WriteIFF, reinterpret_cast<IPTR>(handle), type, id);
+}
+
+void Zune::Dataspace::build() {
+    RootClass::createObject(MUIC_Dataspace);
 }

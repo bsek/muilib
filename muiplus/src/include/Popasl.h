@@ -7,11 +7,9 @@
 namespace Zune {
     class Popasl : public Popstring {
     public:
-        Popasl(struct Hook *startHook, struct Hook *stopHook, IPTR type);
+        Popasl();
 
         Popasl(Object *obj);
-
-        Popasl &operator=(Object *obj);
 
         BOOL active() const;
 
@@ -23,10 +21,11 @@ namespace Zune {
 
         void setStopHook(struct Hook *value);
 
-        IPTR getType() const;
+        ULONG getType() const;
 
-    protected:
-        Popasl();
+        void setType(ULONG type);
+
+        void build() override;
     };
 }
 

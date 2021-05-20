@@ -31,9 +31,79 @@
 #include "Coloradjust.h"
 #include "Colorfield.h"
 #include "Levelmeter.h"
+#include "Dirlist.h"
+#include "Floattext.h"
+#include "Gauge.h"
+#include "Listview.h"
+#include "Poplist.h"
+#include "Popobject.h"
+#include "Popasl.h"
 
 namespace Zune {
     struct ZuneFactory {
+
+        static Popasl createPopasl(ULONG type, Object* button, Object* text, struct Hook* openHook, struct Hook* closeHook) {
+           Popasl popasl{};
+           popasl.setType(type);
+           popasl.setStartHook(openHook);
+           popasl.setStopHook(closeHook);
+           popasl.setButton(button);
+           popasl.setString(text);
+           popasl.build();
+           return popasl;
+        }
+
+        static Popobject createPopobject(Object* button, Object* text, struct Hook* openHook, struct Hook* closeHook, BOOL enableToggle, Object* obj) {
+            Popobject p{};
+            p.setObject(obj);
+            p.setButton(button);
+            p.setString(text);
+            p.setToggle(enableToggle);
+            p.setOpenHook(openHook);
+            p.setCloseHook(closeHook);
+            p.build();
+            return p;
+        }
+
+        static Poplist createPoplist(STRPTR *array) {
+            Poplist poplist{};
+            poplist.setArray(array);
+            poplist.build();
+            return poplist;
+        }
+
+        static Listview createListview(Object* list) {
+            Listview listview{};
+            listview.setList(list);
+            listview.build();
+            return listview;
+        }
+
+        static Gauge createGauge(BOOL horiz, LONG current, LONG max, LONG divide, std::string& infotext) {
+            Gauge gauge{};
+            gauge.setHoriz(horiz);
+            gauge.setMax(max);
+            gauge.setCurrent(current);
+            gauge.setDivide(divide);
+            gauge.setInfoText(infotext);
+            gauge.setDupInfoText(TRUE);
+            gauge.build();
+            return gauge;
+        }
+
+        static Floattext createFloattext(std::string& text) {
+            Floattext floattext{};
+            floattext.setText(text);
+            floattext.build();
+            return floattext;
+        }
+
+        static Dirlist<std::string> createDirlist(std::string& dir) {
+            Dirlist<std::string> dirlist{};
+            dirlist.setDirectory(dir);
+            dirlist.build();
+            return dirlist;
+        }
 
         static Levelmeter createLevelmeter(std::string& label) {
             Levelmeter levelmeter{};
@@ -91,12 +161,15 @@ namespace Zune {
             return p;
         }
 
-        static Window createWindow(LONG id) {
+        static Window createWindow(LONG id, Object* menustrip) {
             Window w{};
             w.setAppWindow(TRUE);
             w.setCloseGadget(TRUE);
             w.setDepthGadget(TRUE);
             w.setSizeGadget(TRUE);
+            if (menustrip != nullptr) {
+                w.setMenustrip(menustrip);
+            }
             w.setID(id);
             w.build();
             return w;

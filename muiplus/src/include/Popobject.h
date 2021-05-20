@@ -7,12 +7,9 @@
 namespace Zune {
     class Popobject : public Popstring {
     public:
-        Popobject(struct Hook *objStrHook, struct Hook *strObjHook, BOOL follow, BOOL light, Object *object,
-                  BOOL isVolatile, struct Hook *windowHook);
+        Popobject();
 
         Popobject(Object *obj);
-
-        Popobject &operator=(Object *obj);
 
         BOOL follow() const;
 
@@ -23,6 +20,8 @@ namespace Zune {
         void setLight(BOOL value);
 
         Object *popObject() const;
+
+        void setPopObject(Object* obj);
 
         struct Hook *objStrHook() const;
 
@@ -38,10 +37,9 @@ namespace Zune {
 
         struct Hook *windowHook() const;
 
-        void SetWindowHook(struct Hook *value);
+        void setWindowHook(struct Hook *value);
 
-    protected:
-        Popobject();
+        void build() override;
     };
 }
 

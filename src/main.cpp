@@ -10,6 +10,9 @@
 #include "ZuneApplication.h"
 #include "ZuneFactory.h"
 
+#include <Menu.h>
+#include <Menuitem.h>
+#include <Menustrip.h>
 #include "MainArea.h"
 
 struct Library *MUIMasterBase;
@@ -32,16 +35,51 @@ inline void closeLib(L *&library) {
         library = nullptr;
     }
 }
+struct Hook *menuitemHook = new Hook;
+
+IPTR menuitemFunc(struct Hook *hook, Object* obj, APTR value) {
+    printf("display func called\n");
+    return TRUE;
+}
 
 int main(int argc, char **argv) {
     openLib(MUIMasterBase, "muimaster.library", 0);
     openLib(IntuitionBase, "intuition.library", 39);
 
-    Zune::Window mainWindow = Zune::ZuneFactory::createWindow(1);
+
+    auto m_menustrip = Zune::Menustrip{};
+
+    auto m_menu = Zune::Menu{};
+    m_menu.setTitle("Project");
+
+    std::string menuitemtitle = "Action";
+    auto m_menuitem = Zune::Menuitem{};
+    m_menuitem.setTitle(menuitemtitle);
+    m_menuitem.build();
+
+    std::string menuitemtitle2 = "Refresh";
+    auto m_menuitem2 = Zune::Menuitem{};
+    m_menuitem2.setTitle(menuitemtitle2);
+    m_menuitem2.build();
+
+    m_menu.setChild(m_menuitem.getObject());
+   // m_menu.addTail(m_menuitem2.getObject());
+    m_menu.build();
+    m_menustrip.setChild(m_menu.getObject());
+    m_menustrip.build();
+
+    m_menu.addTail(m_menuitem2.getObject());
+
+    menuitemHook->h_Entry = (APTR) HookEntry;
+    menuitemHook->h_SubEntry = (APTR) menuitemFunc;
+
+    Zune::Window mainWindow = Zune::ZuneFactory::createWindow(1, m_menustrip.getObject());
     MainArea mainArea((LONG)2);
     mainWindow.setRootObject(mainArea.getMainGroup().getObject());
 
     ZuneApplication application(mainWindow, "Test application");
+
+    m_menuitem2.notify(MUIA_Menuitem_Trigger, MUIV_EveryTime, (IPTR) application.getAppObject().getObject(), (IPTR) 2, MUIM_CallHook, (IPTR) menuitemHook);
     application.exec();
 
     closeLib(MUIMasterBase);

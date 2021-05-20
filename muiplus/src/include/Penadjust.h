@@ -6,8 +6,11 @@
 namespace Zune {
     class Penadjust : public Register {
     public:
-    protected:
         Penadjust();
+
+        Penadjust(Object *obj);
+
+        void build() override;
     };
 }
 

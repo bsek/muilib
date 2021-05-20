@@ -7,18 +7,15 @@
 namespace Zune {
     class Menustrip : public Zune::Family {
     public:
+        Menustrip();
+
         Menustrip(Object *obj);
-
-        Menustrip(struct NewMenu *nm, IPTR flags);
-
-        Menustrip &operator=(Object *obj);
 
         BOOL enabled() const;
 
         void setEnabled(BOOL value);
 
-    protected:
-        Menustrip();
+        void build() override;
     };
 }
 

@@ -7,30 +7,31 @@
 namespace Zune {
     class Gauge : public Area {
     public:
-        Gauge(LONG current, ULONG divide, BOOL horiz, std::string infoText, LONG max);
+        Gauge();
 
         Gauge(Object *obj);
-
-        Gauge &operator=(Object *obj);
 
         LONG current() const;
 
         void setCurrent(LONG value);
 
-        BOOL divide() const;
+        LONG divide() const;
 
-        void setDivide(BOOL value);
+        void setDivide(LONG value);
 
         STRPTR infoText() const;
 
-        void setInfoText(STRPTR value);
+        void setInfoText(std::string& value);
+
+        void setDupInfoText(BOOL doDup);
 
         LONG max() const;
 
         void setMax(LONG value);
 
-    protected:
-        Gauge();
+        void setHoriz(BOOL horiz);
+
+        void build() override;
     };
 }
 

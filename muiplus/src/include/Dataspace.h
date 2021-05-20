@@ -6,15 +6,12 @@
 
 namespace Zune {
     class Dataspace : public Semaphore {
-    protected:
+    public:
         Dataspace();
 
-    public:
         Dataspace(Object *obj);
 
-        Dataspace &operator=(Object *obj);
-
-        IPTR add(IPTR data, LONG len, IPTR id);
+        IPTR add(IPTR data, IPTR len, IPTR id);
 
         IPTR clear(void);
 
@@ -27,6 +24,8 @@ namespace Zune {
         IPTR remove(IPTR id);
 
         IPTR writeIFF(struct IFFHandle *handle, IPTR type, IPTR id);
+
+        void build() override;
     };
 }
 

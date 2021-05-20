@@ -1,5 +1,4 @@
 #include "include/Group.h"
-#include "include/List.h"
 #include "include/RootClass.h"
 
 #define MUIA_Group_ChildCount  0x80420322
@@ -10,28 +9,28 @@ void Zune::Group::addObject(Object *obj) {
     if (obj == NULL) {
         std::cerr << "RootClass is null, object will not be added to group!" << std::endl;
     } else {
-        DoMethod(object, MUIM_Group_AddTail, (IPTR) obj);
+        DoMethod(object, MUIM_Group_AddTail, reinterpret_cast<IPTR>(obj));
     }
 }
 
 void Zune::Group::remObject(Object *obj) {
-    DoMethod(object, MUIM_Group_Remove, (IPTR) obj);
+    DoMethod(object, MUIM_Group_Remove, reinterpret_cast<IPTR>(obj));
 }
 
-IPTR Zune::Group::activePage() const {
+LONG Zune::Group::activePage() const {
     return (LONG) mGetAttr(MUIA_Group_ActivePage);
 }
 
-void Zune::Group::setActivePage(IPTR value) {
-    setAttr(MUIA_Group_ActivePage, value);
+void Zune::Group::setActivePage(LONG page) {
+    setAttr(MUIA_Group_ActivePage, page);
 }
 
-IPTR Zune::Group::childList() const {
-    return mGetAttr(MUIA_Group_ChildList);
+List * Zune::Group::childList() const {
+    return reinterpret_cast<struct List*>(mGetAttr(MUIA_Group_ChildList));
 }
 
 void Zune::Group::setColumns(LONG value) {
-    setAttr(MUIA_Group_Columns, (IPTR) value);
+    setAttr(MUIA_Group_Columns, static_cast<IPTR>(value));
 }
 
 LONG Zune::Group::horizSpacing() const {
@@ -39,15 +38,15 @@ LONG Zune::Group::horizSpacing() const {
 }
 
 void Zune::Group::setHorizSpacing(LONG value) {
-    setAttr(MUIA_Group_HorizSpacing, (IPTR) value);
+    setAttr(MUIA_Group_HorizSpacing, static_cast<IPTR>(value));
 }
 
 void Zune::Group::setRows(LONG value) {
-    setAttr(MUIA_Group_Rows, (IPTR) value);
+    setAttr(MUIA_Group_Rows, static_cast<IPTR>(value));
 }
 
 void Zune::Group::setSpacing(LONG value) {
-    setAttr(MUIA_Group_Spacing, (IPTR) value);
+    setAttr(MUIA_Group_Spacing, static_cast<IPTR>(value));
 }
 
 LONG Zune::Group::vertSpacing() const {
@@ -55,7 +54,7 @@ LONG Zune::Group::vertSpacing() const {
 }
 
 void Zune::Group::setVertSpacing(LONG value) {
-    setAttr(MUIA_Group_VertSpacing, (IPTR) value);
+    setAttr(MUIA_Group_VertSpacing, static_cast<IPTR>(value));
 }
 
 IPTR Zune::Group::exitChange() {
@@ -67,10 +66,15 @@ IPTR Zune::Group::initChange() {
 }
 
 IPTR Zune::Group::sort(std::vector<Object *> objects) {
-    auto p = createTagListFromVector<Object *>(objects, 1);
-    p.get()[0] = MUIM_Group_Sort;
+    IPTR msg[objects.size() + 1];
 
-    return DoMethodA(object, (Msg) p.get());
+    msg[0] = MUIM_Group_Sort;
+    WORD i = 1;
+    for (auto *obj : objects) {
+        msg[i++] = reinterpret_cast<IPTR>(obj);
+    }
+
+    return DoMethodA(object, (Msg) msg);
 }
 
 Class *Zune::Group::registerClass() {
@@ -86,44 +90,36 @@ void Zune::Group::remObject(Zune::RootClass &obj) {
 }
 
 void Zune::Group::setChild(Object *child) {
-    configmap[MUIA_Group_Child] = (IPTR) child;
+    configmap[MUIA_Group_Child] = reinterpret_cast<IPTR>(child);
 }
 
 void Zune::Group::setHoriz(BOOL horiz) {
-    configmap[MUIA_Group_Horiz] = (IPTR) horiz;
+    configmap[MUIA_Group_Horiz] = static_cast<IPTR>(horiz);
 }
 
 void Zune::Group::setPageMode(BOOL pageMode) {
-    configmap[MUIA_Group_PageMode] = (IPTR) pageMode;
+    configmap[MUIA_Group_PageMode] = static_cast<IPTR>(pageMode);
 }
 
 void Zune::Group::setSameHeight(BOOL sameHeight) {
-    configmap[MUIA_Group_SameHeight] = (IPTR) sameHeight;
+    configmap[MUIA_Group_SameHeight] = static_cast<IPTR>(sameHeight);
 }
 
 void Zune::Group::setSameSize(BOOL sameSize) {
 
-    configmap[MUIA_Group_SameSize] = (IPTR) sameSize;
+    configmap[MUIA_Group_SameSize] = static_cast<IPTR>(sameSize);
 }
 
 void Zune::Group::setSameWidth(BOOL sameWidth) {
-    configmap[MUIA_Group_SameWidth] = (IPTR) sameWidth;
+    configmap[MUIA_Group_SameWidth] = static_cast<IPTR>(sameWidth);
 }
 
 void Zune::Group::setLayoutHook(struct Hook *hook) {
-    setOrStore(MUIA_Group_LayoutHook, (IPTR) hook);
+    setOrStore(MUIA_Group_LayoutHook, reinterpret_cast<IPTR>(hook));
 }
 
 void Zune::Group::setForward(BOOL forward) {
-    setAttr(MUIA_Group_Forward, (IPTR) forward);
-}
-
-void Zune::Group::setRows(IPTR rows) {
-    setOrStore(MUIA_Group_Rows, rows);
-}
-
-IPTR Zune::Group::childCount() const {
-    return mGetAttr(MUIA_Group_ChildCount);
+    setAttr(MUIA_Group_Forward, static_cast<IPTR>(forward));
 }
 
 void Zune::Group::build() {

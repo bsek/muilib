@@ -7,14 +7,15 @@
 namespace Zune {
     class Poplist : public Popobject {
     public:
-        Poplist(STRPTR list[]);
+        Poplist();
 
         Poplist(Object *obj);
 
-        Poplist &operator=(Object *obj);
+        void setArray(std::initializer_list<std::string>&);
 
-    protected:
-        Poplist();
+        void setArray(STRPTR*);
+
+        void build() override;
     };
 }
 

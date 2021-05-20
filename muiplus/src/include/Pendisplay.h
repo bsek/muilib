@@ -7,11 +7,9 @@
 namespace Zune {
     class Pendisplay : public Zune::Area {
     public:
-        Pendisplay(Object *reference, struct MUI_RGBcolor *color, struct MUI_PenSpec *spec);
+        Pendisplay();
 
-        Pendisplay(Object *obj);
-
-        Pendisplay &operator=(Object *obj);
+        explicit Pendisplay(Object *obj);
 
         Object *pen() const;
 
@@ -31,12 +29,11 @@ namespace Zune {
 
         IPTR setMUIPen(LONG muipen);
 
-        IPTR setRGB(IPTR red, IPTR green, IPTR blue);
+        IPTR setRGB(ULONG red, ULONG green, ULONG blue);
 
-    protected:
-        Pendisplay();
+        void build() override;
     };
 }
 
-#endif    /* PENDISPLAY_H */
+#endif
 

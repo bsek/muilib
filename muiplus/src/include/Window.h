@@ -88,6 +88,8 @@ namespace Zune {
 
         Object *menustrip() const;
 
+        void setMenustrip(Object *obj);
+
         Object *mouseObject() const;
 
         void setNoMenus(BOOL value);

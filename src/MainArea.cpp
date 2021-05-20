@@ -3,13 +3,26 @@
 #include <Window.h>
 #include <ZuneFactory.h>
 #include <proto/alib.h>
-
+#include <Volumelist.h>
+#include <Floattext.h>
+#include <Listview.h>
+#include <List.h>
+#include <Poppen.h>
+#include <proto/asl.h>
 #include "MainArea.h"
 
 MainArea::MainArea(LONG id) : id(id) {
     std::cout << "MainArea base const" << std::endl;
 
     init();
+}
+
+struct Hook *listDisplayHook = new Hook;
+
+IPTR listDisplayFunc(struct Hook *hook, char** array, STRPTR value) {
+    printf("display func called\n");
+    *array = value;
+    return 0;
 }
 
 struct Hook *openHook = new Hook;
@@ -31,7 +44,15 @@ void MainArea::init() {
     m_horizontalGroup = Zune::ZuneFactory::createHorizontalGroup();
 
     std::string cycleLabel{"CycleLabel"};
-    std::initializer_list<std::string> values = {"Cycle", "Button", "Checkmark", "Scale", "Knob", "Radio", "Scrollbar", "Prop", "Scrollgroup", "Settingsgroup", "Slider", "Numeric button", "String", "Text", "Popstring", "Dtpic", "Coloradjust", "Colorfield", "Levelmeter"};
+    std::initializer_list<std::string> values = {"Cycle", "Button", "Checkmark",
+                                                 "Scale", "Knob", "Radio", "Scrollbar",
+                                                 "Prop", "Scrollgroup", "Settingsgroup",
+                                                 "Slider", "Numeric button", "String",
+                                                 "Text", "Dtpic", "Coloradjust",
+                                                 "Colorfield", "Levelmeter", "Dirlist",
+                                                 "Volumelist", "Floattext", "Gauge", "Listview", "Poppen", "Popasl"};
+    STRPTR array = "value1";
+
 
     m_button = Zune::ZuneFactory::createButton("TEST");
     m_button2 = Zune::ZuneFactory::createButton("TEST2");
@@ -65,11 +86,28 @@ void MainArea::init() {
     std::string popStringString = "This is a text";
     auto popstringText = Zune::ZuneFactory::createText(popStringString, accept);
     auto popButton = Zune::ZuneFactory::createButton(popButtonText);
-    auto m_popstring = Zune::ZuneFactory::createPopstring(popButton.getObject(), popstringText.getObject(),
-                                                          openHook,
-                                                          closeHook, FALSE);
+
+    button = MUI_NewObject(MUIC_Text, MUIA_Text_Contents, (IPTR)array, TAG_END);
+    m_hgroup = Zune::ZuneFactory::createHorizontalGroup();
+    m_hgroup.addObject(button);
+  //  m_popobject = Zune::ZuneFactory::createPopobject(popButton.getObject(), popstringText.getObject(), openHook, closeHook, FALSE, m_hgroup.getObject());
+    auto m_popasl = Zune::ZuneFactory::createPopasl(ASL_FileRequest, popButton.getObject(), popstringText.getObject(), openHook, closeHook);
+
+    auto m_poppen = Zune::Poppen{};
+    m_poppen.build();
+
+    static struct TagItem light_tags[] =
+            {
+                    {MUIA_Window_Borderless, TRUE},
+                    {MUIA_Window_CloseGadget, FALSE},
+                    {MUIA_Window_SizeGadget, FALSE},
+                    {MUIA_Window_DepthGadget, FALSE},
+                    {MUIA_Window_DragBar, FALSE},
+                    { TAG_DONE }
+            };
     auto m_coloradjust = Zune::ZuneFactory::createColoradjust();
     auto m_colorfield = Zune::ZuneFactory::createColorfield(50, 255, 100);
+
     std::string levelmeterLabel{"Levelmeter"};
     auto m_levelmeter = Zune::ZuneFactory::createLevelmeter(levelmeterLabel);
    // m_popstring.setOpenHook(openHook);
@@ -78,6 +116,29 @@ void MainArea::init() {
     m_scrollgroup = Zune::ZuneFactory::createScrollgroup(m_virtualgroup);
 
     m_dtpic = Zune::ZuneFactory::createDtpic("test.png");
+
+    std::string directory = "sys:";
+    auto m_dirlist = Zune::ZuneFactory::createDirlist(directory);
+    Zune::Volumelist m_volumelist{};
+    m_volumelist.build();
+
+    std::string text = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?";
+    auto m_floattext = Zune::ZuneFactory::createFloattext(text);
+    std::string gaugeText = "This is a gauge";
+    auto m_gauge = Zune::ZuneFactory::createGauge(TRUE, 9, 10, 0, gaugeText);
+
+    STRPTR list1 = "test1";
+    STRPTR list2 = "test2";
+
+    listDisplayHook->h_Entry = (APTR) HookEntry;
+    listDisplayHook->h_SubEntry = (APTR) listDisplayFunc;
+
+    auto m_list = Zune::List<STRPTR>{};
+    m_list.insertTop(list1);
+    m_list.insertTop(list2);
+    m_list.setDisplayHook(listDisplayHook);
+    m_list.build();
+    auto m_listview = Zune::ZuneFactory::createListview(m_list.getObject());
 
     m_register.addObject(m_cycle);
     m_register.addObject(m_button);
@@ -93,11 +154,18 @@ void MainArea::init() {
     m_register.addObject(m_numbericbutton);
     m_register.addObject(m_string);
     m_register.addObject(m_text);
-    m_register.addObject(m_popstring);
+   // m_register.addObject(m_popobject);
     m_register.addObject(m_dtpic);
     m_register.addObject(m_coloradjust);
     m_register.addObject(m_colorfield);
     m_register.addObject(m_levelmeter);
+    m_register.addObject(m_dirlist);
+    m_register.addObject(m_volumelist);
+    m_register.addObject(m_floattext);
+    m_register.addObject(m_gauge);
+    m_register.addObject(m_listview);
+    m_register.addObject(m_poppen);
+    m_register.addObject(m_popasl);
 
     m_horizontalGroup.addObject(m_register);
 

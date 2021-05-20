@@ -7,22 +7,21 @@
 namespace Zune {
     class Menu : public Zune::Family {
     public:
-        Menu(std::string title, BOOL copyStrings, BOOL menuEnable);
+        Menu();
 
         Menu(Object *obj);
-
-        Menu &operator=(Object *obj);
 
         BOOL enabled() const;
 
         void setEnabled(BOOL value);
 
-        STRPTR title() const;
+        std::string title() const;
+
+        void setTitle(std::string& value);
 
         void setTitle(STRPTR value);
 
-    protected:
-        Menu();
+        void build() override;
     };
 }
 

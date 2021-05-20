@@ -1,21 +1,28 @@
 #include "include/Poplist.h"
 #include "include/RootClass.h"
 
-Zune::Poplist::Poplist(STRPTR list[])
-        : Popobject() {
-    object = MUI_NewObject(MUIC_Poplist, MUIA_Poplist_Array, list, TAG_END);
-}
-
-Zune::Poplist::Poplist(Object *obj)
-        : Popobject() {
+Zune::Poplist::Poplist(Object *obj) {
     object = obj;
 }
 
-Zune::Poplist &Zune::Poplist::operator=(Object *obj) {
-    object = obj;
-    return *this;
+void Zune::Poplist::setArray(std::initializer_list<std::string> &list) {
+    CONST_STRPTR array[list.size()];
+
+    WORD i = 0;
+    for (const std::string& val : list) {
+        array[i++] = val.c_str();
+    }
+
+    configmap[MUIA_Poplist_Array] = reinterpret_cast<IPTR>(array);
 }
 
-Zune::Poplist::Poplist() {
-
+void Zune::Poplist::build() {
+    RootClass::createObject(MUIC_Poplist);
 }
+
+void Zune::Poplist::setArray(STRPTR* array) {
+    configmap[MUIA_Poplist_Array] = reinterpret_cast<IPTR>(&array);
+}
+
+Zune::Poplist::Poplist() = default;
+

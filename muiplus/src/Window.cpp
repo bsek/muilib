@@ -313,4 +313,8 @@ void Zune::Window::setZoomGadget(BOOL enable) {
     configmap[MUIA_Window_ZoomGadget] = static_cast<BOOL>(enable);
 }
 
+void Zune::Window::setMenustrip(Object *obj) {
+    configmap[MUIA_Window_Menustrip] = reinterpret_cast<IPTR>(obj);
+}
+
 

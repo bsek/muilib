@@ -6,8 +6,11 @@
 namespace Zune {
     class Mccprefs : public Zune::Group {
     public:
-    protected:
         Mccprefs();
+
+        Mccprefs(Object *obj);
+
+        void build() override;
     };
 }
 

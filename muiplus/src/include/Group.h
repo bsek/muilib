@@ -49,17 +49,13 @@ namespace Zune {
 
         /* Attributes with setters and getters */
 
-        IPTR activePage() const;
+        LONG activePage() const;
 
-        void setActivePage(IPTR page);
+        void setActivePage(LONG page);
 
         void setForward(BOOL forward);
 
-        void setRows(IPTR rows);
-
-        IPTR childList() const;
-
-        IPTR childCount() const;
+        List * childList() const;
 
         void setColumns(LONG value);
 

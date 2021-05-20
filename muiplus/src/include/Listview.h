@@ -1,63 +1,43 @@
 #ifndef CTMUI_LISTVIEW_H
 #define CTMUI_LISTVIEW_H
 
+#include "Group.h"
 #include "RootClass.h"
 
 namespace Zune {
-    template<class Type>
-    class List;
-
-    template<class Type>
-    class Listview : public List<Type> {
-    protected:
-        Listview(void);
-
+    class Listview : public Zune::Group {
     public:
+        Listview();
+
         Listview(Object *obj);
-
-        Listview &operator=(Object *obj);
-
-        LONG activePage(void) const;
-
-        void setActivePage(LONG value);
-
-        //struct List *childList(void) const;
-
-        void setColumns(LONG value);
-
-        LONG horizSpacing(void) const;
-
-        void setHorizSpacing(LONG value);
-
-        void setRows(LONG value);
-
-        void setSpacing(LONG value);
-
-        LONG vertSpacing(void) const;
-
-        void setVertSpacing(LONG value);
-
-        IPTR exitChange(void);
-
-        IPTR initChange(void);
-
-        IPTR sort(std::vector<Object *> objects);
 
         LONG clickColumn(void) const;
 
-        LONG defClickColumn(void) const;
+        LONG defClickColumn() const;
 
         void setDefClickColumn(LONG value);
 
-        BOOL mDoubleClick(void) const;
+        void setDoubleClick(BOOL doubleClick);
 
-        LONG dragType(void) const;
+        BOOL doubleClick() const;
+
+        LONG dragType() const;
 
         void setDragType(LONG value);
 
-        //Object *list(void) const;
+        void setInput(BOOL input);
 
-        BOOL selectChange(void) const;
+        void setMultiSelect(LONG multiselect);
+
+        void setScrollerPos(BOOL scrollerPos);
+
+        Object *list() const;
+
+        void setList(Object* obj);
+
+        BOOL selectChange() const;
+
+        void build() override;
     };
 }
 

@@ -24,6 +24,7 @@
 #include <Title.h>
 #include <Numericbutton.h>
 #include <Dtpic.h>
+#include <Popobject.h>
 #include <exec/types.h>
 
 class MainArea : public Zune::Area {
@@ -44,6 +45,9 @@ private:
     Zune::Virtgroup m_virtualgroup;
     Zune::Settingsgroup m_settingsgroup;
     Zune::Dtpic m_dtpic;
+    Zune::Popobject m_popobject;
+    Zune::Group m_hgroup;
+    Object* button;
     LONG id;
     std::string *pic;
 public:
