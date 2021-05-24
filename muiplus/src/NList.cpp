@@ -2,431 +2,401 @@
 #include <mui/NList_mcc.h>
 
 template<typename Type>
-Zune::NList<Type> &Zune::NList<Type>::operator=(Object *obj) {
-    object = obj;
-    return *this;
-}
-
-// By overloading the [] operator you can treat lists like arrays
+Zune::NList<Type>::NList() = default;
 
 template<typename Type>
-Type &Zune::NList<Type>::operator[](LONG pos) {
-    Type *entry;
-    DoMethod(object, MUIM_NList_GetEntry, pos, &entry);
-#ifdef MUIPP_DEBUG
-    if (entry == NULL)
-        _MUIPPError("Index into NList is out of range:\n"
-        "Index = %d, length = %d\n",
-        (int) pos,
-        (int) MGetAttr(MUIA_NList_Entries));
-#endif
-    return *entry;
+Zune::NList<Type>::NList(Object *obj) {
+    object = obj;
 }
 
-// This method is a convienient alternative to the Entries attribute
-template<class Type>
-LONG Zune::NList<Type>::length() const {
-    return (LONG) mGetAttr(MUIA_NList_Entries);
-}
-
-// This method can be used to retrieve the number of selected entries
-// in a list
-template<class Type>
-IPTR Zune::NList<Type>::numSelected() {
-    IPTR numSelected;
-    DoMethod(object, MUIM_NList_Select, MUIV_NList_Select_All, MUIV_NList_Select_Ask, &numSelected);
-    return numSelected;
-}
-
-// These methods can be used as shortcuts for inserting objects into lists
 template<class Type>
 void Zune::NList<Type>::addHead(Type *entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, entry, MUIV_NList_Insert_Top);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(entry), MUIV_NList_Insert_Top);
 }
 
 template<class Type>
 void Zune::NList<Type>::addHead(Type &entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, &entry, MUIV_NList_Insert_Top);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(&entry), MUIV_NList_Insert_Top);
 }
 
 template<class Type>
 void Zune::NList<Type>::addTail(Type *entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, entry, MUIV_NList_Insert_Bottom);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(entry), MUIV_NList_Insert_Bottom);
 }
 
 template<class Type>
 void Zune::NList<Type>::addTail(Type &entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, &entry, MUIV_NList_Insert_Bottom);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(&entry), MUIV_NList_Insert_Bottom);
 }
 
 template<class Type>
 void Zune::NList<Type>::insertTop(Type *entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, entry, MUIV_NList_Insert_Top);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(entry), MUIV_NList_Insert_Top);
 }
 
 template<class Type>
 void Zune::NList<Type>::insertTop(Type &entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, &entry, MUIV_NList_Insert_Top);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(&entry), MUIV_NList_Insert_Top);
 }
 
 template<class Type>
 void Zune::NList<Type>::insertBottom(Type *entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, entry, MUIV_NList_Insert_Bottom);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(entry), MUIV_NList_Insert_Bottom);
 }
 
 template<class Type>
 void Zune::NList<Type>::insertBottom(Type &entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, &entry, MUIV_NList_Insert_Bottom);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(&entry), MUIV_NList_Insert_Bottom);
 }
 
 template<class Type>
 void Zune::NList<Type>::insertSorted(Type *entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, entry, MUIV_NList_Insert_Sorted);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(entry), MUIV_NList_Insert_Sorted);
 }
 
 template<class Type>
 void Zune::NList<Type>::insertSorted(Type &entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, &entry, MUIV_NList_Insert_Sorted);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(&entry), MUIV_NList_Insert_Sorted);
 }
 
 template<class Type>
 void Zune::NList<Type>::insertActive(Type *entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, entry, MUIV_NList_Insert_Active);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(entry), MUIV_NList_Insert_Active);
 }
 
 template<class Type>
 void Zune::NList<Type>::insertActive(Type &entry) {
-    DoMethod(object, MUIM_NList_InsertSingle, &entry, MUIV_NList_Insert_Active);
+    DoMethod(object, MUIM_NList_InsertSingle, reinterpret_cast<IPTR>(&entry), MUIV_NList_Insert_Active);
 }
 
 template<class Type>
 LONG Zune::NList<Type>::active() const {
-    return (LONG) mGetAttr(MUIA_NList_Active);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_Active));
 }
 
 template<class Type>
 void Zune::NList<Type>::setActive(LONG value) {
-    setAttr(MUIA_NList_Active, (IPTR) value);
+    setAttr(MUIA_NList_Active, static_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setAutoCopyToClip(BOOL value) {
-    setAttr(MUIA_NList_AutoCopyToClip, (IPTR) value);
+    setAttr(MUIA_NList_AutoCopyToClip, static_cast<IPTR>(value));
 }
 
 template<class Type>
 BOOL Zune::NList<Type>::autoVisible() const {
-    return (BOOL) mGetAttr(MUIA_NList_AutoVisible);
+    return static_cast<BOOL>(mGetAttr(MUIA_NList_AutoVisible));
 }
 
 template<class Type>
 void Zune::NList<Type>::setAutoVisible(BOOL value) {
-    setAttr(MUIA_NList_AutoVisible, (IPTR) value);
+    setAttr(MUIA_NList_AutoVisible, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::clickColumn() const {
-    return (LONG) mGetAttr(MUIA_NList_ClickColumn);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_ClickColumn));
 }
 
 template<class Type>
 void Zune::NList<Type>::setCompareHook(struct Hook *value) {
-    setAttr(MUIA_NList_CompareHook, (IPTR) value);
+    setAttr(MUIA_NList_CompareHook, reinterpret_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setConstructHook(struct Hook *value) {
-    setAttr(MUIA_NList_ConstructHook, (IPTR) value);
+    setAttr(MUIA_NList_ConstructHook, reinterpret_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setCopyColumnToClipHook(struct Hook *value) {
-    setAttr(MUIA_NList_CopyColumnToClipHook, (IPTR) value);
+    setAttr(MUIA_NList_CopyColumnToClipHook, reinterpret_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setCopyEntryToClipHook(struct Hook *value) {
-    setAttr(MUIA_NList_CopyEntryToClipHook, (IPTR) value);
+    setAttr(MUIA_NList_CopyEntryToClipHook, reinterpret_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setDefaultObjectOnClick(BOOL value) {
-    setAttr(MUIA_NList_DefaultObjectOnClick, (IPTR) value);
+    setAttr(MUIA_NList_DefaultObjectOnClick, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::defClickColumn() const {
-    return (LONG) mGetAttr(MUIA_NList_DefClickColumn);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_DefClickColumn));
 }
 
 template<class Type>
 void Zune::NList<Type>::setDefClickColumn(LONG value) {
-    setAttr(MUIA_NList_DefClickColumn, (IPTR) value);
+    setAttr(MUIA_NList_DefClickColumn, static_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setDestructHook(struct Hook *value) {
-    setAttr(MUIA_NList_DestructHook, (IPTR) value);
+    setAttr(MUIA_NList_DestructHook, reinterpret_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setDisplayHook(struct Hook *value) {
-    setAttr(MUIA_NList_DisplayHook, (IPTR) value);
+    setAttr(MUIA_NList_DisplayHook, reinterpret_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setDisplayRecall(BOOL value) {
-    setAttr(MUIA_NList_DisplayRecall, (IPTR) value);
+    setAttr(MUIA_NList_DisplayRecall, static_cast<IPTR>(value));
 }
 
 template<class Type>
 BOOL Zune::NList<Type>::mDoubleClick() const {
-    return (BOOL) mGetAttr(MUIA_NList_DoubleClick);
+    return static_cast<BOOL>(mGetAttr(MUIA_NList_DoubleClick));
 }
 
 template<class Type>
 BOOL Zune::NList<Type>::dragSortable() const {
-    return (BOOL) mGetAttr(MUIA_NList_DragSortable);
+    return static_cast<BOOL>(mGetAttr(MUIA_NList_DragSortable));
 }
 
 template<class Type>
 void Zune::NList<Type>::setDragSortable(BOOL value) {
-    setAttr(MUIA_NList_DragSortable, (IPTR) value);
+    setAttr(MUIA_NList_DragSortable, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::dragType() const {
-    return (LONG) mGetAttr(MUIA_NList_DragType);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_DragType));
 }
 
 template<class Type>
 void Zune::NList<Type>::setDragType(LONG value) {
-    setAttr(MUIA_NList_DragType, (IPTR) value);
+    setAttr(MUIA_NList_DragType, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::dropMark() const {
-    return (LONG) mGetAttr(MUIA_List_DropMark);
+    return static_cast<LONG>(mGetAttr(MUIA_List_DropMark));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::entries() const {
-    return (LONG) mGetAttr(MUIA_NList_Entries);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_Entries));
 }
 
 template<class Type>
 BOOL Zune::NList<Type>::entryValueDependent() const {
-    return (BOOL) mGetAttr(MUIA_NList_EntryValueDependent);
+    return static_cast<BOOL>(mGetAttr(MUIA_NList_EntryValueDependent));
 }
 
 template<class Type>
 void Zune::NList<Type>::setEntryValueDependent(BOOL value) {
-    setAttr(MUIA_NList_EntryValueDependent, (IPTR) value);
+    setAttr(MUIA_NList_EntryValueDependent, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::first() const {
-    return (LONG) mGetAttr(MUIA_NList_First);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_First));
 }
 
 template<class Type>
 void Zune::NList<Type>::setFirst(LONG value) {
-    setAttr(MUIA_NList_First, (IPTR) value);
+    setAttr(MUIA_NList_First, static_cast<IPTR>(value));
 }
 
 template<class Type>
 std::string Zune::NList<Type>::format() const {
-    return (STRPTR) mGetAttr(MUIA_NList_Format);
+    return reinterpret_cast<STRPTR>(mGetAttr(MUIA_NList_Format));
 }
 
 template<class Type>
 void Zune::NList<Type>::setFormat(std::string &value) {
-    setAttr(MUIA_NList_Format, (IPTR) value.c_str());
+    setAttr(MUIA_NList_Format, reinterpret_cast<IPTR>(value.c_str()));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::horizDeltaFactor() const {
-    return (LONG) mGetAttr(MUIA_NList_HorizDeltaFactor);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_HorizDeltaFactor));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::horizEntries() const {
-    return (LONG) mGetAttr(MUIA_NList_Horiz_Entries);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_Horiz_Entries));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::horizFirst() const {
-    return (LONG) mGetAttr(MUIA_NList_Horiz_First);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_Horiz_First));
 }
 
 template<class Type>
 void Zune::NList<Type>::setHorizFirst(LONG value) {
-    setAttr(MUIA_NList_Horiz_First, (IPTR) value);
+    setAttr(MUIA_NList_Horiz_First, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::horizVisible() const {
-    return (LONG) mGetAttr(MUIA_NList_Horiz_Visible);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_Horiz_Visible));
 }
 
 template<class Type>
 BOOL Zune::NList<Type>::input() const {
-    return (BOOL) mGetAttr(MUIA_NList_Input);
+    return static_cast<BOOL>(mGetAttr(MUIA_NList_Input));
 }
 
 template<class Type>
 void Zune::NList<Type>::setInput(BOOL value) {
-    setAttr(MUIA_NList_Input, (IPTR) value);
+    setAttr(MUIA_NList_Input, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::insertPosition() const {
-    return (LONG) mGetAttr(MUIA_NList_InsertPosition);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_InsertPosition));
 }
 
 template<class Type>
 void Zune::NList<Type>::setKeepActive(Object *value) {
-    setAttr(MUIA_NList_KeepActive, (IPTR) value);
+    setAttr(MUIA_NList_KeepActive, reinterpret_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setMakeActive(Object *value) {
-    setAttr(MUIA_NList_MakeActive, (IPTR) value);
+    setAttr(MUIA_NList_MakeActive, reinterpret_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setMinLineHeight(LONG value) {
-    setAttr(MUIA_NList_MinLineHeight, (IPTR) value);
+    setAttr(MUIA_NList_MinLineHeight, static_cast<IPTR>(value));
 }
 
 template<class Type>
 BOOL Zune::NList<Type>::multiClick() const {
-    return (BOOL) mGetAttr(MUIA_NList_MultiClick);
+    return static_cast<BOOL>(mGetAttr(MUIA_NList_MultiClick));
 }
 
 template<class Type>
 void Zune::NList<Type>::setMultiTestHook(struct Hook *value) {
-    setAttr(MUIA_NList_MultiTestHook, (IPTR) value);
+    setAttr(MUIA_NList_MultiTestHook, reinterpret_cast<IPTR>(value));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::privateData() const {
-    return (IPTR) mGetAttr(MUIA_NList_PrivateData);
+    return static_cast<IPTR>(mGetAttr(MUIA_NList_PrivateData));
 }
 
 template<class Type>
-void Zune::NList<Type>::setPrivateData(IPTR value) {
-    setAttr(MUIA_NList_PrivateData, (IPTR) value);
+void Zune::NList<Type>::setPrivateData(ULONG value) {
+    setAttr(MUIA_NList_PrivateData, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::propEntries() const {
-    return (LONG) mGetAttr(MUIA_NList_Prop_Entries);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_Prop_Entries));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::propFirst() const {
-    return (LONG) mGetAttr(MUIA_NList_Prop_First);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_Prop_First));
 }
 
 template<class Type>
 void Zune::NList<Type>::setPropFirst(LONG value) {
-    setAttr(MUIA_NList_Prop_First, (IPTR) value);
+    setAttr(MUIA_NList_Prop_First, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::propVisible() const {
-    return (LONG) mGetAttr(MUIA_NList_Prop_Visible);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_Prop_Visible));
 }
 
 template<class Type>
 void Zune::NList<Type>::setQuiet(BOOL value) {
-    setAttr(MUIA_NList_Quiet, (IPTR) value);
+    setAttr(MUIA_NList_Quiet, static_cast<IPTR>(value));
 }
 
 template<class Type>
 BOOL Zune::NList<Type>::showDropMarks() const {
-    return (BOOL) mGetAttr(MUIA_NList_ShowDropMarks);
+    return static_cast<BOOL>(mGetAttr(MUIA_NList_ShowDropMarks));
 }
 
 template<class Type>
 void Zune::NList<Type>::setShowDropMarks(BOOL value) {
-    setAttr(MUIA_NList_ShowDropMarks, (IPTR) value);
+    setAttr(MUIA_NList_ShowDropMarks, static_cast<IPTR>(value));
 }
 
 template<class Type>
 std::string Zune::NList<Type>::skipChars() const {
-    return (char *) mGetAttr(MUIA_NList_SkipChars);
+    return reinterpret_cast<char *>(mGetAttr(MUIA_NList_SkipChars));
 }
 
 template<class Type>
 void Zune::NList<Type>::setSkipChars(std::string &value) {
-    setAttr(MUIA_NList_SkipChars, (IPTR) value.c_str());
+    setAttr(MUIA_NList_SkipChars, reinterpret_cast<IPTR>(value.c_str()));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::tabSize() const {
-    return (IPTR) mGetAttr(MUIA_NList_TabSize);
+    return static_cast<IPTR>(mGetAttr(MUIA_NList_TabSize));
 }
 
 template<class Type>
-void Zune::NList<Type>::setTabSize(IPTR value) {
-    setAttr(MUIA_NList_TabSize, (IPTR) value);
+void Zune::NList<Type>::setTabSize(ULONG value) {
+    setAttr(MUIA_NList_TabSize, static_cast<IPTR>(value));
 }
 
 template<class Type>
 std::string Zune::NList<Type>::title() const {
-    return (char *) mGetAttr(MUIA_NList_Title);
+    return reinterpret_cast<char *>(mGetAttr(MUIA_NList_Title));
 }
 
 template<class Type>
 void Zune::NList<Type>::setTitle(std::string &value) {
-    setAttr(MUIA_NList_Title, (IPTR) value.c_str());
+    setAttr(MUIA_NList_Title, reinterpret_cast<IPTR>(value.c_str()));
 }
 
 template<class Type>
 BOOL Zune::NList<Type>::titleSeparator() const {
-    return (BOOL) mGetAttr(MUIA_NList_TitleSeparator);
+    return static_cast<BOOL>(mGetAttr(MUIA_NList_TitleSeparator));
 }
 
 template<class Type>
 void Zune::NList<Type>::setTitleSeparator(BOOL value) {
-    setAttr(MUIA_NList_TitleSeparator, (IPTR) value);
+    setAttr(MUIA_NList_TitleSeparator, static_cast<IPTR>(value));
 }
 
 template<class Type>
 void Zune::NList<Type>::setTypeSelect(LONG value) {
-    setAttr(MUIA_NList_TypeSelect, (IPTR) value);
+    setAttr(MUIA_NList_TypeSelect, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::vertDeltaFactor() const {
-    return (LONG) mGetAttr(MUIA_NList_VertDeltaFactor);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_VertDeltaFactor));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::visible() const {
-    return (LONG) mGetAttr(MUIA_NList_Visible);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_Visible));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::titleBackground() const {
-    return (LONG) mGetAttr(MUIA_NList_TitleBackground);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_TitleBackground));
 }
 
 template<class Type>
 void Zune::NList<Type>::setTitleBackground(LONG value) {
-    setAttr(MUIA_NList_TitleBackground, (IPTR) value);
+    setAttr(MUIA_NList_TitleBackground, static_cast<IPTR>(value));
 }
 
 template<class Type>
 LONG Zune::NList<Type>::titlePen() const {
-    return (LONG) mGetAttr(MUIA_NList_TitlePen);
+    return static_cast<LONG>(mGetAttr(MUIA_NList_TitlePen));
 }
 
 template<class Type>
 void Zune::NList<Type>::setTitlePen(LONG value) {
-    setAttr(MUIA_NList_TitlePen, (IPTR) value);
+    setAttr(MUIA_NList_TitlePen, static_cast<IPTR>(value));
 }
 
 template<class Type>
@@ -435,43 +405,44 @@ IPTR Zune::NList<Type>::clear() {
 }
 
 template<class Type>
-IPTR Zune::NList<Type>::copyToClip(LONG pos, IPTR clipnum) {
-    return DoMethod(object, MUIM_NList_CopyToClip, pos, clipnum);
+IPTR Zune::NList<Type>::copyToClip(LONG pos, ULONG clipnum) {
+    return DoMethod(object, MUIM_NList_CopyToClip, static_cast<IPTR>(pos), static_cast<IPTR>(clipnum));
 }
 
 template<class Type>
-IPTR Zune::NList<Type>::createImage(Object *imgobj, IPTR flags) {
-    return DoMethod(object, MUIM_NList_CreateImage, imgobj, flags);
+IPTR Zune::NList<Type>::createImage(Object *imgobj, ULONG flags) {
+    return DoMethod(object, MUIM_NList_CreateImage, reinterpret_cast<IPTR>(imgobj), static_cast<IPTR>(flags));
 }
 
 template<class Type>
-IPTR Zune::NList<Type>::deleteImage(IPTR listimg) {
-    return DoMethod(object, MUIM_NList_DeleteImage, listimg);
+IPTR Zune::NList<Type>::deleteImage(APTR listimg) {
+    return DoMethod(object, MUIM_NList_DeleteImage, reinterpret_cast<IPTR>(listimg));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::exchange(LONG pos1, LONG pos2) {
-    return DoMethod(object, MUIM_NList_Exchange, pos1, pos2);
+    return DoMethod(object, MUIM_NList_Exchange, static_cast<IPTR>(pos1), static_cast<IPTR>(pos2));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::getEntry(LONG pos, Type **entry) {
-    return DoMethod(object, MUIM_NList_GetEntry, pos, entry);
+    return DoMethod(object, MUIM_NList_GetEntry, static_cast<IPTR>(pos), reinterpret_cast<IPTR>(entry));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::getEntryInfo(struct MUI_NList_GetEntryInfo *res) {
-    return DoMethod(object, MUIM_NList_GetEntryInfo, res);
+    return DoMethod(object, MUIM_NList_GetEntryInfo, reinterpret_cast<IPTR>(res));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::insert(Type **entries, LONG count, LONG pos) {
-    return DoMethod(object, MUIM_NList_Insert, entries, count, pos);
+    return DoMethod(object, MUIM_NList_Insert, reinterpret_cast<IPTR>(entries), static_cast<IPTR>(count),
+                    static_cast<IPTR>(pos));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::insertSingle(Type *entry, LONG pos) {
-    return DoMethod(object, MUIM_NList_InsertSingle, entry, pos);
+    return DoMethod(object, MUIM_NList_InsertSingle, static_cast<IPTR>(entry), static_cast<IPTR>(pos));
 }
 
 template<class Type>
@@ -481,37 +452,38 @@ IPTR Zune::NList<Type>::insertSingleWrap() {
 
 template<class Type>
 IPTR Zune::NList<Type>::insertWrap(Type **entries) {
-    return DoMethod(object, MUIM_NList_InsertWrap, entries);
+    return DoMethod(object, MUIM_NList_InsertWrap, reinterpret_cast<IPTR>(entries));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::jump(LONG pos) {
-    return DoMethod(object, MUIM_NList_Jump, pos);
+    return DoMethod(object, MUIM_NList_Jump, static_cast<IPTR>(pos));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::move(LONG from, LONG to) {
-    return DoMethod(object, MUIM_NList_Move, from, to);
+    return DoMethod(object, MUIM_NList_Move, static_cast<IPTR>(from), static_cast<IPTR>(to));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::nextSelected(LONG *pos) {
-    return DoMethod(object, MUIM_NList_NextSelected, pos);
+    return DoMethod(object, MUIM_NList_NextSelected, reinterpret_cast<IPTR>(pos));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::redraw(LONG pos) {
-    return DoMethod(object, MUIM_NList_Redraw, pos);
+    return DoMethod(object, MUIM_NList_Redraw, static_cast<IPTR>(pos));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::remove(LONG pos) {
-    return DoMethod(object, MUIM_NList_Remove, pos);
+    return DoMethod(object, MUIM_NList_Remove, static_cast<IPTR>(pos));
 }
 
 template<class Type>
 IPTR Zune::NList<Type>::replaceSingle(LONG pos, LONG seltype, LONG *state) {
-    return DoMethod(object, MUIM_NList_ReplaceSingle, pos, seltype, state);
+    return DoMethod(object, MUIM_NList_ReplaceSingle, static_cast<IPTR>(pos), static_cast<IPTR>(seltype),
+                    reinterpret_cast<IPTR>(state));
 }
 
 template<class Type>
@@ -521,15 +493,63 @@ IPTR Zune::NList<Type>::sort() {
 
 template<class Type>
 IPTR Zune::NList<Type>::testPos(LONG x, LONG y, struct MUI_NList_TestPos_Result *res) {
-    return DoMethod(object, MUIM_NList_TestPos, x, y, res);
+    return DoMethod(object, MUIM_NList_TestPos, static_cast<IPTR>(x), static_cast<IPTR>(y),
+                    reinterpret_cast<IPTR>(res));
 }
 
 template<class Type>
-IPTR Zune::NList<Type>::useImage(Object *obj, IPTR imgnum, IPTR flags) {
-    return DoMethod(object, MUIM_NList_UseImage, obj, imgnum, flags);
+IPTR Zune::NList<Type>::useImage(Object *obj, ULONG imgnum, ULONG flags) {
+    return DoMethod(object, MUIM_NList_UseImage, reinterpret_cast<IPTR>(obj), static_cast<IPTR>(imgnum),
+                    static_cast<IPTR>(flags));
+}
+
+
+template<typename Type>
+void Zune::NList<Type>::setAdjustHeight(BOOL doAdjust) {
+    configmap[MUIA_NList_AdjustHeight] = static_cast<IPTR>(doAdjust);
 }
 
 template<typename Type>
-Zune::NList<Type>::NList() {
+void Zune::NList<Type>::setAdjustWidth(BOOL doAdjust) {
+    configmap[MUIA_NList_AdjustHeight] = static_cast<IPTR>(doAdjust);
+}
 
+template<typename Type>
+void Zune::NList<Type>::setMultiSelect(LONG multiselect) {
+    configmap[MUIA_NList_MultiSelect] = static_cast<IPTR>(multiselect);
+}
+
+template<typename Type>
+void Zune::NList<Type>::setPool(APTR pool) {
+    configmap[MUIA_NList_Pool] = reinterpret_cast<IPTR>(pool);
+}
+
+template<typename Type>
+void Zune::NList<Type>::setPoolPudleSize(ULONG size) {
+    configmap[MUIA_NList_PoolPuddleSize] = static_cast<IPTR>(size);
+}
+
+template<typename Type>
+void Zune::NList<Type>::setPoolThreshSize(ULONG size) {
+    configmap[MUIA_NList_PoolThreshSize] = static_cast<IPTR>(size);
+}
+
+template<typename Type>
+void Zune::NList<Type>::setSourceArray(APTR array) {
+    configmap[MUIA_NList_SourceArray] = reinterpret_cast<IPTR>(array);
+}
+
+template<typename Type>
+void Zune::NList<Type>::setSourceString(std::string &sourceString) {
+    configmap[MUIA_NList_SourceString] = reinterpret_cast<IPTR>(sourceString.c_str());
+}
+
+template<typename Type>
+void Zune::NList<Type>::setSourceInsert(struct MUIP_NList_InsertWrap *insert) {
+    configmap[MUIA_NList_SourceInsert] = reinterpret_cast<IPTR>(insert);
+}
+
+template<typename Type>
+void Zune::NList<Type>::build() {
+    RootClass::createObject(MUIC_NList);
 }

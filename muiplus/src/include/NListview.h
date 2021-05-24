@@ -1,22 +1,23 @@
-#ifndef CTMUI_NLISTVIEW_H
-#define CTMUI_NLISTVIEW_H
+#ifndef NLISTVIEW_H
+#define NLISTVIEW_H
 
 #include <mui/NListview_mcc.h>
 #include "NList.h"
-#include "List.h"
 #include "RootClass.h"
 
 namespace Zune {
-    template<typename Type>
-    class NListview : public Zune::NList<Type> {
+    template<typename T>
+    class NListview : public NList<T> {
     public:
-        NListview &operator=(Object *obj);
+        NListview();
 
-        LONG ActivePage() const;
+        NListview(const Object* obj);
 
-        void SetActivePage(LONG value);
+        LONG activePage() const;
 
-        IPTR ChildList() const;
+        void setActivePage(LONG value);
+
+        IPTR childList() const;
 
         void setColumns(LONG value);
 
@@ -44,9 +45,13 @@ namespace Zune {
 
         Object *nList() const;
 
+        void setNList(const Object *obj);
+
         Object *vertScrollBar() const;
 
         void setVertScrollBar(Object *value);
+
+        void build() override;
     };
 }
 

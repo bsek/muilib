@@ -1,50 +1,41 @@
-#ifndef CTMUI_NLIST_H
-#define CTMUI_NLIST_H
+#ifndef NLIST_H
+#define NLIST_H
 
 #include "NList.h"
 #include "Area.h"
 #include "RootClass.h"
 
 namespace Zune {
-    template<typename Type>
+    template<typename T>
     class NList : public Area {
-    protected:
+    public:
         NList();
 
-    public:
         NList(Object *obj);
 
-        NList &operator=(Object *obj);
+        void addHead(T *entry);
 
-        Type &operator[](LONG pos);
+        void addHead(T &entry);
 
-        LONG length() const;
+        void addTail(T *entry);
 
-        IPTR numSelected();
+        void addTail(T &entry);
 
-        void addHead(Type *entry);
+        void insertTop(T *entry);
 
-        void addHead(Type &entry);
+        void insertTop(T &entry);
 
-        void addTail(Type *entry);
+        void insertBottom(T *entry);
 
-        void addTail(Type &entry);
+        void insertBottom(T &entry);
 
-        void insertTop(Type *entry);
+        void insertSorted(T *entry);
 
-        void insertTop(Type &entry);
+        void insertSorted(T &entry);
 
-        void insertBottom(Type *entry);
+        void insertActive(T *entry);
 
-        void insertBottom(Type &entry);
-
-        void insertSorted(Type *entry);
-
-        void insertSorted(Type &entry);
-
-        void insertActive(Type *entry);
-
-        void insertActive(Type &entry);
+        void insertActive(T &entry);
 
         LONG active() const;
 
@@ -132,7 +123,7 @@ namespace Zune {
 
         IPTR privateData() const;
 
-        void setPrivateData(IPTR value);
+        void setPrivateData(ULONG value);
 
         LONG propEntries() const;
 
@@ -154,7 +145,7 @@ namespace Zune {
 
         IPTR tabSize() const;
 
-        void setTabSize(IPTR value);
+        void setTabSize(ULONG value);
 
         std::string title() const;
 
@@ -180,25 +171,25 @@ namespace Zune {
 
         IPTR clear();
 
-        IPTR copyToClip(LONG pos, IPTR clipnum);
+        IPTR copyToClip(LONG pos, ULONG clipnum);
 
-        IPTR createImage(Object *imgobj, IPTR flags);
+        IPTR createImage(Object *imgobj, ULONG flags);
 
-        IPTR deleteImage(IPTR listimg);
+        IPTR deleteImage(APTR listimg);
 
         IPTR exchange(LONG pos1, LONG pos2);
 
-        IPTR getEntry(LONG pos, Type **entry);
+        IPTR getEntry(LONG pos, T **entry);
 
         IPTR getEntryInfo(struct MUI_NList_GetEntryInfo *res);
 
-        IPTR insert(Type **entries, LONG count, LONG pos);
+        IPTR insert(T **entries, LONG count, LONG pos);
 
-        IPTR insertSingle(Type *entry, LONG pos);
+        IPTR insertSingle(T *entry, LONG pos);
 
         IPTR insertSingleWrap();
 
-        IPTR insertWrap(Type **entries);
+        IPTR insertWrap(T **entries);
 
         IPTR jump(LONG pos);
 
@@ -216,7 +207,27 @@ namespace Zune {
 
         IPTR testPos(LONG x, LONG y, struct MUI_NList_TestPos_Result *res);
 
-        IPTR useImage(Object *obj, IPTR imgnum, IPTR flags);
+        IPTR useImage(Object *obj, ULONG imgnum, ULONG flags);
+
+        void setAdjustHeight(BOOL doAdjust);
+
+        void setAdjustWidth(BOOL doAdjust);
+
+        void setMultiSelect(LONG multiselect);
+
+        void setPool(APTR pool);
+
+        void setPoolPudleSize(ULONG size);
+
+        void setPoolThreshSize(ULONG size);
+
+        void setSourceArray(APTR array);
+
+        void setSourceString(std::string& sourceString);
+
+        void setSourceInsert(struct MUIP_NList_InsertWrap *insert);
+
+        void build() override;
     };
 }
 
