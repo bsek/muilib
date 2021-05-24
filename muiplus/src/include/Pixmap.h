@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_PIXMAP_H
-#define MIU_PLUS_AROS_PIXMAP_H
+#ifndef PIXMAP_H
+#define PIXMAP_H
 
 #include "Area.h"
 
@@ -49,4 +49,4 @@ namespace Zune {
 }
 
 
-#endif //MIU_PLUS_AROS_PIXMAP_H
+#endif //PIXMAP_H

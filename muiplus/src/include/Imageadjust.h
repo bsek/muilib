@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_IMAGEADJUST_H
-#define MIU_PLUS_AROS_IMAGEADJUST_H
+#ifndef IMAGEADJUST_H
+#define IMAGEADJUST_H
 
 #include "Register.h"
 
@@ -21,4 +21,4 @@ namespace Zune {
 }
 
 
-#endif //MIU_PLUS_AROS_IMAGEADJUST_H
+#endif //IMAGEADJUST_H

@@ -84,14 +84,14 @@ void MainArea::init() {
 
     std::string popButtonText = "This is a pop button";
     std::string popStringString = "This is a text";
-    auto popstringText = Zune::ZuneFactory::createText(popStringString, accept);
+    auto popstringText = Zune::ZuneFactory::createString(contents, 10, accept);
     auto popButton = Zune::ZuneFactory::createButton(popButtonText);
 
     button = MUI_NewObject(MUIC_Text, MUIA_Text_Contents, (IPTR)array, TAG_END);
     m_hgroup = Zune::ZuneFactory::createHorizontalGroup();
     m_hgroup.addObject(button);
-  //  m_popobject = Zune::ZuneFactory::createPopobject(popButton.getObject(), popstringText.getObject(), openHook, closeHook, FALSE, m_hgroup.getObject());
-    auto m_popasl = Zune::ZuneFactory::createPopasl(ASL_FileRequest, popButton.getObject(), popstringText.getObject(), openHook, closeHook);
+    m_popobject = Zune::ZuneFactory::createPopobject(popButton.getObject(), popstringText.getObject(), openHook, closeHook, FALSE, m_hgroup.getObject());
+    //auto m_popasl = Zune::ZuneFactory::createPopasl(ASL_FileRequest, popButton.getObject(), popstringText.getObject());
 
     auto m_poppen = Zune::Poppen{};
     m_poppen.build();
@@ -165,7 +165,7 @@ void MainArea::init() {
     m_register.addObject(m_gauge);
     m_register.addObject(m_listview);
     m_register.addObject(m_poppen);
-    m_register.addObject(m_popasl);
+    m_register.addObject(m_popobject);
 
     m_horizontalGroup.addObject(m_register);
 

@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_CRAWLING_H
-#define MIU_PLUS_AROS_CRAWLING_H
+#ifndef CRAWLING_H
+#define CRAWLING_H
 
 #include "Virtgroup.h"
 
@@ -14,4 +14,4 @@ namespace Zune {
     };
 }
 
-#endif //MIU_PLUS_AROS_CRAWLING_H
+#endif //CRAWLING_H

@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_IMAGEDISPLAY_H
-#define MIU_PLUS_AROS_IMAGEDISPLAY_H
+#ifndef IMAGEDISPLAY_H
+#define IMAGEDISPLAY_H
 
 #include "Area.h"
 
@@ -25,4 +25,4 @@ namespace Zune {
 }
 
 
-#endif //MIU_PLUS_AROS_IMAGEDISPLAY_H
+#endif //IMAGEDISPLAY_H

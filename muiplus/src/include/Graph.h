@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_GRAPH_H
-#define MIU_PLUS_AROS_GRAPH_H
+#ifndef GRAPH_H
+#define GRAPH_H
 
 #include "Area.h"
 #include <zune/graph.h>
@@ -45,4 +45,4 @@ namespace Zune {
     };
 }
 
-#endif //MIU_PLUS_AROS_GRAPH_H
+#endif //GRAPH_H

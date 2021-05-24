@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_FRAMEDISPLAY_H
-#define MIU_PLUS_AROS_FRAMEDISPLAY_H
+#ifndef FRAMEDISPLAY_H
+#define FRAMEDISPLAY_H
 
 #include "Area.h"
 
@@ -19,4 +19,4 @@ namespace Zune {
 }
 
 
-#endif //MIU_PLUS_AROS_FRAMEDISPLAY_H
+#endif //FRAMEDISPLAY_H

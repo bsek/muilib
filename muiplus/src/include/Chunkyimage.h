@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_CHUNKYIMAGE_H
-#define MIU_PLUS_AROS_CHUNKYIMAGE_H
+#ifndef CHUNKYIMAGE_H
+#define CHUNKYIMAGE_H
 
 #include "Bitmap.h"
 
@@ -31,4 +31,4 @@ namespace Zune {
 }
 
 
-#endif //MIU_PLUS_AROS_CHUNKYIMAGE_H
+#endif //CHUNKYIMAGE_H

@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_FRAMEADJUST_H
-#define MIU_PLUS_AROS_FRAMEADJUST_H
+#ifndef FRAMEADJUST_H
+#define FRAMEADJUST_H
 
 #include "Group.h"
 
@@ -18,4 +18,4 @@ namespace Zune {
     };
 }
 
-#endif //MIU_PLUS_AROS_FRAMEADJUST_H
+#endif //FRAMEADJUST_H

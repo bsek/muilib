@@ -1,6 +1,6 @@
 
-#ifndef MIU_PLUS_AROS_DTPIC_H
-#define MIU_PLUS_AROS_DTPIC_H
+#ifndef DTPIC_H
+#define DTPIC_H
 
 #include "Area.h"
 
@@ -35,4 +35,4 @@ namespace Zune {
     };
 }
 
-#endif //MIU_PLUS_AROS_DTPIC_H
+#endif //DTPIC_H

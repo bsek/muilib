@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_SCROLLBUTTON_H
-#define MIU_PLUS_AROS_SCROLLBUTTON_H
+#ifndef SCROLLBUTTON_H
+#define SCROLLBUTTON_H
 
 #include "Area.h"
 
@@ -29,4 +29,4 @@ namespace Zune {
 }
 
 
-#endif //MIU_PLUS_AROS_SCROLLBUTTON_H
+#endif //SCROLLBUTTON_H

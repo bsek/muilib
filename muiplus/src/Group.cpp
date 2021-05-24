@@ -1,12 +1,10 @@
 #include "include/Group.h"
 #include "include/RootClass.h"
 
-#define MUIA_Group_ChildCount  0x80420322
-
 Zune::Group::Group() : Area() {}
 
 void Zune::Group::addObject(Object *obj) {
-    if (obj == NULL) {
+    if (obj == nullptr) {
         std::cerr << "RootClass is null, object will not be added to group!" << std::endl;
     } else {
         DoMethod(object, MUIM_Group_AddTail, reinterpret_cast<IPTR>(obj));

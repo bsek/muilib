@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_TITLE_H
-#define MIU_PLUS_AROS_TITLE_H
+#ifndef TITLE_H
+#define TITLE_H
 
 #include "Group.h"
 
@@ -15,4 +15,4 @@ namespace Zune {
 }
 
 
-#endif //MIU_PLUS_AROS_TITLE_H
+#endif //TITLE_H

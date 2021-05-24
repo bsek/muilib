@@ -1,5 +1,5 @@
-#ifndef MIU_PLUS_AROS_PROCESS_H
-#define MIU_PLUS_AROS_PROCESS_H
+#ifndef PROCESS_H
+#define PROCESS_H
 
 #include "Semaphore.h"
 
@@ -37,4 +37,4 @@ namespace Zune {
 }
 
 
-#endif //MIU_PLUS_AROS_PROCESS_H
+#endif //PROCESS_H

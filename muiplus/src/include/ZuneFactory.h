@@ -1,6 +1,6 @@
 
-#ifndef MIU_PLUS_AROS_ZUNEFACTORY_H
-#define MIU_PLUS_AROS_ZUNEFACTORY_H
+#ifndef ZUNEFACTORY_H
+#define ZUNEFACTORY_H
 
 #include <utility>
 
@@ -42,11 +42,9 @@
 namespace Zune {
     struct ZuneFactory {
 
-        static Popasl createPopasl(ULONG type, Object* button, Object* text, struct Hook* openHook, struct Hook* closeHook) {
+        static Popasl createPopasl(ULONG type, Object* button, Object* text) {
            Popasl popasl{};
            popasl.setType(type);
-           popasl.setStartHook(openHook);
-           popasl.setStopHook(closeHook);
            popasl.setButton(button);
            popasl.setString(text);
            popasl.build();
